@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% extends 'registration/base.html' %}
+</head>
+<body>
+ {%  block content %}
+     <div class="border-top pt-3">
+         <small class="text-muted"><h1>You have been logged out</h1>
+         <a class="ml-2" href="{% url 'login' %}"> Log In Again</a>
+     </small>
+     </div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends 'registration/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+{% block content %}
+<h4 class="display-4">hello and welcome</h4>
+{% if user.is_authenticated %}
+<h5>Your name is: {{ user.username }}</h5>
+{% else %}
+    <h2>You are not logged in</h2>
+{% endif %}
+{% endblock %}
+</body>
+</html>
