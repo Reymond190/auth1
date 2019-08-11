@@ -1,4 +1,5 @@
 {% extends 'registration/base.html' %}
+{% load static %}
 <!DOCTYPE html>
 {% load crispy_forms_tags %}
 
@@ -8,6 +9,7 @@
 </head>
 <body>
 {% block content %}
+    <link rel="stylesheet" href="{% static "css/style1.css" %}">
             <div class="col-md-5">
           <div class="content-section">
             <div class="text-center"><h6 class="display-4">Registration</h6></div>
