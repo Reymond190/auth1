@@ -1,13 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 {% load crispy_forms_tags %}
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <meta charset="UTF-8">
+       <meta charset="UTF-8">
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+       <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+     <!-- Links -->
+{#----------------- #}
+
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <a class="navbar-brand" href="#">Tracalogic</a>
-
-  <!-- Links -->
   <ul id="menu-main-nav" class="navbar-nav nav-fill w-50">
     <li id="menu-item-42" class="nav-item menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-42">
       <a class="nav-link" href="{% url 'index' %}">Home</a>
@@ -18,15 +24,20 @@
 
                 <a class="nav-link" href="{% url 'AddDevice' %}">Add Device</a>
 
+                <a class="nav-link" href="{% url 'profile1' %}">Dashboard</a>
+
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         {% else %}
 
             <a class="nav-link" href="{% url 'login' %}">Login</a>
         {% endif %}
         </div>
-
   </ul>
     </nav>
+
+
+
+
 
 </head>
 <body>

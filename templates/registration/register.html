@@ -9,7 +9,6 @@
 </head>
 <body>
 {% block content %}
-    <link rel="stylesheet" href="{% static "css/style1.css" %}">
             <div class="col-md-5">
           <div class="content-section">
             <div class="text-center"><h6 class="display-4">Registration</h6></div>
@@ -20,18 +19,17 @@
              <div class="small">{{ form|crispy }}</div>
          </legend>
             </fieldset>
+               <small class="text-muted">
+                      Already Have an Account<a class="ml-2" href="{% url 'login' %}"> Sign Up now</a>
+                  </small>
+
     <div class="form-group">
          <input type="submit" value="Register" class="btn btn-primary">
     </div>
 
 
 </form>
-                  <div class="border-top pt-3">
-                  <small class="text-muted">
-                      Already Have an Account<a class="ml-2" href="{% url 'login' %}"> Sign Up now</a>
-                  </small>
 
-              </div>
           </div>
         </div>
 

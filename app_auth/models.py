@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    Company_name = models.CharField(max_length=10,null=True,default='my_company')
-    Company_address = models.TextField(max_length=50,null=True,default='my_company')
-    Phone_number = models.CharField(max_length=10,null=True,default='my_company')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    Company_name = models.CharField(max_length=10,default='my_company')
+    Company_address = models.TextField(max_length=50,default='my_company')
+    Phone_number = models.CharField(max_length=10,default='my_company')
 
     def __str__(self):
         return f'{self.user.username} Profile'

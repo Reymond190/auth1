@@ -17,17 +17,17 @@
              <div class="small">{{ form|crispy }}</div>
          </legend>
             </fieldset>
+               <small class="text-muted">
+                      Need an account?<a class="ml-2" href="{% url 'register' %}"> Sign Up now</a>
+                  </small>
     <div class="form-group">
          <input type="submit" value="login" class="btn btn-primary">
     </div>
 
 </form>
-              <div class="border-top pt-3">
-                  <small class="text-muted">
-                      Need an account?<a class="ml-2" href="{% url 'register' %}"> Sign Up now</a>
-                  </small>
 
-              </div>
+
+
           </div>
         </div>
 

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
-from app_auth.views import start, register, profile, AddDevice
+from app_auth.views import start, register,profile1, profile, AddDevice, ChartData, charts, BarChart, Doughnut, track, map
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -29,6 +29,13 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', register, name='register'),
     path('AddDevice/', AddDevice, name='AddDevice'),
+    path('profile1/', profile1, name='profile1'),
+    path('map/', map, name='map'),
+    path('chart/', charts.as_view(), name='chart'),
+    path('sample/', ChartData.as_view()),
+    path('sample1/', BarChart.as_view()),
+    path('sample2/', Doughnut.as_view()),
+    path('track/', track.as_view()),
 
 ]
 
