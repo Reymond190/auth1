@@ -17,19 +17,20 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
- <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+ <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="#"><h3>Tracalogic</h3></a>
-  <ul id="menu-main-nav" class="navbar-nav nav-fill w-50">
+  <ul id="menu-main-nav" class="navbar-nav nav-fill w-100">
     <li id="menu-item-42" class="nav-item menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-42">
-      <a class="nav-link" href="{% url 'index' %}">Home</a>
+
     </li>
-        <div class="navbar-nav" >
+        <div class="navbar-nav pull-left " >
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
             {% if user.is_authenticated %}
-{#            <a class="nav-link" href="{% url 'profile' %}">Profile</a>#}
+            <a class="nav-link" href="{% url 'profile' %}">Profile</a>
 
                 <a class="nav-link" href="{% url 'AddDevice' %}">Add Device</a>
 
-                <a class="nav-link" href="{% url 'profile1' %}">Dashboard</a>
+                <a class="nav-link" href="{% url 'profile1' %}">Home</a>
 
             <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         {% else %}
@@ -41,6 +42,7 @@
     </nav>
 <nav>
     <div class="sidebar bg-dark">
+        <a></a><br>
  <a href="{%url 'profile1'%}" style="padding-top:50px"><img src="{% static 'images/profile.png'%}"height="21px" width="23px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
   <a href="{%url 'map'%}"><img src="{% static 'images/track.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Track</a>
   <a href="#"><img src="{% static 'images/reports.png'%}" height="21px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a>

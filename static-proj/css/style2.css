@@ -2,11 +2,11 @@
 
 .sidebar {
   margin-top: 0px;
-  padding: 0;
+  padding: 0px;
   width: 200px;
 
   position: fixed;
-  height: 90%;
+  height: 100%;
   overflow: auto;
     text-decoration: none;
 

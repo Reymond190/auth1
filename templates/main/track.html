@@ -1,7 +1,8 @@
 {% extends 'main/sidenav.html' %}
 {% load static from staticfiles %}
 {% block content1 %}
-
+ <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
 <script>
 var latt,long,locations,response;
 function myMap()
@@ -15,8 +16,9 @@ var AJAX_req = new XMLHttpRequest();
 AJAX_req.open( "GET",url, true );
 AJAX_req.setRequestHeader("Content-type", "application/json");
 AJAX_req.send();
-var marker, j, i=0;
+var marker,j,i=0;
 var infowindow = new google.maps.InfoWindow();
+var markers = [];
 AJAX_req.onreadystatechange = function()
 {
 if( AJAX_req.readyState == 4 && AJAX_req.status == 200 )
@@ -28,13 +30,15 @@ for(j in response.assetHistory){
 marker = new google.maps.Marker({
 position: new google.maps.LatLng(response.assetHistory[j].latitude,response.assetHistory[j].longitude),
 map: map
+
+
 });
-google.maps.event.addListener(marker, 'click', (function(marker) {
-return function() {
-infowindow.open(map, marker);
+markers.push(marker);
+
 }
-})(marker));
-}
+ var markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+ markerCluster.addMarker(newMarker, true);
+ alert(markerCluster);
 }
  else if(AJAX_req.readyState == 0 || AJAX_req.status == 0) {
               return;}
