@@ -4,40 +4,25 @@
 
 <script>
 var latt,long,locations,response;
-function AJAX_JSON_Req( url )
+function myMap()
 {
+var url="{% static 'js/track.json' %}";
+var map = new google.maps.Map(document.getElementById("googleMap"),{
+
+center:new google.maps.LatLng(13.073100090026855,80.28230285644531),
+zoom:4,});
 var AJAX_req = new XMLHttpRequest();
-AJAX_req.open( "GET", url, true );
+AJAX_req.open( "GET",url, true );
 AJAX_req.setRequestHeader("Content-type", "application/json");
 AJAX_req.send();
+var marker, j, i=0;
+var infowindow = new google.maps.InfoWindow();
 AJAX_req.onreadystatechange = function()
 {
 if( AJAX_req.readyState == 4 && AJAX_req.status == 200 )
 {
 response = JSON.parse( AJAX_req.responseText );
-var i;
 
-for(i in response.assetHistory){
-
-latt=response.assetHistory[i].latitude;
-long=response.assetHistory[i].longitude;
-locations=[[latt,long]];}
-
-}
-}
-AJAX_req.send();
-}
-
-AJAX_JSON_Req( "{% static 'js/track.json' %}" );
-
-function myMap() {
-
-var map = new google.maps.Map(document.getElementById("googleMap"),{
-
-center:new google.maps.LatLng(locations[0][0],locations[0][1]),
-zoom:10,});
-var infowindow = new google.maps.InfoWindow();
-var marker,j,i=0;
 for(j in response.assetHistory){
 
 marker = new google.maps.Marker({
@@ -50,6 +35,13 @@ infowindow.open(map, marker);
 }
 })(marker));
 }
+}
+ else if(AJAX_req.readyState == 0 || AJAX_req.status == 0) {
+              return;}
+
+}
+
+
 }
 </script>
 <div id="googleMap" style="width:99%;height:900px;"></div>

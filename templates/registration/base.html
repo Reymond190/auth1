@@ -18,7 +18,7 @@
     <li id="menu-item-42" class="nav-item menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-42">
       <a class="nav-link" href="{% url 'index' %}">Home</a>
     </li>
-        <div class="navbar-nav">
+        <div class="navbar-nav" >
             {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'profile' %}">Profile</a>
 

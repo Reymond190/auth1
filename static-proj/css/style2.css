@@ -1,10 +1,10 @@
 
 
 .sidebar {
-  margin-top: 50px;
+  margin-top: 0px;
   padding: 0;
   width: 200px;
-  background-color: #434141;
+
   position: fixed;
   height: 90%;
   overflow: auto;

@@ -15,7 +15,10 @@ import pandas as pd
 import datetime
 import sys
 from pandas.io.json import json_normalize
+from django.views.decorators.cache import cache_control
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required
 def start(request):
     return render(request, 'file1.html')
 
@@ -36,6 +39,7 @@ def register(request):
     context = {'form': form}
     return render(request, 'registration/register.html', context)
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
 def profile(request):
     form = ProfileAddForm
@@ -45,6 +49,7 @@ def profile(request):
             form.save()
     return render(request,'registration/profile.html',{'form':form})
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
 def AddDevice(request):
     form = AddDeviceform
@@ -54,9 +59,13 @@ def AddDevice(request):
             return start(request)
     return render(request,'registration/Add.html',{'form':form})
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required
 def map (request):
     return render(request, 'main/track.html')
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required
 def profile1 (request):
     return render(request, 'main/profile.html')
 
