@@ -1,10 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/sidenav.html' %}
+{% load static %}
+{% block content1 %}
+<style>
 
-</body>
-</html>
+    table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse; border-spacing: 5px;
+  }
+ th, tr, td {
+  border: 2px solid #dddddd;
+  text-align: left;
+  padding: 22px;
+  }
+.container{
+padding-top: 100px;
+}
+.card-body{
+width: 200px;
+height: 130px;
+color:white;
+}
+marquee{
+display: inline-block;
+}
+</style>
+<script>
+$(document).ready(function(){
+
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    alert(value);
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+<div class="container">
+
+  <br>
+<div class="row">
+<div class="col-lg-3"><div class="card bg-dark">
+    <div class="card-body text-center"> <img class="card-img-right" src="{% static 'images/trip.png'%}" height="40px" width="60px" style="padding-right:20px;">Trip
+    <div class="card-footer">view reports</div>
+    </div></div></div>
+    <div class="col-lg-3"><div class="card bg-dark">
+        <div class="card-body text-center"> <img class="card-img-right" src="{% static 'images/alert.png'%}" height="40px" width="60px" style="padding-right:20px;">Alerts
+            <div class="card-footer">view reports</div>
+        </div></div></div>
+    <div class="col-lg-3"><div class="card bg-dark">
+    <div class="card-body text-center"> <img class="card-img-right" src="{% static 'images/drivers.png'%}" height="40px" width="60px" style="padding-right:20px;">Drivers
+    <div class="card-footer">view reports</div>
+    </div></div></div>
+<div class="col-lg-3"><div class="card bg-dark">
+    <div class="card-body text-center"> <img class="card-img-right" src="{% static 'images/maintanace.png'%}" height="40px" width="60px" style="padding-right:20px;">Maintanance
+    <div class="card-footer">view reports</div>
+    </div></div></div></div></div>
+
+<div class="container" style="padding-top:70px;">
+ <input class="form-control" id="myInput" type="text" placeholder="Search.."><br>
+
+<table>
+     <thead>
+    <tr>
+
+<th>Device ID</th>
+    <th>Vehicle ID</th>
+    <th>Driver Name</th>
+
+        <th>Start</th>
+        <th>End</th>
+        <th>Stages</th>
+        <th>Distance</th>
+        <th>Duration</th>
+  </tr>
+     </thead>
+     <tbody id="myTable">
+    <tr><td>R121</td><td>TN 21 MN 4565</td><td>Jon(07957123004</td><td>lat1</td><td>lat2</td><td>5</td><td>500m</td><td>1hr30mins</td></tr>
+    <tr><td>R121</td><td>TN 21 MN 4565</td><td>Jon(07957123004</td><td>lat1</td><td>lat2</td><td>5</td><td>500m</td><td>1hr30mins</td></tr>
+    <tr><td>R121</td><td>TN 21 MN 4565</td><td>Jon(07957123004</td><td>lat1</td><td>lat2</td><td>5</td><td>500m</td><td>1hr30mins</td></tr>
+    <tr><td>R121</td><td>TN 21 MN 4565</td><td>Jon(07957123004</td><td>lat1</td><td>lat2</td><td>5</td><td>500m</td><td>1hr30mins</td></tr>
+    <tr><td>R121</td><td>TN 21 MN 4566</td><td>Jon(07957123004</td><td>lat1</td><td>lat2</td><td>5</td><td>500m</td><td>1hr30mins</td></tr>
+     </tbody>
+</table>
+</div>
+{% endblock content1 %}

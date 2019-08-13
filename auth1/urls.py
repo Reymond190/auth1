@@ -17,19 +17,19 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
-from app_auth.views import start, register,profile1, profile, AddDevice, ChartData, charts, BarChart, Doughnut, track, map
+from app_auth.views import start, register, profile, AddDevice, ChartData, charts, BarChart, Doughnut, track, map, reports
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/',start,name='index' ),
-    path('profile/',profile,name='profile'),
+    path('',start,name='index' ),
     path('login/',auth_views.LoginView.as_view(),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='registration/logged_out.html'),name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', register, name='register'),
     path('AddDevice/', AddDevice, name='AddDevice'),
-    path('profile1/', profile1, name='profile1'),
+    path('reports/',reports,name='reports'),
+    path('profile/', profile, name='profile'),
     path('map/', map, name='map'),
     path('chart/', charts.as_view(), name='chart'),
     path('sample/', ChartData.as_view()),

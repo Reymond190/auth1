@@ -22,6 +22,11 @@ from django.views.decorators.cache import cache_control
 def start(request):
     return render(request, 'file1.html')
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@login_required
+def reports(request):
+    return render(request, 'main/report.html')
+
 
 def register(request):
     if request.method == 'POST':
@@ -47,7 +52,7 @@ def profile(request):
         form = ProfileAddForm(request.POST)
         if form.is_valid():
             form.save()
-    return render(request,'registration/profile.html',{'form':form})
+    return render(request,'main/profile.html',{'form':form})
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
@@ -56,7 +61,7 @@ def AddDevice(request):
     if request.method == 'POST':
         form = AddDeviceform(request.POST)
         if form.is_valid():
-            return start(request)
+            return start
     return render(request,'registration/Add.html',{'form':form})
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -64,10 +69,6 @@ def AddDevice(request):
 def map (request):
     return render(request, 'main/track.html')
 
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-@login_required
-def profile1 (request):
-    return render(request, 'main/profile.html')
 
 class charts(View):
     def get(self, request, *args, **kwargs):
