@@ -9,3 +9,4 @@ pytz==2019.2
 six==1.12.0
 sqlparse==0.3.0
 zope.interface==4.6.0
+requests

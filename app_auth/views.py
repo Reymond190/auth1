@@ -9,10 +9,15 @@ from rest_framework.response import Response
 from datetime import timedelta
 from datetime import datetime
 from requests.auth import HTTPBasicAuth
+from ipywidgets.embed import embed_minimal_html, embed_snippet
 import json
+from background_task import background
 import requests
-import pandas as pd
+import gmaps
+from datetime import timedelta
 import datetime
+import pandas as pd
+from pandas.io.json import json_normalize
 import sys
 from pandas.io.json import json_normalize
 from django.views.decorators.cache import cache_control
@@ -64,10 +69,56 @@ def AddDevice(request):
             return start
     return render(request,'registration/Add.html',{'form':form})
 
+# @background(schedule=10)
+# def notify_user(pk):
+#     idle = pk
+#     idle= idle +1
+#     return idle
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
 def map (request):
-    return render(request, 'main/track.html')
+    time2 = datetime.datetime.now()
+    time1 = time2 + timedelta(minutes=-5)
+    time1 = time1.strftime("%Y-%m-%d %H:%M:00")
+    time2 = time2.strftime("%Y-%m-%d %H:%M:00")
+    time1 = str(time1)
+    time2 = str(time2)
+    r1 = requests.get('https://lnt.tracalogic.co/api/ktrack/larsentoubro/' + time1 + '/' + time2,
+                      auth=HTTPBasicAuth('admin', 'admin'))
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    df1 = json_normalize(y1["assetHistory"])
+    df1['serverTimeStamp'] = pd.to_datetime(df1['serverTimeStamp'])
+    df1 = df1.set_index('serverTimeStamp')
+    df1['eventTimeStamp'] = pd.to_datetime(df1['eventTimeStamp'])
+    print("TOTAL API'S COUNT WITHIN 5 MINUTES TODAY = ", len(df1))
+    # NUMBER OF VEHICLES WITH UNIQUE DEVICEIMEINO/PLATENUMBER
+    df1 = df1.drop_duplicates(['deviceImeiNo'], keep='first')
+    print("BY REMOVING DUPICATES, TOTAL NUMBER_OF_VEHICLES = ", len(df1))
+    df2 = df1.loc[(df1["engine"] == "ON") & (df1["speed"] > 0)]
+    print("\nNUMBER OF RUNNING_VEHICLES ", len(df2))
+    df3 = df1.loc[(df1["engine"] == "ON") & (df1["speed"] == 0)]
+    print("\nNumber of IDLE_VEHICLES ", len(df3))
+    df4 = df1.loc[(df1["engine"] == "OFF") & (df1["speed"] == 0)]
+    print("\nNumber of STOP_VEHICLES ", len(df4))
+    lat_list = list(df2["latitude"])
+    long_list = list(df2["longitude"])
+    gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
+    fig = gmaps.figure()
+    markers = gmaps.marker_layer(list(zip(lat_list, long_list)))
+    fig.add_layer(markers)
+    data1 = embed_snippet(views=[fig])
+    total = len(df1)
+    running = len(df2)
+    idle = len(df3)
+    stop = len(df4)
+    context = {'data': data1,'total':total,'running':running,'idle':idle,'stop':stop}
+    return render(request, 'main/track.html', context)
+
+
+
 
 
 class charts(View):
