@@ -6,11 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from datetime import timedelta
+from django.contrib import messages
 from datetime import datetime
 from requests.auth import HTTPBasicAuth
 from ipywidgets.embed import embed_minimal_html, embed_snippet
 import json
+
 from background_task import background
 import requests
 import gmaps
@@ -53,11 +54,19 @@ def register(request):
 @login_required
 def profile(request):
     form = ProfileAddForm
-    if request.method == 'POST':
+    form2 = AddDeviceform
+    context = {'form':form,"form2":form2}
+    if request.method == 'POST' and 'button-name1' in request.POST:
         form = ProfileAddForm(request.POST)
         if form.is_valid():
             form.save()
-    return render(request,'main/profile.html',{'form':form})
+            messages.success(request, 'Profile is updated!')
+    if request.method == 'POST' and 'button-name2' in request.POST:
+        form2 = AddDeviceform(request.POST)
+        if form.is_valid():
+            form2.save()
+            messages.success(request, 'Device Added')
+    return render(request,'main/profile.html',context)
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
@@ -113,6 +122,7 @@ def map (request):
     total = len(df1)
     running = len(df2)
     idle = len(df3)
+    print(df3)
     stop = len(df4)
     context = {'data': data1,'total':total,'running':running,'idle':idle,'stop':stop}
     return render(request, 'main/track.html', context)

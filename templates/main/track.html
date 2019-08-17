@@ -19,7 +19,17 @@ color:white;
 .navbar-header .navbar-toggle{
 color:white;
 }
+table,th,td {
+border: 1px solid black;
+text-align: center;
+background-color: rgb(60, 60, 60);
+color: white;
+}
 
+.scrollit {
+    overflow:scroll;
+    height:450px;
+}
 </style>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
@@ -31,7 +41,7 @@ color:white;
         <div class="col-lg-2"><div class="card bg-dark">
             <div class="card-body "><img class="card-img-right" src="{% static 'images/inactive.png'%}" height="40px" width="60px" style="padding-right:20px;">Total-{{ total }}</div></div></div>
             <div class="col-lg-2"><div class="card bg-dark">
-                <div class="card-body"><img class="card-img-right" src="{% static 'images/running.png'%}" height="30px" width="40px" style="padding-right:20px;">Running-{{ running }}</div></div></div>
+                <div class="card-body"><img class="card-img-right" src="{% static 'images/running.png'%}" height="30px" width="40px" style="padding-right:20px;"><a href="#" class="card-link text-white">Running-{{ running }}</a></div></div></div>
                 <div class="col-lg-2"><div class="card bg-dark">
                     <div class="card-body "><img class="card-img-right" src="{% static 'images/idle.png'%}" height="40px" width="60px" style="padding-right:20px;">Idle-{{ idle }}</div></div></div>
                     <div class="col-lg-2"><div class="card bg-dark">
@@ -47,25 +57,77 @@ color:white;
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-        <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-                <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <i class="more-less glyphicon glyphicon-th-list"></i>
-                        Fleet Details
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                <div class="panel-body">
-                      Reports
-                </div>
-            </div></div>
+<title style="color: blue";>Running vehicles</title>
+        <div class="scrollit">
+        <table class="table">
+<thead class="thead-dark">
+<tr>
+<th style="text-align:center;color: lightblue";>Running vehicles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+</tr>
+<tr>
+<td>5</td>
+</tr>
+<tr>
+<td>6</td>
+</tr>
+<tr>
+<td>7</td>
+</tr>
+<tr>
+<td>8</td>
+</tr>
+<tr>
+<td>9</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+<tr>
+<td>10</td>
+</tr>
+
+</tbody></table>
+        </div>
 
 </div><!-- container --></div>
 
     <div class="col-lg-6">
-        <div id="googleMap" style="width:99%;height:400px;">{{ data|safe }}</div>
+        <div id="googleMap" style="width:700px;height:500px;">{{ data|safe }}</div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&callback=myMap"></script>
     </div>
 
