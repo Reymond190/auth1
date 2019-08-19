@@ -1,18 +1,21 @@
 {% extends 'main/sidenav.html' %}
 {% load static from staticfiles %}
+
 {% block content1 %}
-<style>
+    <style>
     .a{
 padding-top: 100px;
 }
    .b{
 padding-top: 50px;
 }
-.card{
+.a .card{
 border-radius: 12%;
+    padding-left: 0px;
 }
-.card-body{
-width: 200px;
+.a .card-body{
+    padding-left: 5px;
+width: 300px;
 height: 80px;
 color:white;
 }
@@ -25,11 +28,22 @@ text-align: center;
 background-color: rgb(60, 60, 60);
 color: white;
 }
-
-.scrollit {
-    overflow:scroll;
-    height:450px;
+.a .card-body button{
+    border: none;
+    font-min-size: 16px;
 }
+.scrollit {
+    overflow: scroll;
+    height:350px;
+    text-size:12px;
+}
+.card-horizontal{
+    display: flex;
+    flex: 1 1 auto;
+
+
+}
+
 </style>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
@@ -39,103 +53,60 @@ color: white;
     <br>
     <div class="row"><div class="col-lg-1"></div>
         <div class="col-lg-2"><div class="card bg-dark">
-            <div class="card-body "><img class="card-img-right" src="{% static 'images/inactive.png'%}" height="40px" width="60px" style="padding-right:20px;">Total-{{ total }}</div></div></div>
+            <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/inactive.png'%}" height="40px" width="60px" style="padding-right:20px;">
+<button class = 'text-light bg-dark' name="totalbutton" type='submit'>Total-{{ total }}</button>
+</form></div></div></div>
+
             <div class="col-lg-2"><div class="card bg-dark">
-                <div class="card-body"><img class="card-img-right" src="{% static 'images/running.png'%}" height="30px" width="40px" style="padding-right:20px;"><a href="#" class="card-link text-white">Running-{{ running }}</a></div></div></div>
+                <div class="card-body"><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/running.png'%}" height="30px" width="45px" style="padding-right:20px;">
+<button class = 'text-light bg-dark' name="runningbutton" type='submit'>Running-{{ running }}</button>
+</form></div></div></div>
+
+
+
                 <div class="col-lg-2"><div class="card bg-dark">
-                    <div class="card-body "><img class="card-img-right" src="{% static 'images/idle.png'%}" height="40px" width="60px" style="padding-right:20px;">Idle-{{ idle }}</div></div></div>
+                    <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/idle.png'%}" height="40px" width="60px" style="padding-right:20px;">
+<button class = 'text-light bg-dark' name="idlebutton" type='submit'>Idle-{{ idle }}</button>
+</form></div></div></div>
+
                     <div class="col-lg-2"><div class="card bg-dark">
-                        <div class="card-body "><img class="card-img-right" src="{% static 'images/stop.png'%}" height="40px" width="50px" style="padding-right:20px;">Stop-{{ stop }}</div></div></div>
+                        <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/stop.png'%}" height="40px" width="50px" style="padding-right:5px;">
+<button class = 'text-light bg-dark' name="stopbutton" type='submit'>Stop-{{ stop }}</button>
+</form></div></div></div>
+
                         <div class="col-lg-2"><div class="card bg-dark">
                             <div class="card-body"><img class="card-img-right" src="{% static 'images/nodata.png'%}" height="40px" width="60px" style="padding-right:20px;">No Data</div></div></div>
+
         <div class="col-lg-1"></div>
     </div></div>
 
-<div class="container b"><div class="row">
-    <div class="col-lg-3">
+<div class="container b "><div class="row">
+    <div class="col-lg-3" style="padding-top: 0px">
 
 
-    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true" >
 
-<title style="color: blue";>Running vehicles</title>
-        <div class="scrollit">
-        <table class="table">
-<thead class="thead-dark">
-<tr>
-<th style="text-align:center;color: lightblue";>Running vehicles</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-</tr>
-<tr>
-<td>2</td>
-</tr>
-<tr>
-<td>3</td>
-</tr>
-<tr>
-<td>4</td>
-</tr>
-<tr>
-<td>5</td>
-</tr>
-<tr>
-<td>6</td>
-</tr>
-<tr>
-<td>7</td>
-</tr>
-<tr>
-<td>8</td>
-</tr>
-<tr>
-<td>9</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
-<tr>
-<td>10</td>
-</tr>
+<div class=" card bg-dark">
+<h3 style="text-align:center;color: lightblue;">Running vehicles</h3>
+  <div class="scrollit">
+{% for i in list %}
+    <div class="card-horizontal "> <img src="{% static 'images/bike.png'%}" height="45px" width="35px"> <div class="card-body  text-light "><div class="">Running</div>{{ i }}</div></div>
+{% endfor %}
 
-</tbody></table>
-        </div>
+        </div></div>
 
-</div><!-- container --></div>
-
+</div><!-- container -->
+    </div>
     <div class="col-lg-6">
-        <div id="googleMap" style="width:700px;height:500px;">{{ data|safe }}</div>
+        <div id="googleMap" style="width:700px;height:550px;">
+            {{ vehicle_list|safe }}
+        </div>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&callback=myMap"></script>
     </div>
 
 
 </div></div>
 
-
-
-
-
 {% endblock content1 %}
+
+

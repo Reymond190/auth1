@@ -87,6 +87,8 @@ def AddDevice(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
 def map (request):
+
+
     time2 = datetime.datetime.now()
     time1 = time2 + timedelta(minutes=-5)
     time1 = time1.strftime("%Y-%m-%d %H:%M:00")
@@ -112,19 +114,37 @@ def map (request):
     print("\nNumber of IDLE_VEHICLES ", len(df3))
     df4 = df1.loc[(df1["engine"] == "OFF") & (df1["speed"] == 0)]
     print("\nNumber of STOP_VEHICLES ", len(df4))
-    lat_list = list(df2["latitude"])
-    long_list = list(df2["longitude"])
-    gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
-    fig = gmaps.figure()
-    markers = gmaps.marker_layer(list(zip(lat_list, long_list)))
-    fig.add_layer(markers)
-    data1 = embed_snippet(views=[fig])
+    def myfun1(po):
+            lat_list = list(po["latitude"])
+            long_list = list(po["longitude"])
+            gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
+            fig = gmaps.figure()
+            markers = gmaps.marker_layer(list(zip(lat_list, long_list)))
+            fig.add_layer(markers)
+            data1 = embed_snippet(views=[fig])
+            return data1
+
+    if request.method == 'GET' and 'totalbutton' in request.GET:
+        p1 = myfun1(df1)
+        list1 = df1["plateNumber"]
+    elif request.method == 'GET' and 'runningbutton' in request.GET:
+        p1 = myfun1(df2)
+        list1 = df2["plateNumber"]
+    elif request.method == 'GET' and 'idlebutton' in request.GET:
+        p1 = myfun1(df3)
+        list1 = df3["plateNumber"]
+    elif request.method == 'GET' and 'stopbutton' in request.GET:
+        p1 = myfun1(df4)
+        list1 = df4["plateNumber"]
+    else:
+        p1 = myfun1(df4)
+        list1 = df4["plateNumber"]
+
     total = len(df1)
     running = len(df2)
     idle = len(df3)
-    print(df3)
     stop = len(df4)
-    context = {'data': data1,'total':total,'running':running,'idle':idle,'stop':stop}
+    context = {'vehicle_list': p1,'total':total,'running':running,'idle':idle, 'stop':stop, 'list':list1}
     return render(request, 'main/track.html', context)
 
 
@@ -171,10 +191,7 @@ class BarChart(APIView):
         df = df.set_index('serverTimeStamp')
         df['eventTimeStamp'] = pd.to_datetime(df['eventTimeStamp'])
         df1 = df.drop_duplicates(['deviceImeiNo'], keep='last')
-
         s = df1["speed"].value_counts()
-
-
         data = {
             "labels": [df1['speed']],
             "data": [s],
