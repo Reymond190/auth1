@@ -5,8 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class UserRegisterForm(UserCreationForm):
-
-
     class Meta:
         model = User
         fields = ['username','email','password1','password2']
@@ -16,6 +14,7 @@ class ProfileAddForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['Company_name','Company_address','Phone_number']
+
 
 class AddDeviceform(forms.ModelForm):
     class Meta:

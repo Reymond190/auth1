@@ -107,6 +107,7 @@ def map (request):
     print("TOTAL API'S COUNT WITHIN 5 MINUTES TODAY = ", len(df1))
     # NUMBER OF VEHICLES WITH UNIQUE DEVICEIMEINO/PLATENUMBER
     df1 = df1.drop_duplicates(['deviceImeiNo'], keep='first')
+    # df5 = df1.loc(df1["plateNumber"] == "MBLHAR209HGH22462"
     print("BY REMOVING DUPICATES, TOTAL NUMBER_OF_VEHICLES = ", len(df1))
     df2 = df1.loc[(df1["engine"] == "ON") & (df1["speed"] > 0)]
     print("\nNUMBER OF RUNNING_VEHICLES ", len(df2))
@@ -114,6 +115,10 @@ def map (request):
     print("\nNumber of IDLE_VEHICLES ", len(df3))
     df4 = df1.loc[(df1["engine"] == "OFF") & (df1["speed"] == 0)]
     print("\nNumber of STOP_VEHICLES ", len(df4))
+
+
+
+
     def myfun1(po):
             lat_list = list(po["latitude"])
             long_list = list(po["longitude"])
@@ -124,27 +129,66 @@ def map (request):
             data1 = embed_snippet(views=[fig])
             return data1
 
+    # def listfun(plate):
+    #     df5 = df1.loc[df1["plateNumber"] == plate]
+    #     return myfun2(df5)
+
+    def myfun2(mo):
+            lat_list = list(mo["latitude"])
+            long_list = list(mo["longitude"])
+            gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
+            fig = gmaps.figure()
+            markers = gmaps.marker_layer(list(zip(lat_list, long_list)))
+            fig.add_layer(markers)
+            data1 = embed_snippet(views=[fig])
+            return data1
+
+    # if request.method == 'GET' and 'listbutton' in request.GET:
+    #     p1 = listfun(df3)
+    # else:
+    #     p1 = listfun(df3)
+
+
+
+
+    # print(len(listfun('MBLHAR209HGH22462')))
+
     if request.method == 'GET' and 'totalbutton' in request.GET:
         p1 = myfun1(df1)
-        list1 = df1["plateNumber"]
+        listpl = df1["plateNumber"]
+        listsp = df1["speed"]
+        listdt = df1["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
+        result = zip(listpl, listdt, listsp)
     elif request.method == 'GET' and 'runningbutton' in request.GET:
         p1 = myfun1(df2)
-        list1 = df2["plateNumber"]
+        listpl = df2["plateNumber"]
+        listsp = df2["speed"]
+        listdt = df2["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
+        result = zip(listpl, listdt, listsp)
     elif request.method == 'GET' and 'idlebutton' in request.GET:
         p1 = myfun1(df3)
-        list1 = df3["plateNumber"]
+        listpl = df3["plateNumber"]
+        listsp = df3["speed"]
+        listdt = df3["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
+        result = zip(listpl, listdt, listsp)
     elif request.method == 'GET' and 'stopbutton' in request.GET:
         p1 = myfun1(df4)
-        list1 = df4["plateNumber"]
+        listpl = df4["plateNumber"]
+        listsp = df4["speed"]
+        listdt = df4["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
+        result = zip(listpl, listdt, listsp)
     else:
-        p1 = myfun1(df4)
-        list1 = df4["plateNumber"]
+        p1 = myfun1(df1)
+        listpl = df1["plateNumber"]
+        listsp = df1["speed"]
+        listdt = df1["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
+        result = zip(listpl,listdt,listsp)
 
     total = len(df1)
     running = len(df2)
     idle = len(df3)
     stop = len(df4)
-    context = {'vehicle_list': p1,'total':total,'running':running,'idle':idle, 'stop':stop, 'list':list1}
+    context = {'vehicle_list': p1,'total':total,'running':running,'idle':idle, 'stop':stop, 'list_plate':result}
     return render(request, 'main/track.html', context)
 
 

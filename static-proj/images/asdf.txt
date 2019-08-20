@@ -34,7 +34,7 @@ color:white;
     font-min-size: 16px;
 }
 .scrollit {
-    overflow: auto;
+    overflow: scroll;
     height:350px;
 font-min-size: 12px;
 }
@@ -53,11 +53,6 @@ font-min-size: 12px;
 
 }
 </style>
-<script>
-    function d(x){
-    alert(x);
-    }
-</script>
  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
 
@@ -78,7 +73,7 @@ font-min-size: 12px;
 
 
                 <div class="col-lg-2"><div class="card bg-dark">
-                    <div class="card-body "><form method='GET'><img class="card-img-right" src="{% static 'images/idle.png'%}" height="40px" width="60px" style="padding-right:20px;">
+                    <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/idle.png'%}" height="40px" width="60px" style="padding-right:20px;">
 <button class = 'text-light bg-dark' name="idlebutton" type='submit'>Idle-{{ idle }}</button>
 </form></div></div></div>
 
@@ -94,34 +89,27 @@ font-min-size: 12px;
     </div></div>
 
 <div class="container b "><div class="row">
-    <div class="col-lg-3 text-center" style="padding-top: 50px">
+    <div class="col-lg-3" style="padding-top: 50px">
 
 
     <div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true" >
 
-<div class=" bg-white">
+<div class="  bg-light">
 <h3 style="text-align:center;color: lightblue;"></h3>
   <div class="scrollit">
 {% for i in list_plate %}
-   <div class="card-horizontal bg-dark  "style="position: relative;padding-left: 15px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/bike.png'%}" height="45px" width="35px"> <div class="z text-light ">
-       <div class="d" style="font-size: 12px;">{{ i.2 }} km
-       <img src="{% static 'images/charging.png'%}" height="21px" width="30px">
-       <img src="{% static 'images/battery.png'%}" height="21px" width="20px">
-       <img src="{% static 'images/noconnection.png'%}" height="21px" width="20px">
-       <img src="{% static 'images/pro.png'%}" height="25px" width="30px"></div>
-       <p style="font-size: 14px;"><form class="small" method='GET'>
-<button class = 'bg-dark'  name="listbutton" type='submit'>{{ i.0 }}</button>{{ i.1 }} %} </form><br><hn style="font-size: 10px;padding-top: 0px;">
-       </hn><p></p></div></div>
+  <a href="" >  <div class="card-horizontal bg-dark " style="position: relative;padding-left: 10px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/bike.png'%}" height="45px" width="35px"> <div class="z text-light "><div class="d" style="font-size: 12px;">{{ i.2 }} km<img src="{% static 'images/charging.png'%}" height="21px" width="30px"><img src="{% static 'images/battery.png'%}" height="21px" width="20px"><img src="{% static 'images/noconnection.png'%}" height="21px" width="20px"><img src="{% static 'images/pro.png'%}" height="25px" width="30px"></div><p style="font-size: 14px;">{{ i.0 }}<br><hn style="font-size: 10px;padding-top: 0px;">{{ i.1 }}</hn></p></div></div></a>
 {% endfor %}
 
         </div></div>
 
-</div><!-- container --></div>
+</div><!-- container -->
+    </div>
     <div class="col-lg-6">
         <div id="googleMap" style="width:700px;height:550px;">
             {{ vehicle_list|safe }}
         </div>
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&callback=myMap"></script>
     </div>
 
 
