@@ -87,37 +87,25 @@ def AddDevice(request):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
 def map (request):
-
-
     time2 = datetime.datetime.now()
     time1 = time2 + timedelta(minutes=-5)
     time1 = time1.strftime("%Y-%m-%d %H:%M:00")
     time2 = time2.strftime("%Y-%m-%d %H:%M:00")
     time1 = str(time1)
     time2 = str(time2)
-    r1 = requests.get('https://lnt.tracalogic.co/api/ktrack/larsentoubro/' + time1 + '/' + time2,
-                      auth=HTTPBasicAuth('admin', 'admin'))
+    r1 = requests.get('https://lnt.tracalogic.co/api/ktrack/larsentoubro/2019-08-20 10:05:00/2019-08-20 10:10:00' ,
+                          auth=HTTPBasicAuth('admin', 'admin'))
     x1 = r1.json()
     x2 = json.dumps(x1)
     y1 = json.loads(x2)
     df1 = json_normalize(y1["assetHistory"])
     df1['serverTimeStamp'] = pd.to_datetime(df1['serverTimeStamp'])
     df1 = df1.set_index('serverTimeStamp')
-    df1['eventTimeStamp'] = pd.to_datetime(df1['eventTimeStamp'])
-    print("TOTAL API'S COUNT WITHIN 5 MINUTES TODAY = ", len(df1))
-    # NUMBER OF VEHICLES WITH UNIQUE DEVICEIMEINO/PLATENUMBER
-    df1 = df1.drop_duplicates(['deviceImeiNo'], keep='first')
-    # df5 = df1.loc(df1["plateNumber"] == "MBLHAR209HGH22462"
-    print("BY REMOVING DUPICATES, TOTAL NUMBER_OF_VEHICLES = ", len(df1))
-    df2 = df1.loc[(df1["engine"] == "ON") & (df1["speed"] > 0)]
-    print("\nNUMBER OF RUNNING_VEHICLES ", len(df2))
-    df3 = df1.loc[(df1["engine"] == "ON") & (df1["speed"] == 0)]
-    print("\nNumber of IDLE_VEHICLES ", len(df3))
-    df4 = df1.loc[(df1["engine"] == "OFF") & (df1["speed"] == 0)]
-    print("\nNumber of STOP_VEHICLES ", len(df4))
-
-
-
+    df1['eventTimeStamp'] = pd.to_datetime(df1['eventTimeStamp'])  # total no of vehicles
+    df1 = df1.drop_duplicates(['deviceImeiNo'], keep='first')  # NUMBER OF VEHICLES WITH UNIQUE DEVICEIMEINO/PLATENUMBER
+    df2 = df1.loc[(df1["engine"] == "ON") & (df1["speed"] > 0)]  # RUNNING VEHICLES
+    df3 = df1.loc[(df1["engine"] == "ON") & (df1["speed"] == 0)]  # IDLE VEHICLES
+    df4 = df1.loc[(df1["engine"] == "OFF") & (df1["speed"] == 0)]  # STOP_VEHICLES
 
     def myfun1(po):
             lat_list = list(po["latitude"])
@@ -129,9 +117,9 @@ def map (request):
             data1 = embed_snippet(views=[fig])
             return data1
 
-    # def listfun(plate):
-    #     df5 = df1.loc[df1["plateNumber"] == plate]
-    #     return myfun2(df5)
+    def listfun(plate):
+        df5 = df1.loc[df1["plateNumber"] == plate]
+        return myfun2(df5)
 
     def myfun2(mo):
             lat_list = list(mo["latitude"])
@@ -143,15 +131,12 @@ def map (request):
             data1 = embed_snippet(views=[fig])
             return data1
 
-    # if request.method == 'GET' and 'listbutton' in request.GET:
-    #     p1 = listfun(df3)
-    # else:
-    #     p1 = listfun(df3)
 
 
 
 
-    # print(len(listfun('MBLHAR209HGH22462')))
+
+
 
     if request.method == 'GET' and 'totalbutton' in request.GET:
         p1 = myfun1(df1)
@@ -182,7 +167,15 @@ def map (request):
         listpl = df1["plateNumber"]
         listsp = df1["speed"]
         listdt = df1["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
-        result = zip(listpl,listdt,listsp)
+        result = zip(listpl, listdt, listsp)
+
+    if request.method == 'POST' and 'listbutton' in request.POST:
+        plate = request.POST['listbutton']
+        p1 = listfun(plate)
+        print(plate)
+    else:
+        print('escaped if case sorry!!!!')
+
 
     total = len(df1)
     running = len(df2)

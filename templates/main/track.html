@@ -52,6 +52,9 @@ font-min-size: 12px;
     padding-left: 8px;
 
 }
+    #x{
+        text-decoration: none;
+    }
 </style>
 <script>
     function d(x){
@@ -66,29 +69,29 @@ font-min-size: 12px;
     <br>
     <div class="row"><div class="col-lg-1"></div>
         <div class="col-lg-2"><div class="card bg-dark">
-            <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/inactive.png'%}" height="40px" width="60px" style="padding-right:20px;">
+            <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/totalikon.png'%}" height="45px" width="55px" style="padding-left:10px;">
 <button class = 'text-light bg-dark' name="totalbutton" type='submit'>Total-{{ total }}</button>
 </form></div></div></div>
 
             <div class="col-lg-2"><div class="card bg-dark">
-                <div class="card-body"><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/running.png'%}" height="30px" width="45px" style="padding-right:20px;">
+                <div class="card-body"><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/bikecycle.png'%}" height="40px" width="55px" style="padding-left:10px;">
 <button class = 'text-light bg-dark' name="runningbutton" type='submit'>Running-{{ running }}</button>
 </form></div></div></div>
 
 
 
                 <div class="col-lg-2"><div class="card bg-dark">
-                    <div class="card-body "><form method='GET'><img class="card-img-right" src="{% static 'images/idle.png'%}" height="40px" width="60px" style="padding-right:20px;">
+                    <div class="card-body "><form method='GET'><img class="card-img-right" src="{% static 'images/bikeidle.png'%}" height="45px" width="55px" style="padding-left:10px;">
 <button class = 'text-light bg-dark' name="idlebutton" type='submit'>Idle-{{ idle }}</button>
 </form></div></div></div>
 
                     <div class="col-lg-2"><div class="card bg-dark">
-                        <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/stop.png'%}" height="40px" width="50px" style="padding-right:5px;">
+                        <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/stopikon.png'%}" height="40px" width="50px" style="padding-left:10px;">
 <button class = 'text-light bg-dark' name="stopbutton" type='submit'>Stop-{{ stop }}</button>
 </form></div></div></div>
 
                         <div class="col-lg-2"><div class="card bg-dark">
-                            <div class="card-body"><img class="card-img-right" src="{% static 'images/nodata.png'%}" height="40px" width="60px" style="padding-right:20px;">No Data</div></div></div>
+                            <div class="card-body"><img class="card-img-right" src="{% static 'images/nodataikon.png'%}" height="36px" width="55px" style="padding-left:10px; padding-right:10px;   ">No Data</div></div></div>
 
         <div class="col-lg-1"></div>
     </div></div>
@@ -103,17 +106,16 @@ font-min-size: 12px;
 <h3 style="text-align:center;color: lightblue;"></h3>
   <div class="scrollit">
 {% for i in list_plate %}
-   <div class="card-horizontal bg-dark  "style="position: relative;padding-left: 15px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/bike.png'%}" height="45px" width="35px"> <div class="z text-light ">
-       <div class="d" style="font-size: 12px;">{{ i.2 }} km
+   <div class="card-horizontal bg-dark  "style="padding-left: 5px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/bikeicon.png'%}" height="55px" width="55px" style="padding-top: 18px; padding-left: 8px;"> <div class="z text-light ">
+       <div class="d" style="font-size: 12px; padding-top: 3px;">{{ i.2 }} km
        <img src="{% static 'images/charging.png'%}" height="21px" width="30px">
        <img src="{% static 'images/battery.png'%}" height="21px" width="20px">
        <img src="{% static 'images/noconnection.png'%}" height="21px" width="20px">
        <img src="{% static 'images/pro.png'%}" height="25px" width="30px"></div>
-       <p style="font-size: 14px;"><form class="small" method='GET'>
-<button class = 'bg-dark'  name="listbutton" type='submit'>{{ i.0 }}</button>{{ i.1 }} %} </form><br><hn style="font-size: 10px;padding-top: 0px;">
+       <form class="small" method='POST'>{% csrf_token %}
+<input value='{{ i.0 }}' class = 'bg-dark'  name="listbutton" type='submit' id="x">{% csrf_token %}{{ i.1 }} %} </form><br><hn style="font-size: 10px;padding-top: 0px;">
        </hn><p></p></div></div>
 {% endfor %}
-
         </div></div>
 
 </div><!-- container --></div>
