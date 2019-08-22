@@ -3,6 +3,7 @@
 
 {% block content1 %}
     <style>
+
     .a{
 padding-top: 100px;
 }
@@ -43,6 +44,9 @@ font-min-size: 12px;
 
 
 }
+.button1:hover{
+    background-color: #008CBA;
+}
 .d{
 
     height:auto;
@@ -65,7 +69,7 @@ font-min-size: 12px;
     </script>
 
 
-<div class="container a">
+<div class="container a" style="position:relative; bottom: 35px">
     <br>
     <div class="row"><div class="col-lg-1"></div>
         <div class="col-lg-2"><div class="card bg-dark">
@@ -96,7 +100,7 @@ font-min-size: 12px;
         <div class="col-lg-1"></div>
     </div></div>
 
-<div class="container b "><div class="row">
+<div class="container b " style="position:relative; bottom: 85px"><div class="row">
     <div class="col-lg-3 text-center" style="padding-top: 50px">
 
 
@@ -106,14 +110,14 @@ font-min-size: 12px;
 <h3 style="text-align:center;color: lightblue;"></h3>
   <div class="scrollit">
 {% for i in list_plate %}
-   <div class="card-horizontal bg-dark  "style="padding-left: 5px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/bikeicon.png'%}" height="55px" width="55px" style="padding-top: 18px; padding-left: 8px;"> <div class="z text-light ">
-       <div class="d" style="font-size: 12px; padding-top: 3px;">{{ i.2 }} km
+   <div class="card-horizontal bg-dark  " style="padding-left: 5px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/bikeicon.png'%}" height="55px" width="55px" style="padding-top: 18px; padding-left: 8px;"> <div class="z text-light ">
+       <div class="d" style="font-size: 12px ; padding-top: 3px;">{{ i.2 }} km
        <img src="{% static 'images/charging.png'%}" height="21px" width="30px">
        <img src="{% static 'images/battery.png'%}" height="21px" width="20px">
        <img src="{% static 'images/noconnection.png'%}" height="21px" width="20px">
        <img src="{% static 'images/pro.png'%}" height="25px" width="30px"></div>
        <form class="small" method='POST'>{% csrf_token %}
-<input value='{{ i.0 }}' class = 'bg-dark'  name="listbutton" type='submit' id="x">{% csrf_token %}{{ i.1 }} %} </form><br><hn style="font-size: 10px;padding-top: 0px;">
+<input value='{{ i.0 }}' class = 'bg-dark' name="listbutton" style="border: none; color: white;" type='submit' id="x">{% csrf_token %}{{ i.1 }}</form><br><hn style="font-size: 10px;padding-top: 0px;">
        </hn><p></p></div></div>
 {% endfor %}
         </div></div>
@@ -126,8 +130,43 @@ font-min-size: 12px;
 
     </div>
 
-
+{#------------------------------------drop boxes-------------------------------------------------------------------#}
 </div></div>
+    <div class="container c" style="position:relative; bottom: 75px">
+    <div class="row text-light ">
+        <div class="col-sm-3 card bg-dark">
+            <div class="card-header"><h5 style="padding-right: 10px">List    &nbsp;  <button id="button" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo"></button></h5>
+
+      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
+
+            </div><div class="card-body"><div id="demo" style="padding-right: 20px;">
+            <div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/icon.png'%} ">MVLHAR200JGS00985</p></div>
+<div><p><img src="{% static 'images/south.png'%}">Address:Maharastra</p></div>
+<div><p><img src="{% static 'images/speed.png'%}">Speed:28km</p></div>
+<div><p><img src="{% static 'images/time.png'%}">Time:2019-07-22 11:00:59</p></div>
+</div>
+        </div>
+        </div>
+        <div class="col-sm-1"></div>
+         <div class="col-sm-3 card bg-dark">
+             <div class="card-header"><h5>Status</h5>
+              <button id="button1" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo1">
+      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
+    </button>
+             </div><div class="card-body" style="height: 400px"><div id="demo1"></div></div>
+         </div>
+         <div class="col-sm-1"></div>
+         <div class="col-sm-3 card bg-dark">
+             <div class="card-header"><h5>Alerts</h5><button id="button2" type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo2">
+      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
+    </button></div><div class="card-body"><div id="demo2"><div><p>Mark(MS59BJ4611)</p></div>
+<div><p>Jones(RP9986)</p></div>
+<div><p>Chris(RR56590)</p></div>
+<div><p>Mary(GS6780></p></div>
+</div></div>
+         </div></div>
+    </div>
+
 
 {% endblock content1 %}
 
