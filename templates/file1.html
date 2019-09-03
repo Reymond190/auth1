@@ -1,18 +1,489 @@
-{% extends 'registration/base.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-{% block content %}
-<h4 class="display-4">hello and welcome</h4>
-{% if user.is_authenticated %}
-<h5>Your name is: {{ user.username }}</h5>
-{% else %}
-    <h2>You are not logged in</h2>
-{% endif %}
+{% extends 'main/sidenav.html' %}
+{% load crispy_forms_tags %}
+{% block content1 %}
+{% load static %}
+
+<style>
+.file{
+
+padding-top:50px;
+}
+.d{
+background-color:#ff4d4d;
+}
+.d1{
+background-color:#800080;
+}
+.d2{
+background-color:#800000;
+}
+.d3{
+background-color:#70B6DF;
+}
+.d4{
+background-color:#009933;
+}
+.d5{
+background-color:#67969A;
+}
+.d6{
+background-color:#C21B51;
+}
+.d7{
+background-color:#ff9900;
+}
+.d8{
+background-color:#ff1a1a;
+}
+.d9{
+background-color:#cc3300;
+}
+.d10{
+background-color:#B5B201;
+}
+.g{
+border-bottom-style: solid;
+border-bottom-color: hsl(89, 43%, 51%);
+padding-bottom:0px;
+display: block;
+}
+h1,
+p {
+text-align: center;
+}
+
+
+
+
+.flip-box {
+
+width: 300px;
+height: 150px;
+padding:0px;
+margin:0px;
+perspective: 1000px;
+}
+.flip-box-inner {
+position: relative;
+width: 100%;
+height: 100%;
+
+transition: transform 0.8s;
+transform-style: preserve-3d;
+padding:0px;
+margin:0px;
+}
+
+.flip-box:hover .flip-box-inner {
+transform: rotateY(180deg);
+}
+
+.flip-box-front, .flip-box-back {
+position: absolute;
+width: 100%;
+height: 100%;
+backface-visibility: hidden;
+}
+
+.flip-box-front {
+text-align: center;
+color: black;
+}
+
+.flip-box-back {
+
+color: white;
+transform: rotateY(180deg);
+
+}
+
+
+.carousel {
+position: relative;
+width: 15em;
+height: auto;
+margin: 0 ;
+transform-style: preserve-3d;
+transition: transform 0.9s ease;
+}
+.carousel[data-slide="1"] {
+transform: rotateY(0deg);
+}
+.carousel[data-slide="2"] {
+transform: rotateY(90deg);
+}
+.carousel[data-slide="3"] {
+transform: rotateY(180deg);
+}
+.carousel[data-slide="4"] {
+transform: rotateY(270deg);
+}
+.slides {
+position: absolute;
+width: 16em;
+height: 150px;
+padding:0px;
+margin:0px;
+
+}
+.slides img {
+width: 100%;
+height:100%;
+}
+.back, .slides:nth-child(3) {
+transform: translateZ(-7.5em) rotateY(180deg);
+}
+.right, .slides:nth-child(2) {
+transform: rotateY(-270deg) translateX(7.5em);
+transform-origin: top right;
+}
+.left, .slides:nth-child(4) {
+transform: rotateY(270deg) translateX(-7.5em);
+transform-origin: center left;
+}
+.front, .slides:nth-child(1) {
+transform: translateZ(7.5em);
+}
+
+
+.cf:before, .slides:before,
+.cf:after,
+.slides:after {
+content: " ";
+display: table;
+}
+.cf:after, .slides:after {
+clear: both;
+}
+.cf, .slides {
+*zoom: 1;
+}
+.carousel1 {
+position: relative;
+width: 20em;
+height: auto;
+margin: 0 ;
+transform-style: preserve-3d;
+transition: transform 0.9s ease;
+}
+.carousel1[data-slide="1"] {
+transform: rotateY(0deg);
+}
+.carousel1[data-slide="2"] {
+transform: rotateY(90deg);
+}
+.carousel1[data-slide="3"] {
+transform: rotateY(180deg);
+}
+.carousel1[data-slide="4"] {
+transform: rotateY(270deg);
+}
+.slides1 {
+position: absolute;
+width: 20em;
+height: 150px;
+padding:0px;
+margin:0px;
+
+}
+.slides1 img {
+width: 100%;
+height:100%;
+}
+.back, .slides1:nth-child(3) {
+transform: translateZ(-7.5em) rotateY(180deg);
+}
+.right, .slides1:nth-child(2) {
+transform: rotateY(-270deg) translateX(7.5em);
+transform-origin: top right;
+}
+.left, .slides1:nth-child(4) {
+transform: rotateY(270deg) translateX(-7.5em);
+transform-origin: center left;
+}
+.front, .slides1:nth-child(1) {
+transform: translateZ(7.5em);
+}
+
+
+.cf:before, .slides1:before,
+.cf:after,
+.slides1:after {
+content: " ";
+display: table;
+}
+.cf:after, .slides1:after {
+clear: both;
+}
+.cf, .slides1 {
+*zoom: 1;
+}
+p{
+color:white;}
+#slideshow1 {
+margin: 0px ;
+position: relative;
+width: 400px;
+height: 150px;
+padding: 0px;
+
+}
+
+#slideshow1 > div {
+position: absolute;
+top: 0px;
+left: 0px;
+right: 0px;
+bottom: 0px;
+
+}
+#slideshow2{
+margin: 0px ;
+position: relative;
+width: 280px;
+height: 150px;
+padding: 0px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+#slideshow2 > div {
+position: absolute;
+top: 0px;
+left: 0px;
+right: 0px;
+bottom: 0px;
+
+}
+#slideshow3{
+margin: 0px ;
+position: relative;
+width: 280px;
+height: 150px;
+padding: 0px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+#slideshow3 > div {
+position: absolute;
+top: 0px;
+left: 0px;
+right: 0px;
+bottom: 0px;
+
+}
+
+
+</style>
+<script>
+
+
+$(document).ready(function(){
+var $carousel = $('.carousel'),
+currentSlide, nextSlide;
+
+$('.slides').mouseover(function() {
+
+currentSlide = $carousel.attr('data-slide');
+nextSlide = +currentSlide === 4 ? 1 : +currentSlide + 1;
+$carousel.attr('data-slide', nextSlide);
+});
+
+var $carousel1 = $('.carousel1'),
+currentSlide, nextSlide;
+
+$('.slides1').mouseover(function() {
+
+currentSlide = $carousel1.attr('data-slide');
+nextSlide = +currentSlide === 4 ? 1 : +currentSlide + 1;
+$carousel1.attr('data-slide', nextSlide);
+});
+
+});
+$("#slideshow1 > div:gt(0)").hide();
+
+setInterval(function() {
+$('#slideshow1 > div:first')
+.fadeOut(1000)
+.next()
+.fadeIn(1000)
+.end()
+.appendTo('#slideshow1');
+}, 6000);
+$("#slideshow2 > div:gt(0)").hide();
+
+setInterval(function() {
+$('#slideshow2 > div:first')
+.fadeOut(1000)
+.next()
+.fadeIn(1000)
+.end()
+.appendTo('#slideshow2');
+}, 6000);
+$("#slideshow3 > div:gt(0)").hide();
+
+setInterval(function() {
+$('#slideshow3 > div:first')
+.fadeOut(1000)
+.next()
+.fadeIn(1000)
+.end()
+.appendTo('#slideshow3');
+}, 6000);
+</script>
+
+
+<div class="file">
+<h4 class="display-4" style="text-align:center;color:white">Welcome To Fleet Management</h4>
+
+
+<div class="container">
+<div class="row">
+
+
+<div class="col-md-4 d10 "> <div class="carousel1" data-slide="1">
+<a href=""> <div class="slides1">
+<img src="{% static 'images/r1.jpeg'%}" >
+</div>
+<div class="slides1">
+<img src="{% static 'images/r2.jpeg'%}">
+</div>
+<div class="slides1">
+<img src="{% static 'images/r3.jpeg'%}" >
+</div>
+<div class="slides1">
+<img src="{% static 'images/r4.jpg'%}" >
+</div>
+</a> </div></div>&nbsp;
+<div class="col-md-2 flip-box d "><div class="flip-box-inner">
+<div class="flip-box-front">
+<img src="{% static 'images/enquiry.png'%}" ><p>Help Center</p>
+</div>
+<div class="flip-box-back">
+<img src="{% static 'images/24.jpeg'%}" width="190px" height="150px" >
+</div>
+</div>
+
+</div>
+&nbsp; &nbsp; &nbsp;
+<div class="col-md-2 d5 " style="height:150px;"> <a href="">
+<img src="{% static 'images/ti.png'%}" style="padding-left:45px;padding-top:20px" height="90px" width="120px"><br><br><p>Tickets</p>
+</a> </div>&nbsp;
+<div class="col-md-3 d6 " > <div class="carousel" data-slide="1">
+<a href=""> <div class="slides">
+<img src="{% static 'images/a1.jpg'%}">
+</div>
+<div class="slides">
+<img src="{% static 'images/a2.jpg'%}">
+</div>
+<div class="slides">
+<img src="{% static 'images/a3.jpg'%}">
+</div>
+<div class="slides">
+<img src="{% static 'images/a4.jpg'%}">
+</div>
+</a>
+</div></div></div>
+<div class="row">
+
+
+<div class="col-md-2 d1"> <a href="">
+<img src="{% static 'images/user1.png'%}" style="padding-left:35px;padding-top:20px" height="90px" width="120px" ><br><br><p>Profile</p>
+</a> </div> &nbsp;
+<div class="col-md-4 d2 " id="slideshow1"> <div>
+<img src="{% static 'images/g.jpg'%}" width="380px" height="150px">
+</div>
+
+<div>
+<img src="{% static 'images/g1.png'%}" width="380px" height="150px">
+</div>
+<div>
+<img src="{% static 'images/g2.png'%}" width="380px" height="150px">
+</div>
+<div>
+<img src="{% static 'images/g3.gif'%}" width="380px" height="150px">
+</div>
+</div>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<div class="col-md-5 d7" id="slideshow2" > <div>
+<img src="{% static 'images/grap.jpeg'%}"  width="478px" height="150px" >
+</div>
+
+<div>
+<img src="{% static 'images/gr1.gif'%}" width="478px" height="150px">
+</div>
+<div>
+<img src="{% static 'images/gr2.jpg'%}" width="478px" height="150px">
+</div>
+<div>
+<img src="{% static 'images/gr3.gif'%}" width="478px" height="150px">
+</div>
+
+</div>
+
+
+</div>
+<div class="row">
+
+
+<div class="col-md-4 d3" id="slideshow3"> <div>
+<img src="{% static 'images/tr.png'%}" style="padding-left:99px;"><p>Track</p>
+</div>
+<div>
+<img src="{% static 'images/tr1.png'%}" width="380px" height="150px">
+</div>
+<div>
+<img src="{% static 'images/tr2.png'%}" width="380px" height="150px">
+</div>
+<div>
+<img src="{% static 'images/tr4.png'%}" width="380px" height="150px">
+</div>
+
+
+</div> &nbsp;
+<div class="col-md-2 d4 flip-box"><div class="flip-box-inner">
+<a href=""> <div class="flip-box-front">
+<img src="{% static 'images/to.png'%}" style="padding-left:25px;padding-top:20px" height="80px" width="100px"><br><br><p>Tour</p>
+</div>
+<div class="flip-box-back">
+<img src="{% static 'images/tour2.png'%}" width="190px" height="150px" >
+</div>
+</a></div>
+
+</div>
+&nbsp; &nbsp; &nbsp;
+<div class="col-md-2 flip-box d8"><div class="flip-box-inner">
+<a href=""> <div class="flip-box-front">
+<img src="{% static 'images/se.png'%}" style="padding-left:15px;padding-top:20px" height="80px" width="100px"><br><br><p>Settings</p>
+</div>
+<div class="flip-box-back">
+<img src="{% static 'images/se1.jpg'%}" width="190px" height="150px" >
+</div>
+</a> </div>
+
+</div>&nbsp;
+<div class="col-md-2 d9"> <a href="">
+<img src="{% static 'images/mo.png'%}" style="padding-left:55px;padding-top:20px" height="90px" width="120px" ><br><br><p style="padding-left:10px">Money</p>
+</a> </div>
+<div class="col-md-1 d9">
+
+</div>
+</div>
+
+</div>
+<div class="container-fluid ">
+
+<div class="row g">
+<div class="col-sm-1"><img src="{% static 'images/sc.png'%}" ></div>
+<div class="col-sm-1"></div>
+<div class="col-sm-1"><img src="{% static 'images/car.png'%}" ></div>
+<div class="col-sm-1"></div>
+<div class="col-sm-1"><img src="{% static 'images/tru.png'%}" ></div>
+<div class="col-sm-1"></div>
+<div class="col-sm-1"><img src="{% static 'images/bu.png'%}" ></div>
+<div class="col-sm-1"></div>
+<div class="col-sm-1"><img src="{% static 'images/lg.png'%}" ></div>
+
+</div>
+
+</div>
+
+</div>
 {% endblock %}
-</body>
-</html>

@@ -1,0 +1,171 @@
+{% extends 'main/sidenav.html' %}
+{% load static %}
+{% block content1 %}
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+.button1 {
+font-size:2px;
+}
+</style>
+<body>
+
+<div class="container">
+
+<table class="table table-hover" Style="width:100%">
+<thead>
+<tr>
+<th>
+Detections
+</th>
+</tr>
+</thead>
+
+<thead style="color:white;background-color:gray">
+<tr>
+<th>S.no</th>
+<th>Vehicle Id</th>
+<th>Driver Name</th>
+<th>Detections Details</th>
+<th>Contact</th>
+<th>Priority</th>
+<th>Action</th>
+<th>Info</th>
+<th>Solved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>AT345456</td>
+<td>Richard Packard</td>
+<td>Towing Detection</td>
+<td>9677684493</td>
+<td><button type="button" class="btn btn-primary">HIGH</button></td>
+
+<td><select>
+<option value="volvo">Solved</option>
+<option value="saab">None</option>
+<option value="audi">Mark</option>
+</select></td>
+<td><button><img src="https://img.icons8.com/cotton/20/000000/worldwide-location--v2.png">&nbsp;Get Position</button></td>
+<td><button class="w3-button1 w3-xlarge w3-circle w3-green w3-card-4">*</button></td>
+</tr>
+<tr>
+<td>2</td>
+<td>AT246456</td>
+<td>William Patrik</td>
+<td>Anamoly Detection</td>
+<td>89298339273</td>
+<td><button type="button" class="btn btn-warning">MEDIUM</button></td>
+<td><select>
+<option value="volvo">None</option>
+<option value="saab">Solved</option>
+<option value="audi">Mark</option>
+</select></td>
+<td><button><img src="https://img.icons8.com/cotton/20/000000/worldwide-location--v2.png">&nbsp;Get Position</button></td>
+<td><button class="w3-button1 w3-xlarge w3-circle w3-black w3-card-4" style="font-size:5px">+</button></td>
+</tr>
+<tr>
+<td>3</td>
+<td>AT345656</td>
+<td>Steve madison</td>
+<td>Feul Wastage Detection</td>
+<td>89338339273</td>
+<td><button type="button" class="btn btn-success">LOW</button></td>
+<td><select>
+<option value="volvo">Solved</option>
+<option value="saab">None</option>
+<option value="audi">Mark</option>
+</select></td>
+<td><button><img src="https://img.icons8.com/cotton/20/000000/worldwide-location--v2.png"><style="background-color:gray">&nbsp;Get Position</button></style></td>
+<td><button class="w3-button1 w3-xlarge w3-circle w3-green w3-card-4">*</button></td>
+</tr>
+<tr>
+<td>4</td>
+<td>AT345325</td>
+<td>Steve madison</td>
+<td>Accident Detection</td>
+<td>94448339273</td>
+<td><button type="button" class="btn btn-danger">VERY HIGH</button></td>
+<td><select>
+<option value="volvo">None</option>
+<option value="saab">Solved</option>
+<option value="audi">Mark</option>
+</select></td>
+<td><button><img src="https://img.icons8.com/cotton/20/000000/worldwide-location--v2.png">&nbsp;Get Position</button></td>
+<td><button class="w3-button1 w3-xlarge w3-circle w3-black w3-card-4">+</button></td>
+</tr>
+<tr>
+<td>5</td>
+<td>AT342567</td>
+<td>Vignesh</td>
+<td>Traffic violation</td>
+<td>99338009273</td>
+<td><button type="button" class="btn btn-success">LOW</button></td>
+<td><select>
+<option value="volvo">Solved</option>
+<option value="saab">None</option>
+<option value="audi">Mark</option>
+</select></td>
+<td><button><img src="https://img.icons8.com/cotton/20/000000/worldwide-location--v2.png">&nbsp;Get Position</button></td>
+<td><button class="w3-button1 w3-xlarge w3-circle w3-green w3-card-4">*</button></td>
+</tr>
+<tr>
+<td>6</td>
+<td>AT341236</td>
+<td>Ramesh</td>
+<td>Wrong Route Detection</td>
+<td>8789339273</td>
+<td><button type="button" class="btn btn-warning">MEDIUM</button></td>
+<td><select>
+<option value="volvo">None</option>
+<option value="saab">Solved</option>
+<option value="audi">Mark</option>
+</select></td>
+<td><button><img src="https://img.icons8.com/cotton/20/000000/worldwide-location--v2.png">&nbsp;Get Position</button></td>
+<td><button class="w3-button1 w3-xlarge w3-circle w3-black w3-card-4">+</button></td>
+</tr>
+<tr>
+<td>7</td>
+<td>AT324567</td>
+<td>Ragul</td>
+<td>Traffic violation</td>
+<td>89338300073</td>
+<td><button type="button" class="btn btn-success">LOW</button></td>
+<td><select>
+<option value="volvo">None</option>
+<option value="saab">Solved</option>
+<option value="audi">Mark</option>
+</select></td>
+<td><button><img src="https://img.icons8.com/cotton/20/000000/worldwide-location--v2.png">&nbsp;Get Position</button></td>
+<td><button class="w3-button1 w3-xlarge w3-circle w3-black w3-card-4">+</button></td>
+</tr>
+<tr>
+<td>8</td>
+<td>AT340156</td>
+<td>Hari</td>
+<td>Accident Detection</td>
+<td>7723439273</td>
+<td><button type="button" class="btn btn-danger">VERY HIGH</button></td>
+<td><select>
+<option value="volvo">None</option>
+<option value="saab">Solved</option>
+<option value="audi">Mark</option>
+</select></td>
+<td><button><img src="https://img.icons8.com/cotton/20/000000/worldwide-location--v2.png">&nbsp;Get Position</button></td>
+<td><button class="w3-button1 w3-xlarge w3-circle w3-black w3-card-4">+</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+{% endblock %}

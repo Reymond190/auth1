@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import UserRegisterForm, ProfileAddForm, AddDeviceform
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib import messages
 from datetime import datetime
+from .models import AddDevice,Profile
+from django.views.generic import ListView, DetailView
 from requests.auth import HTTPBasicAuth
 from ipywidgets.embed import embed_minimal_html, embed_snippet
 import json
@@ -17,15 +18,155 @@ import gmaps
 from datetime import timedelta
 import datetime
 import pandas as pd
+import json as simplejson
 from pandas.io.json import json_normalize
 import sys
 from pandas.io.json import json_normalize
 from django.views.decorators.cache import cache_control
 
+
+def get_api():
+    time2 = datetime.datetime.now()
+    time1 = time2 + timedelta(minutes=-5)
+    time1 = time1.strftime("%Y-%m-%d %H:%M:00")
+    time2 = time2.strftime("%Y-%m-%d %H:%M:00")
+    time1 = str(time1)
+    time2 = str(time2)
+    r1 = requests.get('https://lnt.tracalogic.co/api/ktrack/larsentoubro/' + time1 + '/' + time2,
+                      auth=HTTPBasicAuth('admin', 'admin'))
+    x1 = r1.json()
+    x2 = json.dumps(x1)
+    y1 = json.loads(x2)
+    return y1
+
+
+def reload_and_store():
+    f = open('venv/temp.json', 'w+')
+    if f.read() is not None:
+        f.truncate(0)
+    x = get_api()
+    json.dump(x, f)
+    f.close()
+
+
+def get_temp():
+    f = open('venv/temp.json', 'r+')
+    content = f.read()
+    return content
+
+
+def get_dataframe(y1):
+    df1 = json_normalize(y1["assetHistory"])
+    df1['serverTimeStamp'] = pd.to_datetime(df1['serverTimeStamp'])
+    df1 = df1.set_index('serverTimeStamp')
+    df1['eventTimeStamp'] = pd.to_datetime(df1['eventTimeStamp'])  # total no of vehicles
+    df1 = df1.drop_duplicates(['deviceImeiNo'],
+                              keep='first')  # NUMBER OF VEHICLES WITH UNIQUE DEVICEIMEINO/PLATENUMBER
+    return df1
+
+
+def filter_running(df):
+    df2 = df.loc[(df["engine"] == "ON") & (df["speed"] > 0)]  # RUNNING VEHICLES
+    return df2
+
+
+def filter_idle(df):
+    df3 = df.loc[(df["engine"] == "ON") & (df["speed"] == 0)]  # IDLE VEHICLES
+    return df3
+
+
+def filter_stop(df):
+    df4 = df.loc[(df["engine"] == "OFF") & (df["speed"] == 0)]  # STOP_VEHICLES
+    return df4
+
+
+def myfun1(po):             #argument:dataframe(df)
+    lat_list = list(po["latitude"])
+    long_list = list(po["longitude"])
+    gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
+    fig = gmaps.figure()
+    var1 = json.dumps(
+        [{'lat': country, 'lng': wins} for country, wins in zip(lat_list, long_list)]
+    )
+    markers = gmaps.marker_layer(list(zip(lat_list, long_list)))
+    fig.add_layer(markers)
+    data1 = embed_snippet(views=[fig])
+    return data1,var1
+
+
+def listfun(plate, df):
+    df5 = df.loc[df["plateNumber"] == plate]
+    return myfun1(df5)
+
+# def get_single_loco(plate,df):
+#     df5 = df.loc[df["plateNumber"] == plate]
+#     lat_list = list(df5["latitude"])
+#     long_list = list(df5["longitude"])
+#     p = lat_list[0]
+#     q = long_list[0]
+#     r = p+q
+#     r = str(r)
+#     return r
+
+
+def change_frames(r):  # enter required dataframes in this function
+    p1,v1 = myfun1(r)
+    listpl = r["plateNumber"]
+    listsp = r["speed"]
+    listdt = r["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
+    result = zip(listpl, listdt, listsp)
+    return p1, result
+
+
+# ------------------------------------------------------------main-----------------------------------------------------------------------------------
+
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
 def start(request):
     return render(request, 'file1.html')
+
+def tickets(request):
+    return render(request,'main/tickets.html')
+
+def alerts(request):
+    return render(request,'main/alerts.html')
+
+def setting(request):
+    return render(request,'main/settings.html')
+
+def tour(request):
+    return render(request,'main/tour.html')
+
+class devicelistview(ListView):
+    queryset = AddDevice.objects.all()
+    template_name = 'main/class.html'
+    context_object_name = 'pp'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(devicelistview,self).get_context_data()
+        return context
+
+
+def geofence(request):
+    temp = get_temp()
+    y1 = json.loads(temp)
+    df1 = get_dataframe(y1)
+    y1,result = change_frames(df1)
+
+    if request.method == 'POST' and 'listbutton1' in request.POST:
+        plate = request.POST['listbutton1']
+        p1, v1 = listfun(plate, df1)
+
+    else:
+        print('escaped if case on geofence!!!!')
+        v1 = "{lat: 28.7041, lng: 77.1025}"
+    context = {'plateloco':v1,
+               'list_plate':result}
+    print(v1)
+    return render(request, 'main/geofence.html', context)
+
+def marker(request):
+    return render(request, 'main/marker.html')
 
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 @login_required
@@ -54,7 +195,7 @@ def register(request):
 def profile(request):
     form = ProfileAddForm
     form2 = AddDeviceform
-    context = {'form':form,"form2":form2}
+    context = {'form':form, "form2":form2}
     if request.method == 'POST' and 'button-name1' in request.POST:
         form = ProfileAddForm(request.POST)
         if form.is_valid():
@@ -62,20 +203,13 @@ def profile(request):
             messages.success(request, 'Profile is updated!')
     if request.method == 'POST' and 'button-name2' in request.POST:
         form2 = AddDeviceform(request.POST)
-        if form.is_valid():
+        if form2.is_valid():
+            print("getting inside if")
             form2.save()
-            messages.success(request, 'Device Added')
+            print("save")
+        messages.success(request, 'Device Added')
     return render(request,'main/profile.html',context)
 
-@cache_control(no_cache=True, must_revalidate=True, no_store=True)
-@login_required
-def AddDevice(request):
-    form = AddDeviceform
-    if request.method == 'POST':
-        form = AddDeviceform(request.POST)
-        if form.is_valid():
-            return start
-    return render(request,'registration/Add.html',{'form':form})
 
 # @background(schedule=10)
 # def notify_user(pk):
@@ -88,87 +222,10 @@ def AddDevice(request):
 @login_required
 def map (request):
 
-    def get_api():
-        time2 = datetime.datetime.now()
-        time1 = time2 + timedelta(minutes=-5)
-        time1 = time1.strftime("%Y-%m-%d %H:%M:00")
-        time2 = time2.strftime("%Y-%m-%d %H:%M:00")
-        time1 = str(time1)
-        time2 = str(time2)
-        r1 = requests.get('https://lnt.tracalogic.co/api/ktrack/larsentoubro/2019-08-20 10:05:00/2019-08-20 10:10:00',
-                          auth=HTTPBasicAuth('admin', 'admin'))
-        x1 = r1.json()
-        x2 = json.dumps(x1)
-        y1 = json.loads(x2)
-        return y1
+    # time2 = datetime.datetime.now()
+    # time1 = time2 + timedelta(minutes=-5)
+    # reload_and_store()
 
-    @background(schedule=60)
-    def reload_and_store():
-        f = open('venv/temp.json', 'w+')
-        if f.read() is not None:
-            f.truncate(0)
-            print('fcuk its running')
-        x = get_api()
-        json.dump(x, f)
-        f.close()
-
-
-    def get_temp():
-        f = open('venv/temp.json', 'r+')
-        content = f.read()
-        return content
-
-
-    def get_dataframe(y1):
-        df1 = json_normalize(y1["assetHistory"])
-        df1['serverTimeStamp'] = pd.to_datetime(df1['serverTimeStamp'])
-        df1 = df1.set_index('serverTimeStamp')
-        df1['eventTimeStamp'] = pd.to_datetime(df1['eventTimeStamp'])  # total no of vehicles
-        df1 = df1.drop_duplicates(['deviceImeiNo'],
-                                  keep='first')  # NUMBER OF VEHICLES WITH UNIQUE DEVICEIMEINO/PLATENUMBER
-        return df1
-
-
-
-    def filter_running(df):
-        df2 = df.loc[(df["engine"] == "ON") & (df["speed"] > 0)]  # RUNNING VEHICLES
-        return df2
-
-    def filter_idle(df):
-        df3 = df.loc[(df["engine"] == "ON") & (df["speed"] == 0)]  # IDLE VEHICLES
-        return df3
-
-    def filter_stop(df):
-        df4 = df.loc[(df["engine"] == "OFF") & (df["speed"] == 0)]  # STOP_VEHICLES
-        return df4
-
-    def myfun1(po):
-            lat_list = list(po["latitude"])
-            long_list = list(po["longitude"])
-            gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
-            fig = gmaps.figure()
-            markers = gmaps.marker_layer(list(zip(lat_list, long_list)))
-            fig.add_layer(markers)
-            data1 = embed_snippet(views=[fig])
-            return data1
-
-    def listfun(plate, df):
-        df5 = df.loc[df1["plateNumber"] == plate]
-        return myfun1(df5)
-
-
-    def change_frames(r):  # enter required dataframes in this function
-        p1 = myfun1(r)
-        listpl = r["plateNumber"]
-        listsp = r["speed"]
-        listdt = r["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
-        result = zip(listpl, listdt, listsp)
-        return p1, result
-
-    time2 = datetime.datetime.now()
-    time1 = time2 + timedelta(minutes=-5)
-
-    reload_and_store(schedule=10)
     temp = get_temp()
     y1 = json.loads(temp)
     df1 = get_dataframe(y1)
@@ -202,17 +259,7 @@ def map (request):
         # df1 = get_dataframe(y1)
         # df2 = filter_running(df1)
         p1, result = change_frames(df2)
-
     elif request.method == 'GET' and 'idlebutton' in request.GET:
-        # p1 = myfun1(df3)
-        # listpl = df3["plateNumber"]
-        # listsp = df3["speed"]
-        # listdt = df3["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
-        # result = zip(listpl, listdt, listsp)
-        # temp = get_temp()
-        # y1 = json.loads(temp)
-        # df1 = get_dataframe(y1)
-        # df3 = filter_idle(df1)
         p1, result = change_frames(df3)
     elif request.method == 'GET' and 'stopbutton' in request.GET:
         # p1 = myfun1(df4)
@@ -257,7 +304,16 @@ def map (request):
 
 
 
+def cluster(request):
+    temp = get_temp()
+    y1 = json.loads(temp)
+    df1 = get_dataframe(y1)
+    p1,v1 = myfun1(df1)
+    context = {
+        'myfile':v1,
+    }
 
+    return render(request, 'main/cluster.html',context)
 
 class charts(View):
     def get(self, request, *args, **kwargs):

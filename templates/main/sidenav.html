@@ -1,12 +1,14 @@
 {% load static %}
 {% spaceless %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<title>Welcome</title>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
     <link rel="stylesheet" href="{% static 'css/style3.css' %}">
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -15,6 +17,28 @@
        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js" integrity="sha256-o8aByMEvaNTcBsw94EfRLbBrJBI+c3mjna/j4LrfyJ8=" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+
+ li{
+text-decoration:none;
+}
+.navbar{
+margin-bottom:0px;
+position:fixed;
+
+}
+.dropdown{
+z-index:999;
+
+
+}
+h3{
+margin-top:0px;
+}
+</style>
 </head>
 <body>
  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
@@ -37,28 +61,97 @@
         </div>
   </ul>
     </nav>
-<nav>
-    <div class="sidebar bg-dark">
-        <a></a><br>
- <a href="{%url 'profile'%}" style="padding-top:50px"><img src="{% static 'images/profile.png'%}"height="21px" width="23px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
-  <a href="{%url 'map'%}"><img src="{% static 'images/track.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Track</a>
-  <a href="{%url 'reports'%}"><img src="{% static 'images/reports.png'%}" height="21px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a>
-    <a href="{%url 'chart'%}"><img src="{% static 'images/graphs.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Graphs</a>
-     <a href="#"><img src="{% static 'images/tour3.png'%}" height="23px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tour</a>
-     <a href="#"><img src="{% static 'images/alerts.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alerts</a>
-     <a href="#"><img src="{% static 'images/geofence.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Geofence</a>
-     <a href="#"><img src="{% static 'images/payment.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment</a>
-     <a href="#"><img src="{% static 'images/tickets.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tickets</a>
-     <a href="#"><img src="{% static 'images/settings.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a>
-     <a href="#"><img src="{% static 'images/helpcenter.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Help Center</a>
+
+<div class="sidebar bg-dark" >
+<li ><a href="{%url 'profile'%}" style="text-decoration:none;padding-top:20px;" ><img src="{% static 'images/profile.png'%}"height="21px" width="23px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
+</li><br>
+<li class="dropdown dropright "> <a href="#" class="dropdown-toggle " data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/track.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Track</a>
+<ul class="dropdown-menu dropdown-menu-right" x-placement="right-start" style="position: absolute; ">
+<li><a href="{%url 'cluster'%}">Advance Tracking &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-rounded/20/000000/order-on-the-way.png"></a></li>
+<li><a href="{%url 'map'%}">Detail Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/windows/20/000000/details.png"></a></li>
+<li><a href="{%url 'map'%}">Find Near By &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/metro/20/000000/find-and-replace.png"></a></li>
+<li><a href="{%url 'map'%}">Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/metro/20/000000/dashboard.png"></a></li>
+<li><a href="{%url 'map'%}">Tripper Dashboard &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material/20/000000/severity.png"></a></li>
+</ul>
+</li>
+</br>
+<li class="dropdown dropright"><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/reports.png'%}" height="21px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a>
+<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<li><a href="{%url 'reports'%}">Travel Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-sharp/20/000000/total-sales-1.png"></a></li>
+<li><a href="{%url 'reports'%}">Travel Detail Summary &nbsp;<img src="https://img.icons8.com/wired/20/000000/combo-chart.png"></a></li>
+<li><a href="{%url 'reports'%}">Trip Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/route.png"></a></li>
+<li><a href="{%url 'reports'%}">Stoppage Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/feed-in.png"></a></li>
+<li><a href="{%url 'reports'%}">Idle Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/cotton/20/000000/bike-front-view--v2.png"></a></li>
+<li><a href="{%url 'reports'%}">Idle Detail Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/details.png"></a></li>
+<li><a href="{%url 'reports'%}">Inactive Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-filled/20/000000/inactive-state.png"></a></li>
+<li><a href="{%url 'reports'%}">ignition Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/turbocharger.png"></a></li>
+<li><a href="{%url 'reports'%}">AC Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/air-conditioner--v2.png"></a></li>
+<li><a href="{%url 'reports'%}">AC Misused Summary &nbsp;<img src="https://img.icons8.com/windows/32/000000/air-conditioner.png"></a></li>
+<li><a href="{%url 'reports'%}">Speed vs Distance &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/speed--v1.png"></a></li>
+<li><a href="{%url 'reports'%}">Vehicle Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/cotton/20/000000/taxi-location.png"></a></li>
+<li><a href="{%url 'reports'%}">SMS - Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/email-open.png"></a></li>
+<li><a href="{%url 'reports'%}">Vehicle Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/half-track-vehicle.png"></a></li>
+<li><a href="{%url 'reports'%}">System Log &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/log-cabin.png"></a></li>
+</ul>
+</li>
+</br>
+<li class="dropdown dropright">  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/graphs.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Graphs</a>
+<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<li><a href="{%url 'chart'%}">Distance &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<img src="https://img.icons8.com/ios/20/000000/rearrange.png"></a></li>
+<li><a href="{%url 'chart'%}">Duration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<img src="https://img.icons8.com/dotty/20/000000/property-time.png"></a></li>
+<li><a href="{%url 'chart'%}">Alerts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<img src="https://img.icons8.com/ios/20/000000/cloud-alert.png"></a></li>
+<li><a href="{%url 'chart'%}">Speed vs Travel &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/speedometer.png"></a></li>
+<li><a href="{%url 'chart'%}">Personal Graph &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/positive-dynamic.png"></a></li>
+<li><a href="{%url 'chart'%}">Schedule Graphs &nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/graph.png"></a></li>
+</ul>
+</li>
+</br>
+<li class="dropdown dropright"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/tour3.png'%}" height="23px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tour</a>
+<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<li><a href="{%url 'tour'%}">Tour Planning &nbsp;<img src="https://img.icons8.com/material/20/000000/wine-tour.png"></a></li>
+<li><a href="{%url 'tour'%}">Tour Allocation <img src="https://img.icons8.com/cotton/20/000000/travel-signpost--v1.png"></a></li>
+</ul>
+</li>
+</br>
+<li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/alerts.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alerts</a>
+<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<li><a href="{%url 'alerts'%}">Vehicle Alert &nbsp;<img src="https://img.icons8.com/ios-filled/20/000000/vehicle-security.png"></a></li>
+<li><a href="{%url 'alerts'%}">Add Alert &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/alarm-add.png"></a></li>
+</ul>
+</li>
+</br>
+<li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/geofence.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Geofence</a>
+<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<li><a href="{%url 'geofence'%}">Add Geofence &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/wired/20/000000/unchecked-circle.png"></a></li>
+<li><a href="{%url 'geofence'%}">Geofence Summary-A <img src="https://img.icons8.com/ios-filled/20/000000/brief.png"></a></li>
+<li><a href="{%url 'geofence'%}">Geofence Summary-B <img src="https://img.icons8.com/ios/20/000000/heat-map.png"></a></li>
+</ul>
+</li>
+</br>
+<li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/payment.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment</a>
+<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<li><a href="#">Cost Configuration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/phonelink-setup.png"></a></li>
+<li><a href="#">Payment Gateway Configuration <img src="https://img.icons8.com/material-sharp/20/000000/online-payment-.png"></a></li>
+</ul>
+</li>
+</br>
+<li ><a  href="{%url 'tickets'%}" style="text-decoration:none;"><img src="{% static 'images/tickets.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tickets</a>
+</li>
+</br>
+<li ><a  href="{%url 'settings'%}" style="text-decoration:none;"><img src="{% static 'images/settings.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a>
+</li>
+</br>
+<li ><a  href="{%url 'settings'%}" style="text-decoration:none;"><img src="{% static 'images/helpcenter.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Help Center</a>
+</li>
 </div>
-</nav>
+
 
 
 <div class="content">
   {% block content1 %}
 
     {% endblock content1 %}
+
 
 </div>
 

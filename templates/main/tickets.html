@@ -1,10 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/sidenav.html' %}
+{% load static %}
+{% block content1 %}
 
-</body>
-</html>
+<style>
+
+.add{
+background-color:black;
+color: white;
+width:7%;
+}
+.right{
+float:right;
+font-size:25px;
+}
+
+.left{
+float:left;
+font-size:25px;
+color:black;
+}
+
+.table {
+font-family: arial, sans-serif;
+border-collapse: collapse;
+width: 100%;
+}
+
+td, th {
+border: 1px solid #dddddd;
+text-align: left;
+padding: 10px;
+}
+
+tr:nth-child(even) {
+background-color: white;
+}
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<body>
+<span class="left">Company Name</span><span class="right">Tickets</span>
+<br/>
+<br/>
+<div align="right"><br/>
+<button class="add">add</button>
+
+
+<p align="left" >Melbourne,Australia</p>
+<p align="left">P:(123)456-7890</p>
+<hr style="width:80%";>
+<div class="container">
+<div class="row">
+<div class="col-lg-10">
+<table class="table" style="width:1100px;">
+<thead style="background-color:lightgray";>
+<th>#</th>
+<th>Ticket Name</th>
+<th>Description</th>
+<th>Ratings</th>
+<th>Time</th>
+</thead>
+<tbody style="padding:10px";>
+<tr>
+<td>1</td>
+<td>Woman Pescoat</td>
+<td>Lorem ipsum dolor sit amet Consectetur</td>
+<td>432</td>
+<td>10hrs</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Woman Pescoat</td>
+<td>Lorem ipsum dolor sit amet Consectetur</td>
+<td>432</td>
+<td>12hrs</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Pescoat</td>
+<td>Lorem ipsum dolor sit amet Consectetur</td>
+<td>432</td>
+<td>15hrs</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Levaca Womens Long...</td>
+<td>Lorem ipsum dolor sit amet Consectetur</td>
+<td>432</td>
+<td>$9,928</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Levaca Womens Long...</td>
+<td>Lorem ipsum dolor sit amet Consectetur</td>
+<td>432</td>
+<td>$9,928</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Levaca Womens Long...</td>
+<td>Lorem ipsum dolor sit amet Consectetur</td>
+<td>432</td>
+<td>$9,928</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Levaca Womens Long...</td>
+<td>Lorem ipsum dolor sit amet Consectetur</td>
+<td>432</td>
+<td>$9,928</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Levaca Womens Long...</td>
+<td>Lorem ipsum dolor sit amet Consectetur</td>
+<td>432</td>
+<td>$9,928</td>
+<td style="align:right";>Sub-total:150</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<div class="col-lg-2" style="padding-left:5px;">
+<h5>Ticket Date:March 15,2016<br>Ticket Status:<button style="background-color:lightyellow;align:white;">
+    progress</button> <br/>Ticket ID: #1234567</h5>
+</div></div></div></div>
+
+<br/>
+<br/>
+{% endblock %}

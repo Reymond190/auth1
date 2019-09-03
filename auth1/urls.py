@@ -17,17 +17,22 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
-from app_auth.views import start, register, profile, AddDevice, ChartData, charts, BarChart, Doughnut, track, map, reports
+
 from django.contrib.auth import views as auth_views
+
+from app_auth.views import start, register, profile, \
+    ChartData, charts, BarChart, Doughnut, track, map, \
+    reports,cluster,geofence,marker,tickets,\
+    alerts,setting,tour,devicelistview
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',start,name='index' ),
+    path('class/',devicelistview.as_view()),
     path('login/',auth_views.LoginView.as_view(),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='registration/logged_out.html'),name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('register/', register, name='register'),
-    path('AddDevice/', AddDevice, name='AddDevice'),
     path('reports/',reports,name='reports'),
     path('profile/', profile, name='profile'),
     path('map/', map, name='map'),
@@ -36,6 +41,14 @@ urlpatterns = [
     path('sample1/', BarChart.as_view()),
     path('sample2/', Doughnut.as_view()),
     path('track/', track.as_view()),
+    path('geofence/', geofence, name='geofence'),
+    path('marker/',marker,name='marker'),
+    path('cluster/', cluster, name='cluster'),
+    path('tickets/', tickets, name='tickets'),
+    path('alerts/', alerts, name='alerts'),
+    path('settings/', setting, name='settings'),
+    path('tour/', tour, name='tour'),
+
 
 ]
 

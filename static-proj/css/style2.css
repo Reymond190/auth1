@@ -1,21 +1,24 @@
 
 
 .sidebar {
-  margin-top: 0px;
+  margin-top: 60px;
   padding: 0px;
-  width: 200px;
+  width: 180px;
 
   position: fixed;
   height: 100%;
-  overflow: auto;
+z-index:999;
     text-decoration: none;
 
 }
 
+.dropdown:hover .dropdown-menu{
+display:block;
+}
 .sidebar a {
   display: block;
   color: white;
-  padding: 10px;
+  padding: 0px;
   font-size: 13px;
   text-decoration: none;
 
@@ -56,3 +59,4 @@ div.content {
     float: none;
   }
 }
+

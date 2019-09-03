@@ -1,0 +1,222 @@
+{% extends 'main/sidenav.html' %}
+{% load static from staticfiles %}
+{% block content1 %}
+    <style xmlns:border-radius="http://www.w3.org/1999/xhtml" xmlns:border-radius="http://www.w3.org/1999/xhtml"
+           xmlns:border-radius="http://www.w3.org/1999/xhtml">
+
+    .a{
+padding-top: 100px;
+}
+   .b{
+padding-top: 50px;
+}
+.a .card{
+    font-size: 14px;
+    padding-left: 0px;
+    width: 180px;
+    background-color: #343A40;
+
+}
+.a .card:hover{
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.a .card-body{
+    padding-left: 5px;
+width: 300px;
+height: 80px;
+color:white;
+}
+.z{
+    width: 300px;
+height: 80px;
+    padding-right: 20px;
+    padding-left: 30px;
+}
+.navbar-header .navbar-toggle{
+color:white;
+}
+
+.a .card-body button{
+    border: none;
+    font-min-size: 16px;
+}
+
+.scrollit {
+    overflow: auto;
+    height:500px;
+font-min-size: 12px;
+}
+.card-horizontal{
+    display: flex;
+
+
+}
+
+.d{
+
+    height:auto;
+    border-radius: 8px;
+}
+.d img{
+    padding-left: 8px;
+
+}
+    #x{
+        text-decoration: none;
+    }
+</style>
+<script>
+
+   $(document).ready(function(){
+       $(".c1").mouseover(function(){
+
+           $("#b1").click();
+       });
+       $(".c2").mouseover(function(){
+           $("#b2").click();
+       });
+       $(".c3").mouseover(function(){
+
+           $("#b3").click();
+       });
+       $(".c4").mouseover(function(){
+
+           $("#b4").click();
+       });
+       $(".c5").mouseover(function(){
+
+           $("#b5").click();
+       });
+   })
+</script>
+ <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+
+
+
+<div class="container b " style="position:relative; bottom: 85px"><div class="row">
+    <div class="col-lg-3 text-center" style="padding-top: 150px">
+
+
+    <div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true" >
+
+
+
+  <div class="scrollit" >
+{% for i in list_plate %}
+   <div class="card-horizontal bg-dark  " style="padding-left: 5px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/bikeicon.png'%}" height="55px" width="55px" style="padding-top: 18px; padding-left: 8px;"> <div class="z text-light ">
+       <div class="d" style="font-size: 12px ; padding-top: 3px;">{{ i.2 }} km
+       <img src="{% static 'images/charging.png'%}" height="21px" width="30px">
+       <img src="{% static 'images/battery.png'%}" height="21px" width="20px">
+       <img src="{% static 'images/noconnection.png'%}" height="21px" width="20px">
+       <img src="{% static 'images/pro.png'%}" height="25px" width="30px"></div>
+       <form class="small" method='POST'>{% csrf_token %}
+           <button value='{{ i.0 }}' class = 'bg-dark' name="listbutton1" style="font-size:13px;height: 20px;padding-right: 9px; border: none;" type='submit' id="x">{% csrf_token %}<p style="color:white;">{{ i.0 }}</p></button><p style="padding-bottom: 10px;">{{ i.1 }}</p></form><br><hn style="font-size: 10px;padding-top: 0px;">
+       </hn><p></p></div></div>
+{% endfor %}
+
+
+</div><!-- container --></div></div>
+    <div class="col-lg-6" >
+        <div id="googleMap" style="margin-top: 150px;">
+            <div id="map" style="height: 500px;width: 800px;"></div>
+    <script>
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 28.7041, lng: 77.1025},
+          zoom: 10
+        });
+
+
+
+          var myLatlng = new google.maps.LatLng(29.7041,80.1025);
+            var mapOptions = {
+            zoom: 4,
+            center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            var p = {{ plateloco|safe }};
+            var marker = new google.maps.Marker({
+                position: p[0],
+                icon: '{% static 'images/ice.png'%}',
+                title:"Hello World!"
+            });
+marker.setMap(map);
+
+
+
+        var drawingManager = new google.maps.drawing.DrawingManager({
+          drawingMode: google.maps.drawing.OverlayType.MARKER,
+          drawingControl: true,
+          drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+          },
+          markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+          circleOptions: {
+            fillColor: '#ffff00',
+            fillOpacity: 0.2,
+            strokeWeight: 2,
+              strokeColor:'',
+            clickable: false,
+            editable: true,
+            zIndex: 1
+          }
+        });
+        drawingManager.setMap(map);
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries=drawing&callback=initMap"
+         async defer></script>
+        </div>
+
+    </div>
+ <div class="col-lg-3"></div>
+</div></div>
+
+{#------------------------------------drop boxes-------------------------------------------------------------------#}
+
+{#</div></div>#}
+{##}
+{#{% spaceless %}#}
+{#    <div class="container c" style="position:relative; bottom: 130px">#}
+{#    <div class="row text-light ">#}
+{#        <div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">#}
+{#            <div class="card-header"><h5 style="padding-right: 10px">List</h5>#}
+{##}
+{#      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>#}
+{##}
+{#            </div><div class="card-body"><div id="demo" style="padding-right: 20px;">#}
+{#            <div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/icon.png'%} "> MVLHAR200JGS00985</p></div>#}
+{#<div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/south.png'%}"> Address: Maharastra</p></div>#}
+{#<div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/speed.png'%}"> Speed: 28km</p></div>#}
+{#<div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/time.png'%}"> Time: 2019-07-22 11:00:59</p></div>#}
+{#</div>#}
+{#        </div>#}
+{#        </div>#}
+{#        <div class="col-sm-1"></div>#}
+{#         <div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">#}
+{#             <div class="card-header"><h5>Status</h5>#}
+{#      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>#}
+{##}
+{#             </div><div class="card-body" style="height: 50px"><div id="demo1"></div></div>#}
+{#         </div>#}
+{#         <div class="col-sm-1"></div>#}
+{#         <div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">#}
+{#             <div class="card-header"><h5>Alerts</h5>#}
+{#      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>#}
+{#    </div><div class="card-body"><div id="demo2"><div><p>No Data</p></div>#}
+{#<div><p></p></div>#}
+{#<div><p></p></div>#}
+{#<div><p></p></div>#}
+{#</div></div>#}
+{#         </div></div>#}
+{#    </div>#}
+
+{% endblock content1%}
+
