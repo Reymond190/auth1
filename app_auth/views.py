@@ -7,11 +7,15 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib import messages
 from datetime import datetime
+from django.shortcuts import get_list_or_404, get_object_or_404
 from .models import AddDevice,Profile
 from django.views.generic import ListView, DetailView
 from requests.auth import HTTPBasicAuth
 from ipywidgets.embed import embed_minimal_html, embed_snippet
+from vehicles.models import vehicle
 import json
+
+
 from background_task import background
 import requests
 import gmaps
@@ -94,9 +98,24 @@ def myfun1(po):             #argument:dataframe(df)
     return data1,var1
 
 
+def myfunpro(po):             #argument:dataframe(df)
+    lat_list = list(po["latitude"])
+    long_list = list(po["longitude"])
+    gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
+    fig = gmaps.figure()
+    var1 = json.dumps(
+        [{'lat': country, 'lng': wins} for country, wins in zip(lat_list, long_list)]
+    )
+    return var1
+
+
 def listfun(plate, df):
     df5 = df.loc[df["plateNumber"] == plate]
     return myfun1(df5)
+
+def listfun2(plate, df):
+    df5 = df.loc[df["plateNumber"] == plate]
+    return df5
 
 # def get_single_loco(plate,df):
 #     df5 = df.loc[df["plateNumber"] == plate]
@@ -117,6 +136,29 @@ def change_frames(r):  # enter required dataframes in this function
     result = zip(listpl, listdt, listsp)
     return p1, result
 
+def get_details(r):
+    plateno = r["plateNumber"]
+    # time = r["serverTimeStamp"]
+    speed = r["speed"]
+    latitude = r["latitude"]
+    longitude = r["longitude"]
+    lat = str(latitude)
+    log = str(longitude)
+    from geopy.geocoders import Nominatim
+    geolocator = Nominatim(user_agent="geoapp")
+    location = geolocator.reverse("52.509669, 13.376294")
+
+    engine = r["engine"]
+    status = r["status"]
+
+    odometer = r["odometer"]
+    assetcode = r["AssetCode"]
+    direction = r["direction"]
+    result = zip(plateno, speed,engine,status,latitude,longitude,odometer,assetcode,direction,location)
+    return result
+
+
+
 
 # ------------------------------------------------------------main-----------------------------------------------------------------------------------
 
@@ -125,6 +167,20 @@ def change_frames(r):  # enter required dataframes in this function
 def start(request):
     return render(request, 'file1.html')
 
+def detail(request):
+    queryset = vehicle.objects.all()
+    temp = get_temp()
+    y1 = json.loads(temp)
+    df1 = get_dataframe(y1)
+    df2 = filter_running(df1)
+    df3 = filter_idle(df1)
+    df4 = filter_stop(df1)
+    total = len(df1)
+    running = len(df2)
+    idle = len(df3)
+    stop = len(df4)
+    context = {"object_list":queryset,'total':total,'running':running,'idle':idle, 'stop':stop,}
+    return render(request, 'main/details.html',context)
 def tickets(request):
     return render(request,'main/tickets.html')
 
@@ -140,11 +196,27 @@ def tour(request):
 class devicelistview(ListView):
     queryset = AddDevice.objects.all()
     template_name = 'main/class.html'
-    context_object_name = 'pp'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super(devicelistview,self).get_context_data()
-        return context
+
+    def get_queryset(self,*args,**kwargs):
+        request = self.request
+        pk = self.kwargs.get('pk')
+        return AddDevice.objects.filter(pk=pk)
+
+
+
+def device_listview(request,pk,*args,**kwargs):
+    queryset = AddDevice.objects.get(pk=pk)
+    instance = AddDevice.objects.get_by_id(pk)
+    print(instance)
+    # instance = get_object_or_404(AddDevice,id=pk)
+    print(pk)
+    print(id)
+    context = {
+        'object_list':queryset
+    }
+    return render(request,"main/class.html",context)
+
 
 
 def geofence(request):
@@ -205,7 +277,9 @@ def profile(request):
         form2 = AddDeviceform(request.POST)
         if form2.is_valid():
             print("getting inside if")
-            form2.save()
+            fs = form2.save(commit=False)
+            fs.user = request.user
+            fs.save()
             print("save")
         messages.success(request, 'Device Added')
     return render(request,'main/profile.html',context)
@@ -236,60 +310,27 @@ def map (request):
 
 
     if request.method == 'GET' and 'totalbutton' in request.GET:
-        # temp = get_temp()
-        # y1 = json.loads(temp)
-        # df1 = get_dataframe(y1)
-        # p1 = myfun1(df1)
-        # listpl = df1["plateNumber"]
-        # listsp = df1["speed"]
-        # listdt = df1["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
-        # result = zip(listpl, listdt, listsp)
-        # temp = get_temp()
-        # y1 = json.loads(temp)
-        # df1 = get_dataframe(y1)
         p1, result = change_frames(df1)
+        p1, v1 = myfun1(df1)
     elif request.method == 'GET' and 'runningbutton' in request.GET:
-        # p1 = myfun1(df2)
-        # listpl = df2["plateNumber"]
-        # listsp = df2["speed"]
-        # listdt = df2["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
-        # result = zip(listpl, listdt, listsp)
-        # temp = get_temp()
-        # y1 = json.loads(temp)
-        # df1 = get_dataframe(y1)
-        # df2 = filter_running(df1)
         p1, result = change_frames(df2)
+        p1, v1 = myfun1(df2)
     elif request.method == 'GET' and 'idlebutton' in request.GET:
         p1, result = change_frames(df3)
+        p1, v1 = myfun1(df3)
     elif request.method == 'GET' and 'stopbutton' in request.GET:
-        # p1 = myfun1(df4)
-        # listpl = df4["plateNumber"]
-        # listsp = df4["speed"]
-        # listdt = df4["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
-        # result = zip(listpl, listdt, listsp)
-        # temp = get_temp()
-        # y1 = json.loads(temp)
-        # df1 = get_dataframe(y1)
-        # df4 = filter_stop(df1)
         p1, result = change_frames(df4)
+        p1, v1 = myfun1(df4)
 
     else:
-        # p1 = myfun1(df1)
-        # listpl = df1["plateNumber"]
-        # listsp = df1["speed"]
-        # listdt = df1["eventTimeStamp"].dt.strftime("%Y-%m-%d %I:%M:%S %p")
-        # result = zip(listpl, listdt, listsp)
-        # temp = get_temp()
-        # y1 = json.loads(temp)
-        # df1 = get_dataframe(y1)
         p1, result = change_frames(df1)
+        p1, v1 = myfun1(df1)
 
     if request.method == 'POST' and 'listbutton' in request.POST:
-        # temp = get_temp()
-        # y1 = json.loads(temp)
-        # df1 = get_dataframe(y1)
         plate = request.POST['listbutton']
-        p1 = listfun(plate, df1)
+        p1, v1 = listfun(plate, df1)
+        one = listfun2(plate, df1)
+        two = get_details(one)
         print(plate)
     else:
         print('escaped if case sorry!!!!')
@@ -299,18 +340,40 @@ def map (request):
     running = len(df2)
     idle = len(df3)
     stop = len(df4)
-    context = {'vehicle_list': p1,'total':total,'running':running,'idle':idle, 'stop':stop, 'list_plate':result}
+    context = {'myfile':v1,'total':total,'running':running,'idle':idle, 'stop':stop, 'list_plate':result}
     return render(request, 'main/track.html', context)
 
-
+def funclu(po):             #argument:dataframe(df)
+    lat_list = list(po["latitude"])
+    long_list = list(po["longitude"])
+    v_plate = list(po["plateNumber"])
+    v_status = list(po["status"])
+    gmaps.configure(api_key="AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
+    fig = gmaps.figure()
+    var1 = json.dumps(
+        [{'lat': country, 'lng': wins,'plate':num,'status':v_sta} for country, wins, num, v_sta in zip(lat_list, long_list,v_plate,v_status)]
+    )
+    markers = gmaps.marker_layer(list(zip(lat_list, long_list)))
+    fig.add_layer(markers)
+    data1 = embed_snippet(views=[fig])
+    return data1,var1
 
 def cluster(request):
     temp = get_temp()
     y1 = json.loads(temp)
     df1 = get_dataframe(y1)
-    p1,v1 = myfun1(df1)
+    df2 = filter_running(df1)
+    df3 = filter_idle(df1)
+    df4 = filter_stop(df1)
+    total = len(df1)
+    running = len(df2)
+    idle = len(df3)
+    stop = len(df4)
+    p1, result = funclu(df1)
+    queryset = vehicle.objects.all()
+
     context = {
-        'myfile':v1,
+        "myfile":result,'total':total,'running':running,'idle':idle, 'stop':stop,"object_list":queryset
     }
 
     return render(request, 'main/cluster.html',context)
@@ -416,4 +479,7 @@ class track(APIView):
         }
         return Response(data)
 
+def table_map(request):
+
+    return render("main/table_map.html")
 

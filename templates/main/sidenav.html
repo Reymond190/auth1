@@ -25,24 +25,51 @@
  li{
 text-decoration:none;
 }
-.navbar{
-margin-bottom:0px;
-position:fixed;
 
-}
-.dropdown{
-z-index:999;
-
-
-}
 h3{
 margin-top:0px;
 }
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.openbtn {
+  font-size: 10px;
+  cursor: pointer;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+
+
+#main {
+  transition: margin-left .5s;
+
+}
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  margin-top: 60px;
+  padding: 5px;
+  width: 180px;
+ text-decoration: none;}
+
 </style>
 </head>
 <body>
  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand" href="#"><h3>Fleet Management</h3></a>
+    <button class="openbtn" onclick="openNav()">☰ </button><a class="navbar-brand" href="http://127.0.0.1:8000/"></a>
   <ul id="menu-main-nav" class="navbar-nav nav-fill w-100">
     <li id="menu-item-42" class="nav-item menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-42">
             <input class="form-control" id="myInput" type="text" placeholder="Search.." style="border-radius:21px;height:30px;width:75%;">
@@ -62,9 +89,10 @@ margin-top:0px;
   </ul>
     </nav>
 
-<div class="sidebar bg-dark" >
+<div class="sidebar bg-dark" id="sidebar">
+    <li> <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a></li>
 <li ><a href="{%url 'profile'%}" style="text-decoration:none;padding-top:20px;" ><img src="{% static 'images/profile.png'%}"height="21px" width="23px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
-</li><br>
+</li>
 <li class="dropdown dropright "> <a href="#" class="dropdown-toggle " data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/track.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Track</a>
 <ul class="dropdown-menu dropdown-menu-right" x-placement="right-start" style="position: absolute; ">
 <li><a href="{%url 'cluster'%}">Advance Tracking &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-rounded/20/000000/order-on-the-way.png"></a></li>
@@ -74,7 +102,7 @@ margin-top:0px;
 <li><a href="{%url 'map'%}">Tripper Dashboard &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material/20/000000/severity.png"></a></li>
 </ul>
 </li>
-</br>
+
 <li class="dropdown dropright"><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/reports.png'%}" height="21px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a>
 <ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
 <li><a href="{%url 'reports'%}">Travel Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-sharp/20/000000/total-sales-1.png"></a></li>
@@ -94,7 +122,6 @@ margin-top:0px;
 <li><a href="{%url 'reports'%}">System Log &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/log-cabin.png"></a></li>
 </ul>
 </li>
-</br>
 <li class="dropdown dropright">  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/graphs.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Graphs</a>
 <ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
 <li><a href="{%url 'chart'%}">Distance &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<img src="https://img.icons8.com/ios/20/000000/rearrange.png"></a></li>
@@ -105,21 +132,21 @@ margin-top:0px;
 <li><a href="{%url 'chart'%}">Schedule Graphs &nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/graph.png"></a></li>
 </ul>
 </li>
-</br>
+
 <li class="dropdown dropright"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/tour3.png'%}" height="23px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tour</a>
 <ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
 <li><a href="{%url 'tour'%}">Tour Planning &nbsp;<img src="https://img.icons8.com/material/20/000000/wine-tour.png"></a></li>
 <li><a href="{%url 'tour'%}">Tour Allocation <img src="https://img.icons8.com/cotton/20/000000/travel-signpost--v1.png"></a></li>
 </ul>
 </li>
-</br>
+
 <li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/alerts.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alerts</a>
 <ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
 <li><a href="{%url 'alerts'%}">Vehicle Alert &nbsp;<img src="https://img.icons8.com/ios-filled/20/000000/vehicle-security.png"></a></li>
 <li><a href="{%url 'alerts'%}">Add Alert &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/alarm-add.png"></a></li>
 </ul>
 </li>
-</br>
+
 <li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/geofence.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Geofence</a>
 <ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
 <li><a href="{%url 'geofence'%}">Add Geofence &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/wired/20/000000/unchecked-circle.png"></a></li>
@@ -127,34 +154,43 @@ margin-top:0px;
 <li><a href="{%url 'geofence'%}">Geofence Summary-B <img src="https://img.icons8.com/ios/20/000000/heat-map.png"></a></li>
 </ul>
 </li>
-</br>
+
 <li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/payment.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment</a>
 <ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
 <li><a href="#">Cost Configuration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/phonelink-setup.png"></a></li>
 <li><a href="#">Payment Gateway Configuration <img src="https://img.icons8.com/material-sharp/20/000000/online-payment-.png"></a></li>
 </ul>
 </li>
-</br>
+
 <li ><a  href="{%url 'tickets'%}" style="text-decoration:none;"><img src="{% static 'images/tickets.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tickets</a>
 </li>
-</br>
+
 <li ><a  href="{%url 'settings'%}" style="text-decoration:none;"><img src="{% static 'images/settings.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Settings</a>
 </li>
-</br>
+
 <li ><a  href="{%url 'settings'%}" style="text-decoration:none;"><img src="{% static 'images/helpcenter.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Help Center</a>
 </li>
 </div>
 
 
 
-<div class="content">
+<div class="content" id="main">
+
   {% block content1 %}
 
     {% endblock content1 %}
 
 
 </div>
+<script>function openNav() {
+  document.getElementById("sidebar").style.width = "200px";
+  document.getElementById("main").style.marginLeft = "200px";
+}
 
+function closeNav() {
+  document.getElementById("sidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}</script>
 </body>
 </html>
 {% endspaceless %}

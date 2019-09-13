@@ -1,24 +1,11 @@
 
-
-.sidebar {
-  margin-top: 60px;
-  padding: 0px;
-  width: 180px;
-
-  position: fixed;
-  height: 100%;
-z-index:999;
-    text-decoration: none;
-
-}
-
 .dropdown:hover .dropdown-menu{
 display:block;
 }
 .sidebar a {
   display: block;
   color: white;
-  padding: 0px;
+  padding: 10px;
   font-size: 13px;
   text-decoration: none;
 
@@ -38,9 +25,9 @@ display:block;
 }
 
 div.content {
-  margin-left: 200px;
+  margin-left: 120px;
   padding: 1px 16px;
-  height: 1000px;
+  height: auto;
 }
 
 @media screen and (max-width: 700px) {

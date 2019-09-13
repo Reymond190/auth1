@@ -1,0 +1,48 @@
+{% extends 'main/sidenav.html' %}
+{% load static from staticfiles %}
+
+{% block content1 %}
+
+<body>
+
+ <div style="margin-top: 90px;" class="container">
+     {% for i in object_list %}
+  <div style="margin-top: 10px;" class="card bg-dark text-white">
+    <div class="card-body">
+
+    <ul class="nav nav-pills card-header-pills">
+    &nbsp;&nbsp;<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/blackcar.png' %}" style="width:30px;height:40px;"></a>
+</li>&nbsp;&nbsp;
+<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:160px;">Vehicle number<br><b>{{ i.plateNumber }}</b></a>
+</li>&nbsp;&nbsp;
+<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:230px;">Lat & Long<br><b>{{ i.latitude }}, {{ i.longitude }}</b></a>
+</li>&nbsp;&nbsp;
+<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:70px;">Engine<br><b>{{ i.engine }}</b></a>
+</li>&nbsp;&nbsp;
+<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:100px;">Date<br><b>9/10/2019</b></a>
+</li>&nbsp;&nbsp;
+<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:90px;">Name<br><b>{{ i.name }}</b></a>
+</li>&nbsp;&nbsp;
+<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:90px;">Speed<br><b>{{ i.speed }}</b></a>
+</li>&nbsp;&nbsp;
+<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:90px;">Status<br><b>{{ i.status }}</b></a>
+</li>&nbsp;&nbsp;
+<li class="nav-item">
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:70px;"><img src="{% static 'images/map1.png' %}" style="width:40px;height:40px;background-color:gray;"></a>
+</li>&nbsp;&nbsp;
+</ul>
+ </div>
+</div>
+      {% endfor %}
+ </div>
+
+
+{% endblock %}

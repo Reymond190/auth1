@@ -2,204 +2,233 @@
 {% load static from staticfiles %}
 
 {% block content1 %}
-    <style xmlns:border-radius="http://www.w3.org/1999/xhtml" xmlns:border-radius="http://www.w3.org/1999/xhtml"
-           xmlns:border-radius="http://www.w3.org/1999/xhtml">
+<style xmlns:border-radius="http://www.w3.org/1999/xhtml" xmlns:border-radius="http://www.w3.org/1999/xhtml"
+xmlns:border-radius="http://www.w3.org/1999/xhtml">
 
-    .a{
+.a{
 padding-top: 100px;
 }
-   .b{
-padding-top: 50px;
+.b{
+margin-top: 110px;
 }
 .a .card{
-    font-size: 14px;
-    padding-left: 0px;
-    width: 180px;
-    background-color: #343A40;
+font-size: 12px;
+padding-left: 0px;
+width: 190px;
+height:78px;
+    border-radius: 8px;
 
 }
+
 .a .card:hover{
 
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
+.p {
 
+-webkit-appearance: button;
+-webkit-writing-mode: horizontal-tb !important;
+ display: inline-block;
+ width:190px;
+ height:78px;
+ margin: 0em;
+ padding: 0px;
+ border: none;
+      border-radius: 10px;
+}
 .a .card-body{
-    padding-left: 5px;
-width: 300px;
-height: 80px;
+
+width: 180px;
+height:78px;
 color:white;
+padding:1em;
 }
 .z{
-    width: 300px;
+width: 300px;
 height: 80px;
-    padding-right: 20px;
-    padding-left: 30px;
+padding-right: 20px;
+padding-left: 30px;
 }
 .navbar-header .navbar-toggle{
 color:white;
 }
 
-.a .card-body button{
-    border: none;
-    font-min-size: 16px;
-}
+
 
 .scrollit {
-    overflow: auto;
-    height:350px;
-font-min-size: 12px;
+height:350px;
+width: 300px;
+    overflow: scroll;
 }
 .card-horizontal{
-    display: flex;
+display: flex;
 
 
 }
 
 .d{
 
-    height:auto;
-    border-radius: 8px;
+height:auto;
+border-radius: 8px;
 }
 .d img{
-    padding-left: 8px;
+padding-left: 8px;
 
 }
-    #x{
-        text-decoration: none;
-    }
+#x{
+text-decoration: none;
+}
 </style>
-<script>
-{#setTimeout(function () {#}
-{#    location.reload();#}
-{##}
-{#},10000);#}
-   $(document).ready(function(){
-       $(".c1").mouseover(function(){
 
-           $("#b1").click();
-       });
-       $(".c2").mouseover(function(){
-           $("#b2").click();
-       });
-       $(".c3").mouseover(function(){
-
-           $("#b3").click();
-       });
-       $(".c4").mouseover(function(){
-
-           $("#b4").click();
-       });
-       $(".c5").mouseover(function(){
-
-           $("#b5").click();
-       });
-   })
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
 </script>
- <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
-
-
-<div class="container a" style="position:relative; bottom: 35px">
-    <br>
-    <div class="row"><div class="col-lg-1"></div>
-        <div class="col-lg-2"><div class="card c1">
-            <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/totalikon.png'%}" height="45px" width="55px" style="padding-left:10px;">
-<button class = 'text-light bg-dark' name="totalbutton" id="b1" type='submit'>Total-{{ total }}</button>
-</form></div></div></div>
-
-            <div class="col-lg-2"><div class="card c2">
-                <div class="card-body"><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/bikecycle.png'%}" height="40px" width="55px" style="padding-left:10px;">
-<button class = 'text-light bg-dark' name="runningbutton" type='submit' id="b2">Running-{{ running }}</button>
-</form></div></div></div>
 
 
 
-                <div class="col-lg-2"><div class="card ">
-                    <div class="card-body c3"><form method='GET'><img class="card-img-right" src="{% static 'images/bikeidle.png'%}" height="45px" width="55px" style="padding-left:10px;">
-<button class = 'text-light bg-dark' name="idlebutton" type='submit' id="b3">Idle-{{ idle }}</button>
-</form></div></div></div>
+<div class="container a" style="position:relative;padding-left:60px;">
+<br>
+<div class="row">
+<div class="col-lg-2 card  "><form class = '' method='GET'><button style="background-color: #B2B4B1" class = 'p' name="totalbutton"  type='submit'>
+<div class="card-body "><img class="card-img-left" src="{% static 'images/miniwhite.png'%}" height="40px" width="90px" >
+ &nbsp; &nbsp;<span style="font-size: 25px">{{ total }} </span><b style="padding-left:50px;">Total</b></div></button>
+</form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card ">
+<form class = '' method='GET'><button class = 'p' name="runningbutton" type='submit' style="background-color: #5BA21E"><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
+   &nbsp;&nbsp; &nbsp;&nbsp;<span style="font-size: 25px">{{ running }} </span><b style="padding-left:50px;">Running</b></div></button>
+</form></div>
 
-                    <div class="col-lg-2"><div class="card c4">
-                        <div class="card-body "><form class = '' method='GET'><img class="card-img-right" src="{% static 'images/stopikon.png'%}" height="40px" width="50px" style="padding-left:10px;">
-<button class = 'text-light bg-dark' name="stopbutton" type='submit' id="b4">Stop-{{ stop }}</button>
-</form></div></div></div>
+&nbsp;&nbsp;
 
-                        <div class="col-lg-2"><div class="card c5">
-                            <div class="card-body"><img class="card-img-right" src="{% static 'images/nodataikon.png'%}" height="36px" width="55px" style="padding-left:10px; padding-right:10px;   ">No Data</div></div></div>
+<div class="col-lg-2 card " >
+<form method='GET'><button class = 'p' name="idlebutton" type='submit' style="background-color: #E2E231"><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="38px" width="77px">
+ &nbsp;&nbsp;&nbsp;  <span style="font-size: 25px">{{ idle }}</span><b style="padding-left:30px;">Idle</b></div></button>
+</form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card"><form class = '' method='GET'><button class="p" name="stopbutton" type='submit' style="background-color: #F15E81" >
+<div class="card-body "><img class="card-img-left" src="{% static 'images/minired.png'%}" height="40px" width="90px" >
+&nbsp;&nbsp;<span style="font-size: 25px">{{ stop }}</span><b style="padding-left:50px;">Stop</b></div>
+</button></form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card "><button class="p" style="background-color: #A8A7DB">
+<div class="card-body"><img class="card-img-left" src="{% static 'images/miniblue.png'%}" height="49px" width="100px" style="padding-right:10px; ">No Data</div></button></div>
 
-        <div class="col-lg-1"></div>
-    </div></div>
 
-<div class="container b " style="position:relative; bottom: 85px"><div class="row">
-    <div class="col-lg-3 text-center" style="padding-top: 50px">
+</div></div>
+
+<div class="container b " style="position:relative;height: 700px;bottom: 85px;"><div class="row">
+<div class="col-lg-3 text-center" >
 
 
-    <div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true" >
+<div class="panel-group " id="accordion" role="tablist" aria-multiselectable="true" >
 
 <div class=" bg-white">
 <h3 style="text-align:center;color: lightblue;"></h3>
-  <div class="scrollit">
+<div class="scrollit">
 {% for i in list_plate %}
-   <div class="card-horizontal bg-dark  " style="padding-left: 5px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/bikeicon.png'%}" height="55px" width="55px" style="padding-top: 18px; padding-left: 8px;"> <div class="z text-light ">
-       <div class="d" style="font-size: 12px ; padding-top: 3px;">{{ i.2 }} km
-       <img src="{% static 'images/charging.png'%}" height="21px" width="30px">
-       <img src="{% static 'images/battery.png'%}" height="21px" width="20px">
-       <img src="{% static 'images/noconnection.png'%}" height="21px" width="20px">
-       <img src="{% static 'images/pro.png'%}" height="25px" width="30px"></div>
-       <form class="small" method='POST'>{% csrf_token %}
-           <button value='{{ i.0 }}' class = 'bg-dark' name="listbutton" style="font-size:13px;height: 20px;padding-right: 9px; border: none;" type='submit' id="x">{% csrf_token %}<p style="color:white;">{{ i.0 }}</p></button><p style="padding-bottom: 10px;">{{ i.1 }}</p></form><br><hn style="font-size: 10px;padding-top: 0px;">
-       </hn><p></p></div></div>
+<div class="card-horizontal bg-dark " style="padding-left: 5px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/miniblue.png'%}" height="55px" width="100px" style="padding-top: 18px; padding-left: 8px;"> <div class="z text-light ">
+<div class="d" style="font-size: 12px ; padding-top: 3px;">{{ i.2 }} km
+<img src="{% static 'images/charging.png'%}" height="21px" width="30px">
+<img src="{% static 'images/battery.png'%}" height="21px" width="20px">
+<img src="{% static 'images/noconnection.png'%}" height="21px" width="20px">
+<img src="{% static 'images/pro.png'%}" height="25px" width="30px"></div>
+<form class="small" method='POST'>{% csrf_token %}
+<button value='{{ i.0 }}' class = 'bg-dark' name="listbutton" style="font-size:13px;height: 20px;padding-right: 9px; border: none;" type='submit' id="x">{% csrf_token %}<p style="color:white;">{{ i.0 }}</p></button><p style="padding-bottom: 10px;">{{ i.1 }}</p></form><br><hn style="font-size: 10px;padding-top: 0px;">
+</hn><p></p></div></div>
 {% endfor %}
-        </div></div>
+</div></div>
 
 </div><!-- container --></div>
-    <div class="col-lg-6">
-        <div id="googleMap" style="width:700px;height:550px;">
-            {{ vehicle_list|safe }}
-        </div>
+<div class="col-lg-6" >
+<div id="map" style="width:700px;height:360px; margin-left: 35px">
+<script>
 
-    </div>
+function initMap() {
+
+var map = new google.maps.Map(document.getElementById('map'), {
+zoom: 3,
+center: {lat: 28.7041, lng: 77.1025}
+});
+var infoWindow = new google.maps.InfoWindow();
+var j,labels='';
+var x="vehicle Id:MVLHAR200JGS00985,Address: Maharastra,latitude:25.571699  142456055,longitude:83.53079986572266";
+for(j in locations){
+var data = locations[j];
+var marker =  new google.maps.Marker({
+position: locations[j],
+icon: '{% static 'images/bluecar.png'%}',
+map:map
+  });
+
+
+(function (marker, data) {
+                google.maps.event.addListener(marker, "click",  function (e) {
+
+                    infoWindow.setContent("<div style = 'width:200px;min-height:90px'>" + x + "</div>");
+                    infoWindow.open(map, marker);
+                });
+            })(marker, data);
+
+
+
+}
+
+
+
+
+}
+var locations = {{ myfile|safe }};
+
+
+</script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+</script>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&callback=initMap">
+</script>
+</div>
+
+</div>
 
 {#------------------------------------drop boxes-------------------------------------------------------------------#}
 
 </div></div>
 
 {% spaceless %}
-    <div class="container c" style="position:relative; bottom: 130px">
-    <div class="row text-light ">
-        <div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">
-            <div class="card-header"><h5 style="padding-right: 10px">List</h5>
+<div class="container c" style="position:relative; bottom: 50px">
+<div class="row text-light ">
+<div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">
+<div class="card-header"><h5 style="padding-right: 10px">List</h5>
 
-      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
+<span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
 
-            </div><div class="card-body"><div id="demo" style="padding-right: 20px;">
-            <div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/icon.png'%} "> MVLHAR200JGS00985</p></div>
+</div><div class="card-body"><div id="demo" style="padding-right: 20px;">
+<div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/icon.png'%} "> {{ details.0 }}</p></div>
 <div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/south.png'%}"> Address: Maharastra</p></div>
 <div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/speed.png'%}"> Speed: 28km</p></div>
 <div><p style="font-size: 12px"><img style="width:30px;height: 30px" src="{% static 'images/time.png'%}"> Time: 2019-07-22 11:00:59</p></div>
 </div>
-        </div>
-        </div>
-        <div class="col-sm-1"></div>
-         <div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">
-             <div class="card-header"><h5>Status</h5>
-      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
+</div>
+</div>
+<div class="col-sm-1"></div>
+<div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">
+<div class="card-header"><h5>Status</h5>
+<span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
 
-             </div><div class="card-body" style="height: 50px"><div id="demo1"></div></div>
-         </div>
-         <div class="col-sm-1"></div>
-         <div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">
-             <div class="card-header"><h5>Alerts</h5>
-      <span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
-    </div><div class="card-body"><div id="demo2"><div><p>No Data</p></div>
+</div><div class="card-body" style="height: 50px"><div id="demo1"></div></div>
+</div>
+<div class="col-sm-1"></div>
+<div class="col-sm-3 card bg-dark" style="border-radius: 25px; box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);">
+<div class="card-header"><h5>Alerts</h5>
+<span class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
+</div><div class="card-body"><div id="demo2"><div><p>No Data</p></div>
 <div><p></p></div>
 <div><p></p></div>
 <div><p></p></div>
 </div></div>
-         </div></div>
-    </div>
+</div></div>
+</div>
 
 {% endspaceless %}
 {% endblock content1 %}
-

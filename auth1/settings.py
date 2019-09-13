@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'background_task',
     'app_auth',
+    'search_function',
+    'vehicles',
 
 
 ]

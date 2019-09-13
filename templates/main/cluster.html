@@ -1,57 +1,868 @@
 {% extends 'main/sidenav.html' %}
+{% load static %}
 {% block content1 %}
     <title>Marker Clustering</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
+
+    .c{
+        float: left;
+        width: 50%;
+        overflow: hidden;
+        position:relative;
+    }
+      .scrollit {
+    height:400px;
+    width: 500px;
+    overflow:auto;
+
+}
+    .one{
+        float: left;
+        width: 50%;
+        overflow: hidden;
+    }
+    .color{
+background-color: rgb(218, 218, 218);
+}
+th,table {
+font-family: "Times New Roman", Times, serif;
+}
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+
+
+
+
+
+
+
+
+
+button{
+background-color:transparent;
+text-decoration:none;
+color:black;
+padding:20px;
+border:0;
+border-radius:1px;
+}
+* {
+box-sizing: border-box;
+}
+
+#myInput {
+background-position: 10px 10px;
+background-repeat: no-repeat;
+width: 32%;
+font-size: 16px;
+padding: 12px 20px 12px 40px;
+border: 1px solid #ddd;
+margin-bottom: 12px;
+}
+
+#myTable {
+border-collapse: collapse;
+width: auto;
+border: 1px solid #ddd;
+font-size: 12px;
+}
+
+#myTable th, #myTable td {
+text-align: left;
+padding: 12px;
+}
+
+#myTable tr {
+border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover
+background-color: #f1f1f1;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  float: right;
+}
+.z{
+width: 300px;
+height: 80px;
+padding-right: 20px;
+padding-left: 30px;
+}
+.p {
+
+-webkit-appearance: button;
+-webkit-writing-mode: horizontal-tb !important;
+ display: inline-block;
+ width:190px;
+ height:78px;
+ margin: 0em;
+ padding: 0px;
+ border: none;
+      border-radius: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.a .card-body{
+
+width: 180px;
+height:78px;
+color:black;
+padding:1em;
+}
+.a .card{
+font-size: 12px;
+padding-left: 0px;
+width: 190px;
+height:78px;
+    border-radius: 8px;
+    border-color: transparent;
+
+}
+
+.a .card:hover{
+
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility:visible;
+  width: 120px;
+  background-color: black;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+    #mySidenav a {
+  position: fixed;
+  right:80px;
+  padding: 5px;
+  height: 40px;
+  text-decoration: none;
+  font-size: 10px;
+  z-index: 1;
+  overflow-x: hidden;
+  background-color: white;
+
+
+}
+#mySidenav{
+margin-top: 50px;
+}
+
+
+
+#filter {
+  top: 280px;
+
+}
+
+#add {
+  top: 310px;
+
+}
+
+#playback {
+  top: 340px;
+  }
+
+#toolti {
+  top: 370px;
+
+}
+#vehicle1 {
+  top: 400px;
+}
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
     </style>
 
 
-    <div id="map"></div>
+
     <script>
 
-      function initMap() {
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 3,
-          center: {lat: 28.7041, lng: 77.1025}
-        });
 
-        // Create an array of alphabetical characters used to label the markers.
-        var labels = 'H';
 
-        // Add some markers to the map.
-        // Note: The code uses the JavaScript Array.prototype.map() method to
-        // create an array of markers based on a given "locations" array.
-        // The map() method here has nothing to do with the Google Maps API.
-        var markers = locations.map(function(location, i) {
+function initMap() {
+var map = new google.maps.Map(document.getElementById('map'), {
+zoom: 3,
+center: {lat: 28.7041, lng: 77.1025},
+disableDefaultUI: true,
+
+   fullscreenControl: true,
+   fullscreenControlOptions: {
+              position: google.maps.ControlPosition.LEFT_BOTTOM
+          },
+
+ zoomControl: true,
+    mapTypeControl:true,
+ zoomControlOptions: {
+              position: google.maps.ControlPosition.RIGHT_BOTTOM,
+              style: google.maps.ZoomControlStyle.SMALL,
+          },
+
+
+});
+        var icons = {
+          Idle: {
+            name: 'Idle',
+            icon: '{% static 'images/yellowcar.png'%}'
+          },
+          Running: {
+            name: 'Running',
+            icon: '{% static 'images/greencar.png'%}'
+          },
+          Stop: {
+            name: 'Stop',
+            icon: '{% static 'images/redcar.png'%}'
+          },
+          NOData: {
+            name: 'Nodata',
+            icon: '{% static 'images/bluecar.png'%}'
+          }
+        };
+
+var infowindow = new google.maps.InfoWindow();
+var j,labels='';
+
+var marker =  locations.map(function(location, i) {
           return new google.maps.Marker({
-            position: location,
-            label: labels[i % labels.length]
-          });
-        });
-
-        // Add a marker clusterer to manage the markers.
-        var markerCluster = new MarkerClusterer(map, markers,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-      }
-      var locations = {{ myfile|safe }};
+position: location,
+icon: icons[location.status].icon,
+label: labels[i % labels.length],
+title: location.plate,
+map:map
+  });
+  });
 
 
+
+ var markerCluster = new MarkerClusterer(map, marker,
+      {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+
+
+}
+var locations = {{ myfile|safe }};
+
+</script>
+    <script>
+$(document).ready(function(){
+$("#b1").hide();
+$("#c1").hide();
+$("#v1").hide();
+$("#vt1").hide();
+$("#vg1").hide();
+$("#c").click(function(){
+$("#c1").show();
+$("#b1").hide();
+$("#v1").hide();
+$("#vt1").hide();
+$("#vg1").hide();
+$("#check1").click(function () {
+    $(".ch1").prop('checked', $(this).prop('checked'));
+});
+});
+$("#b").click(function(){
+$("#b1").show();
+$("#c1").hide();
+$("#v1").hide();
+$("#vt1").hide();
+$("#vg1").hide();
+$("#check2").click(function () {
+    $(".ch2").prop('checked', $(this).prop('checked'));
+});
+});
+$("#vt").click(function(){
+$("#vt1").show();
+$("#b1").hide();
+$("#c1").hide();
+$("#v1").hide();
+$("#vg1").hide();
+$("#check3").click(function () {
+    $(".ch3").prop('checked', $(this).prop('checked'));
+});
+});
+$("#v").click(function(){
+$("#v1").show();
+$("#b1").hide();
+$("#c1").hide();
+$("#vt1").hide();
+$("#vg1").hide();
+$("#check4").click(function () {
+    $(".ch4").prop('checked', $(this).prop('checked'));
+});
+});
+$("#vg").click(function(){
+$("#vg1").show();
+$("#v1").hide();
+$("#b1").hide();
+$("#c1").hide();
+$("#vt1").hide();
+});
+});
+function myFunction() {
+var input, filter, table, tr, td, i, txtValue;
+input = document.getElementById("myInput");
+filter = input.value.toUpperCase();
+table = document.getElementById("myTable");
+tr = table.getElementsByTagName("tr");
+for (i = 0; i < tr.length; i++) {
+td = tr[i].getElementsByTagName("td")[0];
+if (td) {
+txtValue = td.textContent || td.innerText;
+if (txtValue.toUpperCase().indexOf(filter) > -1) {
+tr[i].style.display = "";
+} else {
+tr[i].style.display = "none";
+}
+}
+}}
+function myFunction() {
+  window.print();
+  }
     </script>
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
+
+{#    <div class="container bg-dark" style="font-size:24px;float:right;margin-top:60px;color:white"></div>#}
+{#<a href="#"><span class="glyphicon glyphicon-print"></span>#}
+{#    </a>&nbsp;&nbsp;&nbsp;#}
+{#	<a href="#"><span class="glyphicon glyphicon-fullscreen"></span></a>&nbsp;&nbsp;&nbsp;#}
+{#	<a href="#"><span class="glyphicon glyphicon-refresh"></span></a>#}
+{#</div>#}
+
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&callback=initMap">
     </script>
 
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+         <div class="btn-group">
+<button type="button" class="btn btn-primary" id="c">Company</button>&nbsp;<button type="button" class="btn btn-primary" id="b">Branch</button><button type="button" class="btn btn-primary" id="vt">Vehicle Type</button><button type="button" class="btn btn-primary"id="vg">Vehicle Group</button><button type="button" class="btn btn-primary" id="v">Vehicle</button>
+</div><div>
+<div id="c1">
+<input type="checkbox" value="" id="check1">&nbsp;&nbsp;Andavar<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Aashotaush Kumar<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Amaitranjan Kumar<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Amod Kumar<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Arun Yadav<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Bhushan Mistri<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Suraj Kumar<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;SSK<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Tracalogic<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Upendra Kumar<br>
+</div>
+<div id="b1">
+<label>Andavar</label><br>
+<input type="checkbox" value="" id="check2">&nbsp;&nbsp;Chennai<br><br>
+<label>Aashotaush Kumar</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;Shaikhpura<br><br>
+<label>Amaitranjan Kumar</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;Bihar<br><br>
+<label>Amod Kumar</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;Delhi<br><br>
+<label>Arun Yadav</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;Chennai<br><br>
+<label>Bhushan Mistri</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;India<br><br>
+<label>Suraj Kumar</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;Patna<br><br>
+<label>SSK</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;Patna<br><br>
+<label>Tracalogic</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;Chennai<br><br>
+<label>Upendra Kumar</label><br>
+<input type="checkbox" value="" class="ch2">&nbsp;&nbsp;Delhi<br>
+</div>
+<div id="vt1">
+<input type="checkbox" value="" id="check3">&nbsp;&nbsp;Ambulance<br>
+<input type="checkbox" value="" class="ch3">&nbsp;&nbsp;Car<br>
+<input type="checkbox" value="" class="ch3">&nbsp;&nbsp;Bus<br>
+<input type="checkbox" value="" class="ch3">&nbsp;&nbsp;Bike<br>
+<input type="checkbox" value="" class="ch3">&nbsp;&nbsp;Truck<br>
+<input type="checkbox" value="" class="ch3">&nbsp;&nbsp;Tempo<br>
+</div>
+<div id="vg1">
+
+<input type="checkbox" value="" class="ch">&nbsp;&nbsp;<br>
+<input type="checkbox" value="" class="ch">&nbsp;&nbsp;<br>
+</div>
+<div id="v1">
+<input type="checkbox" value="all" id="check4">&nbsp;&nbsp;Select All<br>
+<input type="checkbox" value="" class="ch4">&nbsp;&nbsp;<br>
+<input type="checkbox" value="" class="ch4">&nbsp;&nbsp;<br>
+</div>
+</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="filter" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" data-placement="bottom" title="Filters"><img src="{% static 'images/filter123.png'%}" width="22px" height="20px"></a>
+  <a href="#" id="add" data-toggle="modal" data-target="#myModal2" data-toggle="tooltip" data-placement="bottom" title="Address"><img src="{% static 'images/address123.png'%}" width="22px" height="20px"></a>
+  <a href="#" id="playback" data-toggle="tooltip" data-placement="bottom" title="Playback"><img src="{% static 'images/playback123.png'%}" width="22px" height="20px"></a>
+  <a href="#" id="toolti" data-toggle="modal" data-target="#myModal1" data-toggle="tooltip" data-placement="bottom" title="Tooltip"><img src="{% static 'images/tooltip.png'%}" width="22px" height="20px"></a>
+  <a href="#" id="vehicle1" data-toggle="modal" data-target="#myModal3" data-toggle="tooltip" data-placement="bottom" title="Vehicle"><img src="{% static 'images/vehi.png'%}" width="22px" height="20px"></a>
+</div>
+
+
+<div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+
+
+      <div class="modal-content">
+
+        <div class="modal-header">
+            <h1>Tooltip</h1>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+<label for="vehicle1">Vehicle Information</label>
+<table><tr><td><input type="checkbox" value="" id="check7s">&nbsp;&nbsp;Company&nbsp;&nbsp;&nbsp;&nbsp;</td><td><input type="checkbox" value="" id="check11">&nbsp;&nbsp;Type</td></tr>
+<br>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Branch&nbsp;&nbsp;&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Driver</td></tr>
+<br>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Number&nbsp;&nbsp;&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;License Expiry</td></tr>
+</table>
+<hr>
+<label for="vehicle1">Live Information</label><br>
+<input type="checkbox" value="" id="check12">&nbsp;&nbsp;Location&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" value="" id="check9s">&nbsp;&nbsp;Time
+<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Geo Location
+<hr>
+<label for="vehicle1">Distance Information</label><br>
+<input type="checkbox" value="" id="check">&nbsp;&nbsp;Last Stop
+<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Total
+<hr>
+<label for="vehicle1">Duration Information</label><br>
+<input type="checkbox" value="" id="checks">&nbsp;&nbsp;Last Stop
+<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Total
+<hr>
+<label for="vehicle1">Parking Information</label><br>
+<input type="checkbox" value="" id="check1s">&nbsp;&nbsp;Last Stop
+<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Total
+<hr>
+<label for="vehicle1">Speed Information</label><br>
+<input type="checkbox" value="" id="check2s">&nbsp;&nbsp;Average&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" value="" id="check4s">&nbsp;&nbsp;&nbsp;Speedometer
+<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Max
+<hr>
+<label for="vehicle1">Alert Information</label><br>
+<input type="checkbox" value="" id="check3s">&nbsp;&nbsp;Last Stop
+<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Total
+<hr>
+<label for="vehicle1">Port Information</label>
+<table><tr><td><input type="checkbox" value="" id="check5s">&nbsp;&nbsp;Ignition&nbsp;&nbsp;</td><td><input type="checkbox" value="" id="check6s">&nbsp;&nbsp;PDOP</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Power&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Network Mode</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;AC&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Movement</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;GPS&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Engine 1</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;GSM&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Engine 2</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;External Power&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Internal Battery(Voltage)</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Battery(%)&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Internal Battery(%)</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Deep Sleep Mode&nbsp;&nbsp;</td><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Seat Belt</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Cell ID</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Area Code</td></tr>
+<tr><td><input type="checkbox" value="" class="ch1">&nbsp;&nbsp;HDOP</td></tr>
+</table>
+<hr>
+<label for="vehicle1">Other Controls</label><br>
+<input type="checkbox" value="" id="check13">&nbsp;&nbsp;Odometer
+<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Fuel Meter
+
+
+</div>
+        </div>
+
+      </div>
+
+    </div>
+<div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+<div class="modal-content">
+<div class="modal-header">
+     <h2>Address Type</h2>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+</div>
+<div class="modal-body">
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<table id="myTable">
+<tr><td>
+<label><input type="checkbox" value="">&nbsp;&nbsp;Airport</label></td>
+</tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;ATM</label></td>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Bank</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Beach</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Bridge</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Bulk Milk Coolers</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Bus Stop</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Chilling Center</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Dairies</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Depot</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;District</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Facility</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Factory</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Fuel Filling Station</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Gate</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;HCE</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;HighWay</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Home</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Hospital</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Hotel</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Jelly</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;KM Post</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Lake</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Lease</label></td>
+</tr>
+<tr>
+<td><label><input type="checkbox" value="">&nbsp;&nbsp;Lease</label></td>
+</tr>
+</table>
+		</div>
+		</div>
+		</div>
+		</div>
+<div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+              <h1>Vehicle</h1>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+        </div>
+        <div class="modal-body">
+<h4>Show Label</h4>
+<label class="switch"><input type="checkbox"></label><br>
+<h5>Shows Vehicle Number-Type</h5>
+<hr>
+<h4>Show Cluster</h4>
+<label class="switch"><input type="checkbox"></label><br>
+<h5>Shows Vehicles in Cluster</h5>
+</div>
+</div>
+</div>
+</div>
+    <div class="modal fade" id="myModal4" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+
+        <div class="modal-header">
+            <h1>Settings <a href="#"><i class="fa fa-save" style="font-size:20px;float:right" data-placement="bottom" title="Save"></i></a></h1>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+<label for="vehicle">Select Column for Textual Report</label><br>
+<input type="checkbox" value="" id="check11">&nbsp;&nbsp;SN<br>
+<input type="checkbox" value="" id="check11">&nbsp;&nbsp;Driver<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;IGN</br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;PWR<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;AC<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;GPS<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Duration<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Speed<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Location<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;POI<br>
+<input type="checkbox" value="" class="ch1">&nbsp;&nbsp;Info<br>
+</div>
+        </div>
+
+      </div>
+
+    </div>
+<div class="container a" style="position:relative;margin-left:65px;">
+<br>
+<div class="row">
+<div class="col-lg-2 card  "><form class = '' method='GET'><button style="background-color: transparent;" class = 'p' name="totalbutton"  type='submit'>
+<div class="card-body "><img class="card-img-left" src="{% static 'images/miniwhite.png'%}" height="45px" width="100px" >
+ &nbsp; &nbsp;<span style="font-size: 25px">{{ total }} </span><b style="padding-left:50px;">Total</b></div></button>
+</form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card ">
+<form class = '' method='GET'><button class = 'p' name="runningbutton" type='submit' style="background-color: transparent"><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
+   &nbsp;&nbsp; &nbsp;&nbsp;<span style="font-size: 25px">{{ running }} </span><b style="padding-left:50px;">Running</b></div></button>
+</form></div>
+
+&nbsp;&nbsp;
+
+<div class="col-lg-2 card " >
+<form method='GET'><button class = 'p' name="idlebutton" type='submit' style="background-color: transparent"><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="40px" width="100px">
+ &nbsp;&nbsp;&nbsp;  <span style="font-size: 25px">{{ idle }} </span><b style="padding-left:50px;">Idle</b></div></button>
+</form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card"><form class = '' method='GET'><button class="p" name="stopbutton" type='submit' style="background-color: transparent" >
+<div class="card-body "><img class="card-img-left" src="{% static 'images/minired.png'%}" height="40px" width="100px" >
+&nbsp;&nbsp;<span style="font-size: 25px">{{ stop }} </span><b style="padding-left:50px;margin-bottom: 30px;">Stop</b></div>
+</button></form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card "><button class="p" style="background-color: transparent">
+<div class="card-body"><img class="card-img-left" src="{% static 'images/miniblue.png'%}" height="40px" width="100px" style="padding-right:10px; ">
+    <span style="font-size: 20px"></span><b style="padding-left:30px;margin-bottom: 30px;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No Data</b></div></button></div>
+    &nbsp;&nbsp;<a href="{% url 'alerts' %}" data-toggle="tooltip" data-placement="bottom" title="Alerts"><img style="padding-top: 20px;"  src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/notification-circle-red-512.png" width="50px" height="70px"></a>
+
+</div></div><hr>
+ <div  class="container-fluid" style="font-size:24px;float:right;margin-left:110px;width: auto; margin-top: -30px;">
+
+<a href="#"><i class="fa  fa-file-pdf-o" onclick="Export()" id="btnExport" style="font-size:15px;color:red" data-placement="bottom" title="PDF"></i></a>&nbsp;&nbsp;&nbsp;
+     <a href="#" ><i class="fa fa-file-excel-o" onclick="Export()" style="font-size:15px;color:green" data-placement="bottom" title="XLS"></i></a>&nbsp;&nbsp;&nbsp;
+<a href="#"><span class="glyphicon glyphicon-print" style="font-size:15px" onclick="myFunction()" data-placement="bottom" title="Print"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#"><i class="fa fa-file-text" style="font-size:15px" data-placement="bottom" title="Text"></i></a>&nbsp;&nbsp;&nbsp;
+<a href="#"><span data-placement="bottom" title="Map+Text"><i class="far fa-map" style="font-size:15px;color:green"></i><i class="fa fa-file-text" style="font-size:15px"></i></span></a>&nbsp;&nbsp;&nbsp;
+<a href="#"><i class="fa fa-gear" style="font-size:15px;color:green" id="setting" data-toggle="modal" data-target="#myModal4" data-toggle="tooltip" data-placement="bottom" title="Settings"></i></a>&nbsp;&nbsp;&nbsp;
+<a href="#"><i class="fa fa-power-off" style="font-size:15px" data-placement="bottom" title="Logout"></i></a>&nbsp;&nbsp;&nbsp;
+</div>
+
+{#    -------------------------------------------------------------------pdf---------------------------------------------------------------------------------#}
+    <script>
+    function Export() {
+            html2canvas(document.getElementById('sample'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image:data,
+                            width:10,
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("Details.pdf");
+                }
+            });
+        }
+    </script>
+
+    {#    -------------------------------------------------------------------pdf---------------------------------------------------------------------------------#}
+        <script src="{% static 'js/excel.js'%}" type="text/javascript"></script>
+        <script type="text/javascript">
+        function Export() {
+            $("#sample").table2excel({
+            filename: "Table.xls"
+            });
+            }
+        </script>
+
+
+ <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+
+    <div class="container c" id="sample" style="margin-left:60px;">
+
+    <div class="scrollit">
+<table class="table table-bordered " style="font-size:13px;width: 500px;">
+<thead class="color" id="text">
+<tr>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">S.no&nbsp;</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Status</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Vehicle</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Driver</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>AC</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/hotspotsymbol.png' %}" style="width:16px;height:16px;"><br>GPS</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);" class="dropdown-toggle">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Duration</a></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul>
+</li>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Speed</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">LAT & LOG</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">POI</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Info</a></th>
+</tr>
+</thead>
+
+<tbody>
+
+
+{% for i in object_list %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td>{{ i.status }}</td>
+<td>{{ i.plateNumber }}</td>
+<td>{{ i.name }}</td>
+<td><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br></a></td>
+<td><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/hotspotsymbol.png' %}" style="width:16px;height:16px;"><br></a></td>
+<td>no data</td>
+<td>{{ i.speed }}</td>
+<td>{{ i.latitude }},{{ i.longitude }}</td>
+<td>no data</td>
+<td></td>
+</tr>
+{% endfor %}
+</tbody>
+
+</table>
+    </div>
+    </div>
+    <div id="map" style="width: 510px;height: 380px;"></div>
 {% endblock %}

@@ -1,0 +1,333 @@
+{% extends 'main/sidenav.html' %}
+{% load static from staticfiles %}
+{% block content1 %}
+<style xmlns:https="http://www.w3.org/1999/xhtml">
+    .card{
+    border:none;}
+     th{
+    font-family: "Trebuchet MS", Arial, Verdana;
+  font-size: 13px;
+  padding: 3px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #CDC1A7;
+  border:1px solid #fff;
+  background-color: #c4c1c5;
+  color: #fff}
+     table {
+  width: auto;
+  border: 1px solid #C5B798;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+td {
+  border: 1px solid #CDC1A7;
+  padding-left: 2px;
+}
+</style>
+
+    <style>
+
+    .c{
+        float: left;
+        width: 50%;
+        overflow: hidden;
+        position:relative;
+    }
+      .scrollit {
+    height:400px;
+    width: 1300px;
+    overflow:auto;
+
+}
+    .one{
+        float: left;
+        width: 50%;
+        overflow: hidden;
+    }
+    .color{
+background-color: rgb(218, 218, 218);
+}
+th,table {
+font-family: "Times New Roman", Times, serif;
+}
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+
+
+
+
+
+
+
+
+button{
+background-color:transparent;
+text-decoration:none;
+color:black;
+padding:20px;
+border:0;
+border-radius:1px;
+}
+* {
+box-sizing: border-box;
+}
+
+#myInput {
+background-position: 10px 10px;
+background-repeat: no-repeat;
+width: 32%;
+font-size: 16px;
+padding: 12px 20px 12px 40px;
+border: 1px solid #ddd;
+margin-bottom: 12px;
+}
+
+#myTable {
+border-collapse: collapse;
+width: auto;
+border: 1px solid #ddd;
+font-size: 12px;
+}
+
+#myTable th, #myTable td {
+text-align: left;
+padding: 12px;
+}
+
+#myTable tr {
+border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover{
+background-color: #f1f1f1;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  float: right;
+}
+.z{
+width: 300px;
+height: 80px;
+padding-right: 20px;
+padding-left: 30px;
+}
+.p {
+
+-webkit-appearance: button;
+-webkit-writing-mode: horizontal-tb !important;
+ display: inline-block;
+ width:190px;
+ height:78px;
+ margin: 0em;
+ padding: 0px;
+ border: none;
+      border-radius: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.a .card-body{
+
+width: 180px;
+height:78px;
+color:black;
+padding:1em;
+}
+.a .card{
+font-size: 12px;
+padding-left: 0px;
+width: 190px;
+height:78px;
+    border-radius: 8px;
+    border-color: transparent;
+
+}
+
+.a .card:hover{
+
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility:visible;
+  width: 120px;
+  background-color: black;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+    #mySidenav a {
+        position: fixed;
+        right: 40px;
+        padding: 5px;
+        height: 40px;
+        text-decoration: none;
+        font-size: 10px;
+        z-index: 1;
+        overflow-x: hidden;
+        background-color: white;
+
+    }
+    </style>
+    <div class="container a" style="position:relative;margin-left:65px;">
+<br>
+<div class="row">
+<div class="col-lg-2 card  "><form class = '' method='GET'><button style="background-color: transparent;" class = 'p' name="totalbutton"  type='submit'>
+<div class="card-body "><img class="card-img-left" src="{% static 'images/miniwhite.png'%}" height="45px" width="100px" >
+ &nbsp; &nbsp;<span style="font-size: 25px">{{ total }} </span><b style="padding-left:50px;">Total</b></div></button>
+</form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card ">
+<form class = '' method='GET'><button class = 'p' name="runningbutton" type='submit' style="background-color: transparent"><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
+   &nbsp;&nbsp; &nbsp;&nbsp;<span style="font-size: 25px">{{ running }} </span><b style="padding-left:50px;">Running</b></div></button>
+</form></div>
+
+&nbsp;&nbsp;
+
+<div class="col-lg-2 card " >
+<form method='GET'><button class = 'p' name="idlebutton" type='submit' style="background-color: transparent"><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="40px" width="100px">
+ &nbsp;&nbsp;&nbsp;  <span style="font-size: 25px">{{ idle }} </span><b style="padding-left:50px;">Idle</b></div></button>
+</form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card"><form class = '' method='GET'><button class="p" name="stopbutton" type='submit' style="background-color: transparent" >
+<div class="card-body "><img class="card-img-left" src="{% static 'images/minired.png'%}" height="40px" width="100px" >
+&nbsp;&nbsp;<span style="font-size: 25px">{{ stop }} </span><b style="padding-left:50px;margin-bottom: 30px;">Stop</b></div>
+</button></form></div>
+&nbsp;&nbsp;
+<div class="col-lg-2 card "><button class="p" style="background-color: transparent">
+<div class="card-body"><img class="card-img-left" src="{% static 'images/miniblue.png'%}" height="40px" width="100px" style="padding-right:10px; ">
+    <span style="font-size: 20px"></span><b style="padding-left:30px;margin-bottom: 30px;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No Data</b></div></button></div>
+    &nbsp;&nbsp;<a href="{% url 'alerts' %}" data-toggle="tooltip" data-placement="bottom" title="Alerts"><img style="padding-top: 20px;"  src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/notification-circle-red-512.png" width="50px" height="70px"></a>
+
+</div></div><hr>
+
+<div style="padding-left: 100px;" class="scrollit">
+    <table  cellspacing="0" cellpadding="2"><tr>
+       <th>S.no</th>
+        <th>Status</th>
+        <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Branch</th>
+        <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Vehicle</a></th>
+        <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Distance</a></th>
+        <th>Running<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Idle<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Stop<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Duration<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Speed<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Odometer<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Latitude<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Longitude<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Geofence</th>
+        <th>DateTime<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Alert<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>IGN<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>PWR<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>AC<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>GPS<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        <th>Fuel<a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="{% static 'images/snow.jpg' %}" style="width:16px;height:16px;"><br>Driver</a></th>
+        </tr>
+
+{% for i in object_list %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.status }}</td>
+              <td>{{ i.name }}</td>
+              <td>India</td>
+              <td>{{ i.plateNumber }}</td>
+              <td>*</td>
+              <td>00.00</td>
+              <td>00.00</td>
+              <td>00.00</td>
+              <td>00.00</td>
+              <td>{{ i.speed }}</td>
+              <td>{{ i.odometer }}</td>
+              <td>{{ i.latitude }}</td>
+              <td>{{ i.longitude }}</td>
+              <td>12-9-2019</td>
+              <td>{{ i.status }}</td>
+              <td>--</td>
+              <td>0</td>
+              <td>--</td>
+              <td>--</td>
+              <td>--</td>
+        </tr>
+         {% endfor %}
+
+    </table>
+</div>
+
+
+        <!-- Modal footer -->
+
+
+
+{% endblock content1 %}

@@ -17,17 +17,22 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
+from vehicles import views
 
 from django.contrib.auth import views as auth_views
 
 from app_auth.views import start, register, profile, \
     ChartData, charts, BarChart, Doughnut, track, map, \
     reports,cluster,geofence,marker,tickets,\
-    alerts,setting,tour,devicelistview
+    alerts,setting,tour,devicelistview,device_listview,detail
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',start,name='index' ),
+    path('class/<int:pk>/',devicelistview.as_view()),
+    path('class-fbv/<int:pk>/', device_listview),
     path('class/',devicelistview.as_view()),
     path('login/',auth_views.LoginView.as_view(),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='registration/logged_out.html'),name='logout'),
@@ -48,6 +53,9 @@ urlpatterns = [
     path('alerts/', alerts, name='alerts'),
     path('settings/', setting, name='settings'),
     path('tour/', tour, name='tour'),
+    path('search/',include('search_function.urls')),
+    path('',include('vehicles.urls')),
+    path('detail/',detail,name='detail'),
 
 
 ]
