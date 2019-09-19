@@ -24,7 +24,8 @@ from django.contrib.auth import views as auth_views
 from app_auth.views import start, register, profile, \
     ChartData, charts, BarChart, Doughnut, track, map, \
     reports,cluster,geofence,marker,tickets,\
-    alerts,setting,tour,devicelistview,device_listview,detail
+    alerts,setting,tour,devicelistview\
+    ,device_listview,detail,advance
 
 
 
@@ -56,6 +57,8 @@ urlpatterns = [
     path('search/',include('search_function.urls')),
     path('',include('vehicles.urls')),
     path('detail/',detail,name='detail'),
+    path('reports/',include('reports.urls')),
+    path('advance/',advance,name='advance'),
 
 
 ]

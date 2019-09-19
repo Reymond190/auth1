@@ -2,23 +2,62 @@
 {% load static from staticfiles %}
 
 {% block content1 %}
+ <style>
+     .p {
+
+-webkit-appearance: button;
+-webkit-writing-mode: horizontal-tb !important;
+ display: inline-block;
+ border: none;
+ margin-left: 10px;
+ border-radius: 10px;
+
+background-color: transparent;
+}
+ </style>
+
 
 <body>
 
  <div style="margin-top: 90px;" class="container">
+        <div class="row">
+            <div class="col-12">
+               Searched for <b>{{ request.GET.q }}</b>
+                <hr/>
+            </div>
+        </div>
+ {% if object_list is null %}
+     <div class="row">
+            <div class="col-12">
+               No results for <b>{{ request.GET.q }}</b>
+                <hr/>
+            </div>
+        </div>
+
+ {% endif %}
      {% for i in object_list %}
   <div style="margin-top: 10px;" class="card bg-dark text-white">
     <div class="card-body">
 
     <ul class="nav nav-pills card-header-pills">
     &nbsp;&nbsp;<li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/blackcar.png' %}" style="width:30px;height:40px;"></a>
+        {% if i.status == 'Running'%}
+            <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/greenview.png' %}" style="width:40px;height:40px;"></a>
+            {% elif i.status == 'Stop'  %}
+            <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/redview.png' %}" style="width:40px;height:40px;"></a>
+            {% elif i.status == 'Idle' %}
+            <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/blueview.png' %}" style="width:40px;height:40px;"></a>
+            {% else %}
+            <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:60px;"><img src="{% static 'images/blackview.png' %}" style="width:40px;height:40px;"></a>
+        {% endif %}
+
+
 </li>&nbsp;&nbsp;
 <li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:160px;">Vehicle number<br><b>{{ i.plateNumber }}</b></a>
+<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:145px;">Vehicle number<br><b>{{ i.plateNumber }}</b></a>
 </li>&nbsp;&nbsp;
 <li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:230px;">Lat & Long<br><b>{{ i.latitude }}, {{ i.longitude }}</b></a>
+<a class="nav-link active"  href="#" style="background-color:gray;height:auto;font-size:10px;width:270px;"><b>{{ i.location}}</b></a>
 </li>&nbsp;&nbsp;
 <li class="nav-item">
 <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:70px;">Engine<br><b>{{ i.engine }}</b></a>
@@ -35,14 +74,84 @@
 <li class="nav-item">
 <a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:90px;">Status<br><b>{{ i.status }}</b></a>
 </li>&nbsp;&nbsp;
-<li class="nav-item">
-<a class="nav-link active" href="#" style="background-color:gray;height:50px;font-size:10px;width:70px;"><img src="{% static 'images/map1.png' %}" style="width:40px;height:40px;background-color:gray;"></a>
-</li>&nbsp;&nbsp;
+    <li class="nav-item"><form method="post">
+        {% csrf_token %}
+        <button class="p" style="background-color: transparent" value='{{ i.plateNumber }}' type="submit" name="viewbutton1"><a style="height:auto;width:auto;" data-toggle="modal" data-target="#modalContactForm"><img src="{% static 'images/mapview.png' %}" style="width:45px;height:45px;"></a></button>
+    </form>
+</li>&nbsp;&nbsp;&nbsp;&nbsp;
 </ul>
  </div>
 </div>
       {% endfor %}
  </div>
+<div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Current Vehicle Location</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <div class="md-form ">
+            <div id="map" style="height: 500px;width: 450px;"></div>
+        </div></div>
 
+
+    </div>
+  </div>
+</div>
+
+    <script>
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 28.7041, lng: 77.1025},
+          zoom: 10
+        });
+
+
+          var myLatlng = new google.maps.LatLng(29.7041,80.1025);
+            var mapOptions = {
+            zoom: 4,
+            center: myLatlng
+            }
+            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            var p = {{ plate|safe }};
+            var marker = new google.maps.Marker({
+                position: p[0],
+                icon: '{% static 'images/bluecar.png'%}',
+                title:"Hello World!"
+            });
+marker.setMap(map);
+
+
+
+        var drawingManager = new google.maps.drawing.DrawingManager({
+          drawingMode: google.maps.drawing.OverlayType.MARKER,
+          drawingControl: true,
+          drawingControlOptions: {
+            position: google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: ['marker', 'circle', 'polygon', 'polyline', 'rectangle']
+          },
+          markerOptions: {icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'},
+          circleOptions: {
+            fillColor: '#ffff00',
+            fillOpacity: 0.2,
+            strokeWeight: 2,
+              strokeColor:'',
+            clickable: false,
+            editable: true,
+            zIndex: 1
+          }
+        });
+        drawingManager.setMap(map);
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&libraries=drawing&callback=initMap"
+         async defer></script>
 
 {% endblock %}

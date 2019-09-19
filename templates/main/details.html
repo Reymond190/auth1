@@ -24,43 +24,27 @@ td {
   border: 1px solid #CDC1A7;
   padding-left: 2px;
 }
-</style>
 
-    <style>
 
-    .c{
-        float: left;
-        width: 50%;
-        overflow: hidden;
-        position:relative;
-    }
       .scrollit {
-    height:400px;
-    width: 1300px;
+    height:465px;
+    width: auto;
     overflow:auto;
+    margin:1px;
+    text-align:center;
 
 }
-    .one{
-        float: left;
-        width: 50%;
-        overflow: hidden;
-    }
+hr{
+margin:5px;
+padding:0px;
+border:1px solid light;
+}
     .color{
 background-color: rgb(218, 218, 218);
 }
 th,table {
 font-family: "Times New Roman", Times, serif;
 }
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-
-
-
-
-
-
-
-
 
 button{
 background-color:transparent;
@@ -74,27 +58,9 @@ border-radius:1px;
 box-sizing: border-box;
 }
 
-#myInput {
-background-position: 10px 10px;
-background-repeat: no-repeat;
-width: 32%;
-font-size: 16px;
-padding: 12px 20px 12px 40px;
-border: 1px solid #ddd;
-margin-bottom: 12px;
-}
 
-#myTable {
-border-collapse: collapse;
-width: auto;
-border: 1px solid #ddd;
-font-size: 12px;
-}
 
-#myTable th, #myTable td {
-text-align: left;
-padding: 12px;
-}
+
 
 #myTable tr {
 border-bottom: 1px solid #ddd;
@@ -238,39 +204,36 @@ input:checked + .slider:before {
 
     }
     </style>
-    <div class="container a" style="position:relative;margin-left:65px;">
+    <div class="container-fluid a" style="position:relative;">
 <br>
 <div class="row">
 <div class="col-lg-2 card  "><form class = '' method='GET'><button style="background-color: transparent;" class = 'p' name="totalbutton"  type='submit'>
 <div class="card-body "><img class="card-img-left" src="{% static 'images/miniwhite.png'%}" height="45px" width="100px" >
  &nbsp; &nbsp;<span style="font-size: 25px">{{ total }} </span><b style="padding-left:50px;">Total</b></div></button>
 </form></div>
-&nbsp;&nbsp;
+
 <div class="col-lg-2 card ">
 <form class = '' method='GET'><button class = 'p' name="runningbutton" type='submit' style="background-color: transparent"><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
    &nbsp;&nbsp; &nbsp;&nbsp;<span style="font-size: 25px">{{ running }} </span><b style="padding-left:50px;">Running</b></div></button>
 </form></div>
 
-&nbsp;&nbsp;
-
 <div class="col-lg-2 card " >
 <form method='GET'><button class = 'p' name="idlebutton" type='submit' style="background-color: transparent"><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="40px" width="100px">
  &nbsp;&nbsp;&nbsp;  <span style="font-size: 25px">{{ idle }} </span><b style="padding-left:50px;">Idle</b></div></button>
 </form></div>
-&nbsp;&nbsp;
+
 <div class="col-lg-2 card"><form class = '' method='GET'><button class="p" name="stopbutton" type='submit' style="background-color: transparent" >
 <div class="card-body "><img class="card-img-left" src="{% static 'images/minired.png'%}" height="40px" width="100px" >
 &nbsp;&nbsp;<span style="font-size: 25px">{{ stop }} </span><b style="padding-left:50px;margin-bottom: 30px;">Stop</b></div>
 </button></form></div>
-&nbsp;&nbsp;
 <div class="col-lg-2 card "><button class="p" style="background-color: transparent">
 <div class="card-body"><img class="card-img-left" src="{% static 'images/miniblue.png'%}" height="40px" width="100px" style="padding-right:10px; ">
-    <span style="font-size: 20px"></span><b style="padding-left:30px;margin-bottom: 30px;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No Data</b></div></button></div>
-    &nbsp;&nbsp;<a href="{% url 'alerts' %}" data-toggle="tooltip" data-placement="bottom" title="Alerts"><img style="padding-top: 20px;"  src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/notification-circle-red-512.png" width="50px" height="70px"></a>
-
+  &nbsp; <span style="font-size: 20px">0</span><b style="padding-left:30px;margin-bottom: 30px;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No Data</b></div></button></div>
+    <div class="col-lg-2 card"><button class="p"><div class="card-body"><img class="card-img-left" src="{% static 'images/ico.png'%}" width="45px" height="44px" style="padding-bottom:10px;"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 20px">11 </span><b style="padding-left:30px;margin-bottom: 30px;"><br>Alerts</b></div></button></div>
 </div></div><hr>
 
-<div style="padding-left: 100px;" class="scrollit">
+<div  class="scrollit">
     <table  cellspacing="0" cellpadding="2"><tr>
        <th>S.no</th>
         <th>Status</th>

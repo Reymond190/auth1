@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'app_auth',
     'search_function',
     'vehicles',
-
-
+    'reports',
 ]
 
 MIDDLEWARE = [

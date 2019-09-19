@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>
+.color{
+background-color:rgb(204, 204, 204);
+}
+th,table {
+font-family: "Times New Roman", Times, serif;
+}
+
+</style>
+<body>
+<div class="container" style="float-left">
+    <button type="button" class="btn btn-default btn-medium">
+      <span class="glyphicon glyphicon-search"></span>
+    </button>
+	<button type="button" class="btn btn-default btn-medium">
+      <span class="glyphicon glyphicon-filter"></span>
+    </button>
+	<button type="button" class="btn btn-default btn-medium">
+      <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+    </button>
+	<button type="button" class="btn btn-default btn-medium">
+      <span class="glyphicon glyphicon-user"></span>
+    </button>
+	<button type="button" class="btn btn-default btn-medium">
+      <span class="glyphicon glyphicon-menu-right "></span>
+	 
+     </button>
+</div>
+<div class="container">
+<p>System Log Summary</p> 
+
+<table class="table table-bordered" style="font-size:13px;">
+<thead class="color" id="text">
+<tr>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Company&nbsp;</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul> 
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Branch</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></style></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/vehicle_information.png" style="width:16px;height:16px;">Vehicle</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
+<ul class="dropdown-menu">
+<li><a href="#">bn</a></li>
+<li><a href="#">nn</a></li>
+<li><a href="#">nbn</a></li>
+</ul>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Device Model</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">IMEI Number</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Sim Number</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Latitude</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Longitude</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/ignition_status.png">IGN</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/power_status.png">PWR</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/gps_status.png">GPS</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Other ports</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);"><img src="http://13.127.144.213//Themes//HR%20Blue/images/OverviewHeaderIcon/speed.png">speed</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">odometer</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Data Actual Time</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Data Received Time</a></th>
+<th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">Status</a></th>
+
+
+
+</tr>
+</thead>
+<tbody>
+{% for i in object_list %}
+		<tr>
+		<td>{{ i.companyId }}</td>
+		<td>{{ forloop.counter }}</td>
+		<td>{{ i.plateNumber }}</td>
+		<td>GT800</td>
+		<td>{{ i.deviceImeiNo }}</td>
+		<td>{{ i.deviceImeiNo }}</td>
+		<td>{{ i.latitude }}</td>
+		<td>{{ i.longitude }}</td>
+		<td><img src="http://13.127.144.213/images/ignition_red.png"></td>
+		<td><img src="http://13.127.144.213/images/battery_green.png"></td>
+		<td><img src="http://13.127.144.213/images/signal_green.png"></td>
+		<td>Air Con</td>
+		<td>00-00</td>
+		<td>00-00</td>
+		<td>19.10.2019(14:44:43)</td>
+		<td>19.10.2019(14:44:43)</td>
+		<td><img src="http://13.127.144.213/images/error_id/red10.png"></td>
+		</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</body>
+</html>

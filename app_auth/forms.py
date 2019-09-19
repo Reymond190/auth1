@@ -13,7 +13,7 @@ class UserRegisterForm(UserCreationForm):
 class ProfileAddForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['Company_name','Company_address','Phone_number']
+        fields = ['Company_name', 'Company_address', 'Phone_number', 'No_of_Vehicles', 'Active_Devices', 'Inactive_Devices']
 
 
 class AddDeviceform(forms.ModelForm):

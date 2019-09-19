@@ -6,39 +6,34 @@
 
     <style>
 
-    .c{
-        float: left;
-        width: 50%;
-        overflow: hidden;
-        position:relative;
-    }
-      .scrollit {
-    height:400px;
-    width: 500px;
-    overflow:auto;
+.map{
+width:635px;
+height:400px;
+position:relative;
+margin:0px;
+padding:0px;
+}
+.d{
+width:1400px;
+height:400px;
+
 
 }
-    .one{
-        float: left;
-        width: 50%;
-        overflow: hidden;
-    }
+.container{
+margin:0px;
+padding:0px;
+}
+.row{
+margin:0px;
+padding:0px;
+width:auto;
+}
     .color{
 background-color: rgb(218, 218, 218);
 }
 th,table {
 font-family: "Times New Roman", Times, serif;
 }
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-
-
-
-
-
-
-
-
 
 button{
 background-color:transparent;
@@ -52,35 +47,6 @@ border-radius:1px;
 box-sizing: border-box;
 }
 
-#myInput {
-background-position: 10px 10px;
-background-repeat: no-repeat;
-width: 32%;
-font-size: 16px;
-padding: 12px 20px 12px 40px;
-border: 1px solid #ddd;
-margin-bottom: 12px;
-}
-
-#myTable {
-border-collapse: collapse;
-width: auto;
-border: 1px solid #ddd;
-font-size: 12px;
-}
-
-#myTable th, #myTable td {
-text-align: left;
-padding: 12px;
-}
-
-#myTable tr {
-border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover
-background-color: #f1f1f1;
-}
 .switch {
   position: relative;
   display: inline-block;
@@ -104,7 +70,9 @@ padding-left: 30px;
  margin: 0em;
  padding: 0px;
  border: none;
-      border-radius: 10px;
+ border-radius: 10px;
+
+background-color: transparent;
 }
 
 .switch input {
@@ -128,6 +96,7 @@ height:78px;
     border-color: transparent;
 
 }
+.a .row{flex-wrap: inherit;}
 
 .a .card:hover{
 
@@ -195,54 +164,13 @@ input:checked + .slider:before {
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
-
-  /* Position the tooltip */
   position: absolute;
   z-index: 1;
   top: 100%;
   left: 50%;
   margin-left: -60px;
 }
-    #mySidenav a {
-  position: fixed;
-  right:80px;
-  padding: 5px;
-  height: 40px;
-  text-decoration: none;
-  font-size: 10px;
-  z-index: 1;
-  overflow-x: hidden;
-  background-color: white;
 
-
-}
-#mySidenav{
-margin-top: 50px;
-}
-
-
-
-#filter {
-  top: 280px;
-
-}
-
-#add {
-  top: 310px;
-
-}
-
-#playback {
-  top: 340px;
-  }
-
-#toolti {
-  top: 370px;
-
-}
-#vehicle1 {
-  top: 400px;
-}
 .openbtn {
   font-size: 20px;
   cursor: pointer;
@@ -255,78 +183,256 @@ margin-top: 50px;
 .openbtn:hover {
   background-color: #444;
 }
+.sample{
+width:635px;
+overflow:auto;
+height:400px;
+position:relative;
+float:left;
+padding-right:2px;
+margin-left:4px;
+}
+.cont{
+margin:0px;
+}
     </style>
 
 
 
     <script>
+function CenterControl(controlDiv, map) {
 
+// Set CSS for the control border.
+var controlUI = document.createElement('div');
+controlUI.style.backgroundImage = 'url("https://img.icons8.com/ios/20/000000/filter.png")';
+controlUI.style.backgroundRepeat = 'no-repeat';
+controlUI.style.border = '2px solid #fff';
+controlUI.style.borderRadius = '3px';
+controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+controlUI.style.cursor = 'pointer';
+controlUI.style.marginTop = '0px';
+controlUI.style. marginRight='10px';
+controlUI.style.textAlign = 'center';
+controlUI.title = 'Filters';
+controlUI.style.backgroundColor='white';
+controlUI.style.height='30px';
+controlUI.style.width='35px';
+controlDiv.appendChild(controlUI);
+controlUI.addEventListener('click', function() {
+map.setCenter(chicago);
+});
 
+}
+function CenterControl2(controlDiv, map) {
 
+// Set CSS for the control border.
+var controlUI = document.createElement('div');
+controlUI.style.backgroundImage = 'url("https://img.icons8.com/ios-glyphs/20/000000/address.png")';
+controlUI.style.backgroundRepeat = 'no-repeat';
+controlUI.style.border = '2px solid #fff';
+controlUI.style.borderRadius = '3px';
+controlUI.style.boxShadow = '0 2px 2px rgba(0,0,0,.3)';
+controlUI.style.cursor = 'pointer';
+controlUI.style.marginBottom = '0px';
+controlUI.style. marginRight='10px';
+controlUI.style.textAlign = 'center';
+controlUI.title = 'Address';
+controlUI.style.backgroundColor='white';
+controlUI.style.height='30px';
+controlUI.style.width='35px';
+controlDiv.appendChild(controlUI);
+controlUI.addEventListener('click', function() {
+map.setCenter(chicago);
+});
 
+}
+function CenterControl3(controlDiv, map) {
+
+// Set CSS for the control border.
+var controlUI = document.createElement('div');
+controlUI.style.backgroundImage = 'url("https://img.icons8.com/wired/20/000000/treasure-map.png")';
+controlUI.style.backgroundRepeat = 'no-repeat';
+controlUI.style.border = '2px solid #fff';
+controlUI.style.borderRadius = '3px';
+controlUI.style.boxShadow = '0 2px 2px rgba(0,0,0,.3)';
+controlUI.style.cursor = 'pointer';
+controlUI.style.marginBottom = '0px';
+controlUI.style. marginRight='10px';
+controlUI.style.textAlign = 'center';
+controlUI.title = 'PlayBack';
+controlUI.style.backgroundColor='white';
+controlUI.style.height='30px';
+controlUI.style.width='35px';
+controlDiv.appendChild(controlUI);
+controlUI.addEventListener('click', function() {
+map.setCenter(chicago);
+});
+
+}
+function CenterControl4(controlDiv, map) {
+
+// Set CSS for the control border.
+var controlUI = document.createElement('div');
+controlUI.style.backgroundImage = 'url("https://img.icons8.com/windows/20/000000/comments.png")';
+controlUI.style.backgroundRepeat = 'no-repeat';
+controlUI.style.border = '2px solid #fff';
+controlUI.style.borderRadius = '3px';
+controlUI.style.boxShadow = '0 2px 2px rgba(0,0,0,.3)';
+controlUI.style.cursor = 'pointer';
+controlUI.style.marginBottom = '0px';
+controlUI.style. marginRight='10px';
+controlUI.style.textAlign = 'center';
+controlUI.title = 'ToolTip';
+controlUI.style.backgroundColor='white';
+controlUI.style.height='30px';
+controlUI.style.width='35px';
+controlDiv.appendChild(controlUI);
+controlUI.addEventListener('click', function() {
+map.setCenter(chicago);
+});
+
+}
+function CenterControl5(controlDiv, map) {
+
+// Set CSS for the control border.
+var controlUI = document.createElement('div');
+controlUI.style.backgroundImage = 'url("https://img.icons8.com/ios-filled/20/000000/car.png")';
+controlUI.style.backgroundRepeat = 'no-repeat';
+controlUI.style.border = '2px solid #fff';
+controlUI.style.borderRadius = '3px';
+controlUI.style.boxShadow = '0 2px 2px rgba(0,0,0,.3)';
+controlUI.style.cursor = 'pointer';
+controlUI.style.marginBottom = '0px';
+controlUI.style. marginRight='10px';
+controlUI.style.textAlign = 'center';
+controlUI.title = 'Vehicle';
+controlUI.style.backgroundColor='white';
+controlUI.style.height='30px';
+controlUI.style.width='35px';
+controlDiv.appendChild(controlUI);
+controlUI.addEventListener('click', function() {
+map.setCenter(chicago);
+});
+
+}
 function initMap() {
 var map = new google.maps.Map(document.getElementById('map'), {
-zoom: 3,
-center: {lat: 28.7041, lng: 77.1025},
+zoom: 3.5,
+center: {lat: 28.667957, lng: 77.166449},
 disableDefaultUI: true,
 
-   fullscreenControl: true,
-   fullscreenControlOptions: {
-              position: google.maps.ControlPosition.LEFT_BOTTOM
-          },
+fullscreenControl: true,
+fullscreenControlOptions: {
+position: google.maps.ControlPosition.LEFT_BOTTOM
+},
 
- zoomControl: true,
-    mapTypeControl:true,
- zoomControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_BOTTOM,
-              style: google.maps.ZoomControlStyle.SMALL,
-          },
+zoomControl: true,
+mapTypeControl:true,
+zoomControlOptions: {
+position: google.maps.ControlPosition.RIGHT_BOTTOM,
+style: google.maps.ZoomControlStyle.SMALL,
+},
 
 
 });
-        var icons = {
-          Idle: {
-            name: 'Idle',
-            icon: '{% static 'images/yellowcar.png'%}'
-          },
-          Running: {
-            name: 'Running',
-            icon: '{% static 'images/greencar.png'%}'
-          },
-          Stop: {
-            name: 'Stop',
-            icon: '{% static 'images/redcar.png'%}'
-          },
-          NOData: {
-            name: 'Nodata',
-            icon: '{% static 'images/bluecar.png'%}'
-          }
-        };
+var centerControlDiv = document.createElement('div');
+var centerControl1 = new CenterControl(centerControlDiv, map);
+
+centerControlDiv.index = 1;
+
+map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(centerControlDiv);
+var centerControlDiv1 = document.createElement('div');
+var centerControl12 = new CenterControl2(centerControlDiv1, map);
+
+centerControlDiv1.index = 1;
+
+map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(centerControlDiv1);
+var centerControlDiv3 = document.createElement('div');
+var centerControl14 = new CenterControl3(centerControlDiv3, map);
+
+centerControlDiv3.index = 1;
+
+map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(centerControlDiv3);
+var centerControlDiv4 = document.createElement('div');
+var centerControl15 = new CenterControl4(centerControlDiv4, map);
+
+centerControlDiv4.index = 1;
+
+map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(centerControlDiv4);
+var centerControlDiv5 = document.createElement('div');
+var centerControl16 = new CenterControl5(centerControlDiv5, map);
+
+centerControlDiv5.index = 1;
+
+map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(centerControlDiv5);
+google.maps.event.addDomListener(centerControlDiv , 'click', function() {
+$('#myModal').modal('toggle');
+$('#myModal').modal('show');
+
+});
+google.maps.event.addDomListener(centerControlDiv1 , 'click', function() {
+$('#myModal2').modal('toggle');
+$('#myModal2').modal('show');
+
+});
+google.maps.event.addDomListener(centerControlDiv3 , 'click', function() {
+$('#myModal2').modal('toggle');
+$('#myModal2').modal('show');
+
+});
+google.maps.event.addDomListener(centerControlDiv4 , 'click', function() {
+$('#myModal1').modal('toggle');
+$('#myModal1').modal('show');
+
+});
+google.maps.event.addDomListener(centerControlDiv5 , 'click', function() {
+$('#myModal3').modal('toggle');
+$('#myModal3').modal('show');
+
+});
+
+var icons = {
+Idle: {
+name: 'Idle',
+icon: '{% static 'images/yellowcar.png'%}'
+},
+Running: {
+name: 'Running',
+icon: '{% static 'images/greencar.png'%}'
+},
+Stop: {
+name: 'Stop',
+icon: '{% static 'images/redcar.png'%}'
+},
+NOData: {
+name: 'Nodata',
+icon: '{% static 'images/bluecar.png'%}'
+}
+};
 
 var infowindow = new google.maps.InfoWindow();
 var j,labels='';
 
-var marker =  locations.map(function(location, i) {
-          return new google.maps.Marker({
+var marker = locations.map(function(location, i) {
+return new google.maps.Marker({
 position: location,
 icon: icons[location.status].icon,
 label: labels[i % labels.length],
 title: location.plate,
 map:map
-  });
-  });
+});
+});
 
 
 
- var markerCluster = new MarkerClusterer(map, marker,
-      {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+var markerCluster = new MarkerClusterer(map, marker,
+{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
 
 }
 var locations = {{ myfile|safe }};
 
-</script>
-    <script>
+
 $(document).ready(function(){
 $("#b1").hide();
 $("#c1").hide();
@@ -401,9 +507,28 @@ tr[i].style.display = "none";
 function myFunction() {
   window.print();
   }
+  function myText(){
+  $('#sample').removeClass('sample');
+$('#sample').show();
+ $('#sample').removeClass('col-md-6');
+  $('#map').hide();
+}
+ function myText1(){
+  $('#sample').show();
+  $('#sample').addClass('sample');
+  $('#map').show();
+    $('#map').removeClass('d');
+
+}
+function myText2(){
+$('#map').show();
+ $('#map').removeClass('col-md-6');
+   $('#map').addClass('d');
+  $('#sample').hide();
+}
+
     </script>
-    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
-    </script>
+
 
 {#    <div class="container bg-dark" style="font-size:24px;float:right;margin-top:60px;color:white"></div>#}
 {#<a href="#"><span class="glyphicon glyphicon-print"></span>#}
@@ -412,9 +537,7 @@ function myFunction() {
 {#	<a href="#"><span class="glyphicon glyphicon-refresh"></span></a>#}
 {#</div>#}
 
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&callback=initMap">
-    </script>
+
 
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -489,13 +612,7 @@ function myFunction() {
   </div>
 
 
-<div id="mySidenav" class="sidenav">
-  <a href="#" id="filter" data-toggle="modal" data-target="#myModal" data-toggle="tooltip" data-placement="bottom" title="Filters"><img src="{% static 'images/filter123.png'%}" width="22px" height="20px"></a>
-  <a href="#" id="add" data-toggle="modal" data-target="#myModal2" data-toggle="tooltip" data-placement="bottom" title="Address"><img src="{% static 'images/address123.png'%}" width="22px" height="20px"></a>
-  <a href="#" id="playback" data-toggle="tooltip" data-placement="bottom" title="Playback"><img src="{% static 'images/playback123.png'%}" width="22px" height="20px"></a>
-  <a href="#" id="toolti" data-toggle="modal" data-target="#myModal1" data-toggle="tooltip" data-placement="bottom" title="Tooltip"><img src="{% static 'images/tooltip.png'%}" width="22px" height="20px"></a>
-  <a href="#" id="vehicle1" data-toggle="modal" data-target="#myModal3" data-toggle="tooltip" data-placement="bottom" title="Vehicle"><img src="{% static 'images/vehi.png'%}" width="22px" height="20px"></a>
-</div>
+
 
 
 <div class="modal fade" id="myModal1" role="dialog">
@@ -716,70 +833,86 @@ function myFunction() {
       </div>
 
     </div>
-<div class="container a" style="position:relative;margin-left:65px;">
-<br>
+<div class="container-fluid a" style="position:relative;">
 <div class="row">
-<div class="col-lg-2 card  "><form class = '' method='GET'><button style="background-color: transparent;" class = 'p' name="totalbutton"  type='submit'>
+<div class="col-lg-2 card  "><form class = '' method='GET'><button class = 'p' name="totalbutton"  type='submit'>
 <div class="card-body "><img class="card-img-left" src="{% static 'images/miniwhite.png'%}" height="45px" width="100px" >
  &nbsp; &nbsp;<span style="font-size: 25px">{{ total }} </span><b style="padding-left:50px;">Total</b></div></button>
 </form></div>
-&nbsp;&nbsp;
+
 <div class="col-lg-2 card ">
-<form class = '' method='GET'><button class = 'p' name="runningbutton" type='submit' style="background-color: transparent"><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
+<form class = '' method='GET'><button class = 'p' name="runningbutton" type='submit'><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
    &nbsp;&nbsp; &nbsp;&nbsp;<span style="font-size: 25px">{{ running }} </span><b style="padding-left:50px;">Running</b></div></button>
 </form></div>
-
-&nbsp;&nbsp;
+    &nbsp;
 
 <div class="col-lg-2 card " >
-<form method='GET'><button class = 'p' name="idlebutton" type='submit' style="background-color: transparent"><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="40px" width="100px">
+<form method='GET'><button class = 'p' name="idlebutton" type='submit'><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="40px" width="100px">
  &nbsp;&nbsp;&nbsp;  <span style="font-size: 25px">{{ idle }} </span><b style="padding-left:50px;">Idle</b></div></button>
 </form></div>
-&nbsp;&nbsp;
-<div class="col-lg-2 card"><form class = '' method='GET'><button class="p" name="stopbutton" type='submit' style="background-color: transparent" >
+&nbsp;
+<div class="col-lg-2 card"><form class = '' method='GET'><button class="p" name="stopbutton" type='submit'>
 <div class="card-body "><img class="card-img-left" src="{% static 'images/minired.png'%}" height="40px" width="100px" >
 &nbsp;&nbsp;<span style="font-size: 25px">{{ stop }} </span><b style="padding-left:50px;margin-bottom: 30px;">Stop</b></div>
 </button></form></div>
-&nbsp;&nbsp;
-<div class="col-lg-2 card "><button class="p" style="background-color: transparent">
+&nbsp;
+<div class="col-lg-2 card "><form><button class="p">
 <div class="card-body"><img class="card-img-left" src="{% static 'images/miniblue.png'%}" height="40px" width="100px" style="padding-right:10px; ">
-    <span style="font-size: 20px"></span><b style="padding-left:30px;margin-bottom: 30px;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No Data</b></div></button></div>
-    &nbsp;&nbsp;<a href="{% url 'alerts' %}" data-toggle="tooltip" data-placement="bottom" title="Alerts"><img style="padding-top: 20px;"  src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/notification-circle-red-512.png" width="50px" height="70px"></a>
-
+    <span style="font-size: 20px"></span><b style="padding-left:30px;margin-bottom: 30px;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No Data</b></div></button></form></div>
+    <div class="col-lg-2 card"><button class="p"><div class="card-body"><a href="{% url 'alerts' %}" data-toggle="tooltip" data-placement="bottom" title="Alerts"><img class="card-img-left" src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/notification-circle-red-512.png" width="65px" height="70px" style="padding:10px;"></a>
+    </div></button></div>
 </div></div><hr>
- <div  class="container-fluid" style="font-size:24px;float:right;margin-left:110px;width: auto; margin-top: -30px;">
-
-<a href="#"><i class="fa  fa-file-pdf-o" onclick="Export()" id="btnExport" style="font-size:15px;color:red" data-placement="bottom" title="PDF"></i></a>&nbsp;&nbsp;&nbsp;
-     <a href="#" ><i class="fa fa-file-excel-o" onclick="Export()" style="font-size:15px;color:green" data-placement="bottom" title="XLS"></i></a>&nbsp;&nbsp;&nbsp;
+ <div  class="container-fluid" style="font-size:24px; margin-top: -30px;">
+<div class="row"><div class="col-md-6"></div>
+     <div class="col-md-6" style="float:left;">
+<a href="#"><i class="fa  fa-file-pdf-o"  onclick="createPDF()" id="btnExport" style="font-size:15px;color:red" data-placement="bottom" title="PDF"></i></a>&nbsp;&nbsp;&nbsp;
+     <a href="#" ><i class="fa fa-file-excel-o" onclick="Export1()" style="font-size:15px;color:green" data-placement="bottom" title="XLS"></i></a>&nbsp;&nbsp;&nbsp;
 <a href="#"><span class="glyphicon glyphicon-print" style="font-size:15px" onclick="myFunction()" data-placement="bottom" title="Print"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#"><i class="fa fa-file-text" style="font-size:15px" data-placement="bottom" title="Text"></i></a>&nbsp;&nbsp;&nbsp;
-<a href="#"><span data-placement="bottom" title="Map+Text"><i class="far fa-map" style="font-size:15px;color:green"></i><i class="fa fa-file-text" style="font-size:15px"></i></span></a>&nbsp;&nbsp;&nbsp;
+<a href="#" onclick="myText()"><i class="fa fa-file-text" style="font-size:15px" data-placement="bottom" title="Text"></i></a>&nbsp;&nbsp;&nbsp;
+         <a href="#" onclick="myText2()"><i class="far fa-map" style="font-size:15px;color:green" data-placement="bottom" title="Map"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#" onclick="myText1()"><span data-placement="bottom" title="Map+Text"><i class="far fa-map" style="font-size:15px;color:green"></i><i class="fa fa-file-text" style="font-size:15px"></i></span></a>&nbsp;&nbsp;&nbsp;
 <a href="#"><i class="fa fa-gear" style="font-size:15px;color:green" id="setting" data-toggle="modal" data-target="#myModal4" data-toggle="tooltip" data-placement="bottom" title="Settings"></i></a>&nbsp;&nbsp;&nbsp;
 <a href="#"><i class="fa fa-power-off" style="font-size:15px" data-placement="bottom" title="Logout"></i></a>&nbsp;&nbsp;&nbsp;
 </div>
-
+</div></div>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 {#    -------------------------------------------------------------------pdf---------------------------------------------------------------------------------#}
-    <script>
-    function Export() {
-            html2canvas(document.getElementById('sample'), {
-                onrendered: function (canvas) {
-                    var data = canvas.toDataURL();
-                    var docDefinition = {
-                        content: [{
-                            image:data,
-                            width:10,
-                        }]
-                    };
-                    pdfMake.createPdf(docDefinition).download("Details.pdf");
-                }
-            });
-        }
-    </script>
+   <script>
 
+function createPDF() {alert('123');
+var sTable = document.getElementById('tab').innerHTML;
+
+var style = "<style>";
+style = style + "table {width: 100%;font: 17px Calibri;}";
+style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+style = style + "padding: 2px 3px;text-align: center;}";
+style = style + "</style>";
+
+// CREATE A WINDOW OBJECT.
+var win = window.open('', '', 'height=700,width=700');
+
+win.document.write('<html><head>');
+win.document.write('<title>Profile</title>'); // <title> FOR PDF HEADER.
+win.document.write(style); // ADD STYLE INSIDE THE HEAD TAG.
+win.document.write('</head>');
+win.document.write('<body>');
+win.document.write(sTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+win.document.write('</body></html>');
+
+win.document.close(); // CLOSE THE CURRENT WINDOW.
+
+win.print(); // PRINT THE CONTENTS.
+}
+
+
+</script>
+<script type="text/javascript" src="libs/jsPDF/jspdf.min.js"></script>
+
+<script type="text/javascript" src="libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
     {#    -------------------------------------------------------------------pdf---------------------------------------------------------------------------------#}
         <script src="{% static 'js/excel.js'%}" type="text/javascript"></script>
         <script type="text/javascript">
-        function Export() {
+        function Export1() {
             $("#sample").table2excel({
             filename: "Table.xls"
             });
@@ -790,10 +923,9 @@ function myFunction() {
  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
 
-    <div class="container c" id="sample" style="margin-left:60px;">
-
-    <div class="scrollit">
-<table class="table table-bordered " style="font-size:13px;width: 500px;">
+    <div class="container-fluid cont " ><div class="row"><div class="col-md-6">
+    <div  class="sample" id="sample">
+<table class="table table-bordered " id="tab">
 <thead class="color" id="text">
 <tr>
 <th><a href="#" style="text-decoration:none;color:rgb(0, 0, 0);">S.no&nbsp;</a><i class="fa fa-fw fa-sort" style="color:rgb(102, 102, 102);float:right;"></i></th>
@@ -843,7 +975,6 @@ function myFunction() {
 
 <tbody>
 
-
 {% for i in object_list %}
 <tr>
 <td>{{ forloop.counter }}</td>
@@ -864,5 +995,10 @@ function myFunction() {
 </table>
     </div>
     </div>
-    <div id="map" style="width: 510px;height: 380px;"></div>
+        <div id="map" class=" col-md-6 map"></div> </div></div>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU&callback=initMap">
+    </script>
 {% endblock %}

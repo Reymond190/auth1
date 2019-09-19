@@ -5,9 +5,7 @@
 <style xmlns:border-radius="http://www.w3.org/1999/xhtml" xmlns:border-radius="http://www.w3.org/1999/xhtml"
 xmlns:border-radius="http://www.w3.org/1999/xhtml">
 
-.a{
-padding-top: 100px;
-}
+
 .b{
 margin-top: 110px;
 }
@@ -41,7 +39,7 @@ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 width: 180px;
 height:78px;
-color:white;
+color:black;
 padding:1em;
 }
 .z{
@@ -86,36 +84,37 @@ text-decoration: none;
 
 
 
-<div class="container a" style="position:relative;padding-left:60px;">
+<div class="container a" style="position:relative;margin-left:65px;">
 <br>
 <div class="row">
-<div class="col-lg-2 card  "><form class = '' method='GET'><button style="background-color: #B2B4B1" class = 'p' name="totalbutton"  type='submit'>
-<div class="card-body "><img class="card-img-left" src="{% static 'images/miniwhite.png'%}" height="40px" width="90px" >
+<div class="col-lg-2 card  "><form class = '' method='GET'><button style="background-color: transparent;" class = 'p' name="totalbutton"  type='submit'>
+<div class="card-body "><img class="card-img-left" src="{% static 'images/miniwhite.png'%}" height="45px" width="100px" >
  &nbsp; &nbsp;<span style="font-size: 25px">{{ total }} </span><b style="padding-left:50px;">Total</b></div></button>
 </form></div>
 &nbsp;&nbsp;
 <div class="col-lg-2 card ">
-<form class = '' method='GET'><button class = 'p' name="runningbutton" type='submit' style="background-color: #5BA21E"><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
+<form class = '' method='GET'><button class = 'p' name="runningbutton" type='submit' style="background-color: transparent"><div class="card-body"><img class="card-img-left" src="{% static 'images/minigreen.png'%}" height="40px" width="90px" >
    &nbsp;&nbsp; &nbsp;&nbsp;<span style="font-size: 25px">{{ running }} </span><b style="padding-left:50px;">Running</b></div></button>
 </form></div>
 
 &nbsp;&nbsp;
 
 <div class="col-lg-2 card " >
-<form method='GET'><button class = 'p' name="idlebutton" type='submit' style="background-color: #E2E231"><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="38px" width="77px">
- &nbsp;&nbsp;&nbsp;  <span style="font-size: 25px">{{ idle }}</span><b style="padding-left:30px;">Idle</b></div></button>
+<form method='GET'><button class = 'p' name="idlebutton" type='submit' style="background-color: transparent"><div class="card-body " ><img class="card-img-left" src="{% static 'images/miniyellow.png'%}" height="40px" width="100px">
+ &nbsp;&nbsp;&nbsp;  <span style="font-size: 25px">{{ idle }} </span><b style="padding-left:50px;">Idle</b></div></button>
 </form></div>
 &nbsp;&nbsp;
-<div class="col-lg-2 card"><form class = '' method='GET'><button class="p" name="stopbutton" type='submit' style="background-color: #F15E81" >
-<div class="card-body "><img class="card-img-left" src="{% static 'images/minired.png'%}" height="40px" width="90px" >
-&nbsp;&nbsp;<span style="font-size: 25px">{{ stop }}</span><b style="padding-left:50px;">Stop</b></div>
+<div class="col-lg-2 card"><form class = '' method='GET'><button class="p" name="stopbutton" type='submit' style="background-color: transparent" >
+<div class="card-body "><img class="card-img-left" src="{% static 'images/minired.png'%}" height="40px" width="100px" >
+&nbsp;&nbsp;<span style="font-size: 25px">{{ stop }} </span><b style="padding-left:50px;margin-bottom: 30px;">Stop</b></div>
 </button></form></div>
 &nbsp;&nbsp;
-<div class="col-lg-2 card "><button class="p" style="background-color: #A8A7DB">
-<div class="card-body"><img class="card-img-left" src="{% static 'images/miniblue.png'%}" height="49px" width="100px" style="padding-right:10px; ">No Data</div></button></div>
+<div class="col-lg-2 card "><button class="p" style="background-color: transparent">
+<div class="card-body"><img class="card-img-left" src="{% static 'images/miniblue.png'%}" height="40px" width="100px" style="padding-right:10px; ">
+    <span style="font-size: 20px"></span><b style="padding-left:30px;margin-bottom: 30px;"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No Data</b></div></button></div>
+    &nbsp;&nbsp;<a href="{% url 'alerts' %}" data-toggle="tooltip" data-placement="bottom" title="Alerts"><img style="padding-top: 20px;"  src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/notification-circle-red-512.png" width="50px" height="70px"></a>
 
-
-</div></div>
+</div></div><hr>
 
 <div class="container b " style="position:relative;height: 700px;bottom: 85px;"><div class="row">
 <div class="col-lg-3 text-center" >
@@ -127,7 +126,7 @@ text-decoration: none;
 <h3 style="text-align:center;color: lightblue;"></h3>
 <div class="scrollit">
 {% for i in list_plate %}
-<div class="card-horizontal bg-dark " style="padding-left: 5px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/miniblue.png'%}" height="55px" width="100px" style="padding-top: 18px; padding-left: 8px;"> <div class="z text-light ">
+<div class="card-horizontal bg-dark " style="padding-left: 5px;border:3px solid white;border-radius:12px;"> <img src="{% static 'images/miniblue.png'%}" height="55px" width="100px" style="padding-left: 8px;"> <div class="z text-light ">
 <div class="d" style="font-size: 12px ; padding-top: 3px;">{{ i.2 }} km
 <img src="{% static 'images/charging.png'%}" height="21px" width="30px">
 <img src="{% static 'images/battery.png'%}" height="21px" width="20px">

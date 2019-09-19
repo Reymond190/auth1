@@ -179,8 +179,39 @@ def detail(request):
     running = len(df2)
     idle = len(df3)
     stop = len(df4)
-    context = {"object_list":queryset,'total':total,'running':running,'idle':idle, 'stop':stop,}
+    context = {"object_list":queryset,'total':total,'running':running,'idle':idle, 'stop':stop}
     return render(request, 'main/details.html',context)
+
+def advance(request):
+    temp = get_temp()
+    y1 = json.loads(temp)
+    print(len(y1))
+    df1 = get_dataframe(y1)
+    df2 = filter_running(df1)
+    df3 = filter_idle(df1)
+    df4 = filter_stop(df1)
+    total = len(df1)
+    running = len(df2)
+    idle = len(df3)
+    stop = len(df4)
+    queryset = vehicle.objects.all()
+    if request.method == 'GET' and 'totalbutton' in request.GET:
+        p1, result = funclu(df1)
+    elif request.method == 'GET' and 'runningbutton' in request.GET:
+        p1, result = funclu(df2)
+    elif request.method == 'GET' and 'idlebutton' in request.GET:
+        p1, result = funclu(df3)
+    elif request.method == 'GET' and 'stopbutton' in request.GET:
+        p1, result = funclu(df4)
+
+    else:
+        p1, result = funclu(df1)
+
+    context = {
+        "myfile": result, 'total': total, 'running': running, 'idle': idle, 'stop': stop, "object_list": queryset
+    }
+    return render(request,"main/advanced.html",context)
+
 def tickets(request):
     return render(request,'main/tickets.html')
 
@@ -220,18 +251,21 @@ def device_listview(request,pk,*args,**kwargs):
 
 
 def geofence(request):
+
     temp = get_temp()
     y1 = json.loads(temp)
+    print(len(y1))
     df1 = get_dataframe(y1)
-    y1,result = change_frames(df1)
+    y1, result = change_frames(df1)
 
-    if request.method == 'POST' and 'listbutton1' in request.POST:
+    if request.method == 'POST' and 'viewbutton1' in request.POST:
         plate = request.POST['listbutton1']
         p1, v1 = listfun(plate, df1)
 
     else:
         print('escaped if case on geofence!!!!')
         v1 = "{lat: 28.7041, lng: 77.1025}"
+
     context = {'plateloco':v1,
                'list_plate':result}
     print(v1)
@@ -335,7 +369,6 @@ def map (request):
     else:
         print('escaped if case sorry!!!!')
 
-
     total = len(df1)
     running = len(df2)
     idle = len(df3)
@@ -343,8 +376,9 @@ def map (request):
     context = {'myfile':v1,'total':total,'running':running,'idle':idle, 'stop':stop, 'list_plate':result}
     return render(request, 'main/track.html', context)
 
-def funclu(po):             #argument:dataframe(df)
+def funclu(po):
     lat_list = list(po["latitude"])
+    print(len(lat_list))
     long_list = list(po["longitude"])
     v_plate = list(po["plateNumber"])
     v_status = list(po["status"])
@@ -356,9 +390,10 @@ def funclu(po):             #argument:dataframe(df)
     markers = gmaps.marker_layer(list(zip(lat_list, long_list)))
     fig.add_layer(markers)
     data1 = embed_snippet(views=[fig])
-    return data1,var1
+    return data1, var1
 
 def cluster(request):
+    reload_and_store()
     temp = get_temp()
     y1 = json.loads(temp)
     df1 = get_dataframe(y1)
@@ -387,7 +422,7 @@ class ChartData(APIView):
     permission_classes = []
 
     def get(self, request, format=None):
-     r = requests.get(' https://lnt.tracalogic.co/api/ktrack/larsentoubro/2019-08-07 11:00:00/2019-08-07 11:05:00 ',
+     r = requests.get(' https://lnt.tracalogic.co/api/ktrack/larsentoubro/2019-08-07 11:00:00/2019-07-07 11:05:00 ',
                       auth=HTTPBasicAuth('admin', 'admin'))
      x = r.json()
      x1 = json.dumps(x)
@@ -402,6 +437,8 @@ class ChartData(APIView):
             "data": [len(df1.loc[df1['engine']=="ON"]), len(df1.loc[df1['engine']=="OFF"])],
         }
      return Response(data)
+
+
 
 class BarChart(APIView):
     authentication_classes = []
@@ -428,7 +465,6 @@ class BarChart(APIView):
 class Doughnut(APIView):
         authentication_classes = []
         permission_classes = []
-
         def get(self, request, format=None):
             r = requests.get(
                 ' https://lnt.tracalogic.co/api/ktrack/larsentoubro/2019-08-07 11:00:00/2019-08-07 11:05:00 ',
@@ -441,7 +477,6 @@ class Doughnut(APIView):
             df = df.set_index('serverTimeStamp')
             df['eventTimeStamp'] = pd.to_datetime(df['eventTimeStamp'])
             df1 = df.drop_duplicates(['deviceImeiNo'], keep='last')
-
             data = {
                 "labels": ["Delhi", "Maharashtra"],
                 "data": [len(df1.loc[df1['engine'] == "ON"]), len(df1.loc[df1['engine'] == "OFF"])],
@@ -458,14 +493,12 @@ class track(APIView):
         time1 = time2 + timedelta(minutes=-5)
         time1 = time1.strftime("%Y-%m-%d %H:%M:00")
         time2 = time2.strftime("%Y-%m-%d %H:%M:00")
-
         time1 = str(time1)
         time2 = str(time2)
         r = requests.get('https://lnt.tracalogic.co/api/ktrack/larsentoubro/' + time1 + '/' + time2,
                          auth=HTTPBasicAuth('admin', 'admin'))
         x = r.json()
-        x1 = json.dumps(x)
-        y = json.loads(x1)
+        y = json.loads(x)
         latitudes = []
         longitudes = []
         for i in range(len(y["assetHistory"])):
@@ -474,12 +507,11 @@ class track(APIView):
         print(len(latitudes))
         print(len(longitudes))
         data = {
-
-            "data" : [latitudes , longitudes],
+            "data": [latitudes, longitudes],
         }
         return Response(data)
 
-def table_map(request):
 
+def table_map(request):
     return render("main/table_map.html")
 

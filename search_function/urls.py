@@ -8,7 +8,7 @@ from .views import searchlistview,search_listview
 
 
 urlpatterns = [
-    path('class/<int:pk>/', devicelistview.as_view(),name='class'),
+    path('class/<int:pk>/', devicelistview.as_view(), name='class'),
     path('fun/<int:pk>/', device_listview,name='fun'),
     path('one/<int:pk>/',searchlistview,name='ck'),
     path('one/',searchlistview,name='ci'),

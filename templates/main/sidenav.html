@@ -29,50 +29,38 @@ text-decoration:none;
 h3{
 margin-top:0px;
 }
-.sidebar .closebtn {
-  position: absolute;
-  top: 0;
-  right: 15px;
-  font-size: 14px;
-  margin-left: 10px;
-}
-
-.openbtn {
-  font-size: 10px;
-  cursor: pointer;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
-
-
 
 #main {
   transition: margin-left .5s;
 
 }
 .sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
+  height: 93.9%;
+  position: absolute;
   z-index: 999;
-  top: 0;
-  left: 0;
-  overflow-x: hidden;
-  transition: 0.5s;
-  margin-top: 60px;
+  top: -10px;
+  left: -175px;
+  transition: 0.8s;
+  margin-top: 50px;
   padding: 5px;
   width: 180px;
- text-decoration: none;}
+ text-decoration: none;
+
+
+ }
+.sidebar:hover {
+  left: 0;
+}
 
 </style>
 </head>
 <body>
  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-    <button class="openbtn" onclick="openNav()">☰ </button><a class="navbar-brand" href="http://127.0.0.1:8000/"></a>
+    <a class="navbar-brand" href="http://127.0.0.1:8000/"><h3>Fleet Management</h3></a>
   <ul id="menu-main-nav" class="navbar-nav nav-fill w-100">
     <li id="menu-item-42" class="nav-item menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-6 current_page_item menu-item-42">
-            <input class="form-control" id="myInput" type="text" placeholder="Search.." style="border-radius:21px;height:30px;width:75%;">
+            <form action="{% url 'ci' %}" style="color: white" class="form-inline my-2 my-lg-0"><input class="form-control" name="q" id="myInput" type="search" placeholder="Search.." style="border-radius:21px;height:30px;width:75%;">
+            </form>
 
     </li>
         <div class="navbar-nav pull-left " >
@@ -90,11 +78,10 @@ margin-top:0px;
     </nav>
 
 <div class="sidebar bg-dark" id="sidebar">
-    <li> <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a></li>
 <li ><a href="{%url 'profile'%}" style="text-decoration:none;padding-top:20px;" ><img src="{% static 'images/profile.png'%}"height="21px" width="23px" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
 </li>
-<li class="dropdown dropright "> <a href="#" class="dropdown-toggle " data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/track.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Track</a>
-<ul class="dropdown-menu dropdown-menu-right" x-placement="right-start" style="position: absolute; ">
+<li class="dropdown dropright"> <a href="#" class="dropdown-toggle " data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/track.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Track</a>
+<ul class="dropdown-menu dropdown-menu-right" style="position: absolute;">
 <li><a href="{%url 'cluster'%}">Advance Tracking &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-rounded/20/000000/order-on-the-way.png"></a></li>
 <li><a href="{%url 'map'%}">Detail Dashboard &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/windows/20/000000/details.png"></a></li>
 <li><a href="{%url 'map'%}">Find Near By &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/metro/20/000000/find-and-replace.png"></a></li>
@@ -104,26 +91,26 @@ margin-top:0px;
 </li>
 
 <li class="dropdown dropright"><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/reports.png'%}" height="21px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a>
-<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
-<li><a href="{%url 'reports'%}">Travel Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-sharp/20/000000/total-sales-1.png"></a></li>
-<li><a href="{%url 'reports'%}">Travel Detail Summary &nbsp;<img src="https://img.icons8.com/wired/20/000000/combo-chart.png"></a></li>
-<li><a href="{%url 'reports'%}">Trip Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/route.png"></a></li>
-<li><a href="{%url 'reports'%}">Stoppage Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/feed-in.png"></a></li>
-<li><a href="{%url 'reports'%}">Idle Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/cotton/20/000000/bike-front-view--v2.png"></a></li>
-<li><a href="{%url 'reports'%}">Idle Detail Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/details.png"></a></li>
-<li><a href="{%url 'reports'%}">Inactive Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-filled/20/000000/inactive-state.png"></a></li>
-<li><a href="{%url 'reports'%}">ignition Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/turbocharger.png"></a></li>
-<li><a href="{%url 'reports'%}">AC Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/air-conditioner--v2.png"></a></li>
-<li><a href="{%url 'reports'%}">AC Misused Summary &nbsp;<img src="https://img.icons8.com/windows/32/000000/air-conditioner.png"></a></li>
-<li><a href="{%url 'reports'%}">Speed vs Distance &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/speed--v1.png"></a></li>
-<li><a href="{%url 'reports'%}">Vehicle Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/cotton/20/000000/taxi-location.png"></a></li>
-<li><a href="{%url 'reports'%}">SMS - Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/email-open.png"></a></li>
-<li><a href="{%url 'reports'%}">Vehicle Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/half-track-vehicle.png"></a></li>
-<li><a href="{%url 'reports'%}">System Log &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/log-cabin.png"></a></li>
+<ul class="dropdown-menu dropdown-menu-right" style="position: absolute; ">
+<li><a href="{%url 'travel'%}">Travel Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-sharp/20/000000/total-sales-1.png"></a></li>
+<li><a href="{%url 'detail_travel'%}">Travel Detail Summary &nbsp;<img src="https://img.icons8.com/wired/20/000000/combo-chart.png"></a></li>
+<li><a href="{%url 'trip_summary'%}">Trip Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/route.png"></a></li>
+<li><a href="{%url 'stoppage_summary'%}">Stoppage Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/feed-in.png"></a></li>
+<li><a href="{%url 'idle_summary'%}">Idle Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/cotton/20/000000/bike-front-view--v2.png"></a></li>
+<li><a href="{%url 'idle_detail_summary'%}">Idle Detail Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/details.png"></a></li>
+<li><a href="{%url 'inactive_summary'%}">Inactive Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-filled/20/000000/inactive-state.png"></a></li>
+<li><a href="{%url 'ignition_summary'%}">ignition Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/turbocharger.png"></a></li>
+<li><a href="{%url 'ac_summary'%}">AC Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/air-conditioner--v2.png"></a></li>
+<li><a href="{%url 'ac_misused_summary'%}">AC Misused Summary &nbsp;<img src="https://img.icons8.com/windows/32/000000/air-conditioner.png"></a></li>
+<li><a href="{%url 'speed_vs_distance'%}">Speed vs Distance &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/speed--v1.png"></a></li>
+<li><a href="{%url 'vehicle_location'%}">Vehicle Location &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/cotton/20/000000/taxi-location.png"></a></li>
+<li><a href="{%url 'sms_email'%}">SMS - Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/email-open.png"></a></li>
+<li><a href="{%url 'vehicle_status'%}">Vehicle Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/half-track-vehicle.png"></a></li>
+<li><a href="{%url 'system_log'%}">System Log &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/log-cabin.png"></a></li>
 </ul>
 </li>
 <li class="dropdown dropright">  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/graphs.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Graphs</a>
-<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<ul class="dropdown-menu dropdown-menu-right" style="position: absolute; ">
 <li><a href="{%url 'chart'%}">Distance &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<img src="https://img.icons8.com/ios/20/000000/rearrange.png"></a></li>
 <li><a href="{%url 'chart'%}">Duration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<img src="https://img.icons8.com/dotty/20/000000/property-time.png"></a></li>
 <li><a href="{%url 'chart'%}">Alerts &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<img src="https://img.icons8.com/ios/20/000000/cloud-alert.png"></a></li>
@@ -134,21 +121,21 @@ margin-top:0px;
 </li>
 
 <li class="dropdown dropright"> <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/tour3.png'%}" height="23px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tour</a>
-<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<ul class="dropdown-menu dropdown-menu-right" style="position: absolute; ">
 <li><a href="{%url 'tour'%}">Tour Planning &nbsp;<img src="https://img.icons8.com/material/20/000000/wine-tour.png"></a></li>
 <li><a href="{%url 'tour'%}">Tour Allocation <img src="https://img.icons8.com/cotton/20/000000/travel-signpost--v1.png"></a></li>
 </ul>
 </li>
 
 <li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/alerts.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alerts</a>
-<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<ul class="dropdown-menu dropdown-menu-right" style="position: absolute; ">
 <li><a href="{%url 'alerts'%}">Vehicle Alert &nbsp;<img src="https://img.icons8.com/ios-filled/20/000000/vehicle-security.png"></a></li>
 <li><a href="{%url 'alerts'%}">Add Alert &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/alarm-add.png"></a></li>
 </ul>
 </li>
 
 <li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/geofence.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Geofence</a>
-<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<ul class="dropdown-menu dropdown-menu-right" style="position: absolute; ">
 <li><a href="{%url 'geofence'%}">Add Geofence &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/wired/20/000000/unchecked-circle.png"></a></li>
 <li><a href="{%url 'geofence'%}">Geofence Summary-A <img src="https://img.icons8.com/ios-filled/20/000000/brief.png"></a></li>
 <li><a href="{%url 'geofence'%}">Geofence Summary-B <img src="https://img.icons8.com/ios/20/000000/heat-map.png"></a></li>
@@ -156,7 +143,7 @@ margin-top:0px;
 </li>
 
 <li class="dropdown dropright"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none;"><img src="{% static 'images/payment.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Payment</a>
-<ul class="dropdown-menu" x-placement="right-start" style="position: absolute; ">
+<ul class="dropdown-menu dropdown-menu-right" style="position: absolute; ">
 <li><a href="#">Cost Configuration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/phonelink-setup.png"></a></li>
 <li><a href="#">Payment Gateway Configuration <img src="https://img.icons8.com/material-sharp/20/000000/online-payment-.png"></a></li>
 </ul>
@@ -182,15 +169,7 @@ margin-top:0px;
 
 
 </div>
-<script>function openNav() {
-  document.getElementById("sidebar").style.width = "200px";
-  document.getElementById("main").style.marginLeft = "200px";
-}
 
-function closeNav() {
-  document.getElementById("sidebar").style.width = "0";
-  document.getElementById("main").style.marginLeft= "0";
-}</script>
 </body>
 </html>
 {% endspaceless %}

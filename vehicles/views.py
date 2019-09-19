@@ -2,12 +2,12 @@ from django.shortcuts import render
 from .models import vehicle
 import names
 import pandas as pd
+import random
 from pandas.io.json import json_normalize
 import json
 import names
 from googlegeocoder import GoogleGeocoder
-
-res_list = []
+from django import template
 
 
 
@@ -26,56 +26,54 @@ def get_dataframe(y1):
 def auto(request):
     f = open('venv/temp.json', 'r+')
     temp = f.read()
-    x1 = json.dumps(temp)
-    y1 = json.loads(x1)
-    print(len(y1))
-    print(type(y1))
-    # t = get_dataframe(y1)
-    # for i in range(len(y1["assetHistory"])):
-    #     s = str(y1["assetHistory"][i]["plateNumber"])
-    #     t  = str(y1["assetHistory"][i + 1:]["plateNumber"])
-    #     if s == t:
-    #         pass
-    #     else:
-    #         res_list.append(y1["assetHistory"][i])
+    y1 = json.loads(temp)
 
-    print(len(res_list))
-
+    print(len(y1["assetHistory"]))
+    df1 = json_normalize(y1["assetHistory"])
+    df1['serverTimeStamp'] = pd.to_datetime(df1['serverTimeStamp'])
+    df1 = df1.set_index('serverTimeStamp')
+    df1['eventTimeStamp'] = pd.to_datetime(df1['eventTimeStamp'])  # total no of vehicles
+    df1 = df1.drop_duplicates(['deviceImeiNo'], keep='first').to_dict('records')
+    print(len(df1))
+    print(df1[0]["speed"])
+    print(type(df1))
     geocoder = GoogleGeocoder("AIzaSyDmXhcX8z4d4GxPxIiklwNvtqxcjZoWsWU")
+    y1 = df1
 
-
-    for i in range(58,100):
-        v = vehicle()
+    for i in range(0,256):
+        v1 = vehicle()
         print(i)
         name = names.get_first_name()
-        v.name = name
-        speed = str(y1["assetHistory"][i]["speed"])
-        v.speed = speed
-        latitude = y1["assetHistory"][i]["latitude"]
-        v.latitude = latitude
-        longitude = y1["assetHistory"][i]["longitude"]
-        v.longitude = longitude
+        v1.name = name
+        speed = str(y1[i]["speed"])
+        v1.speed = speed
+        latitude = y1[i]["latitude"]
+        v1.latitude = latitude
+        longitude = y1[i]["longitude"]
+        v1.longitude = longitude
         location = geocoder.get((latitude, longitude))
         print(location[0])
-        engine = str(y1["assetHistory"][i]["engine"])
-        v.engine = engine
-        status = str(y1["assetHistory"][i]["status"])
-        v.status = status
-        odometer = str(y1["assetHistory"][i]["odometer"])
-        pl = str(y1["assetHistory"][i]["plateNumber"])
-        v.plateNumber = pl
-        imei = str(y1["assetHistory"][i]["deviceImeiNo"])
-        v.deviceImeiNo = imei
-        assetid = str(y1["assetHistory"][i]["assetId"])
-        v.assetId = assetid
-        compid = str(y1["assetHistory"][i]["companyId"])
-        v.companyId = compid
-        v.odometer = odometer
-        assetcode = str(y1["assetHistory"][i]["AssetCode"])
-        v.assetId = assetcode
-        direction = str(y1["assetHistory"][i]["direction"])
-        v.direction = direction
-        v.save()
+        p = str(location[0])
+        v1.location = p
+        engine = str(y1[i]["engine"])
+        v1.engine = engine
+        status = str(y1[i]["status"])
+        v1.status = status
+        odometer = str(y1[i]["odometer"])
+        pl = str(y1[i]["plateNumber"])
+        v1.plateNumber = pl
+        imei = str(y1[i]["deviceImeiNo"])
+        v1.deviceImeiNo = imei
+        assetid = str(y1[i]["assetId"])
+        v1.assetId = assetid
+        compid = str(y1[i]["companyId"])
+        v1.companyId = compid
+        v1.odometer = odometer
+        assetcode = str(y1[i]["AssetCode"])
+        v1.assetId = assetcode
+        direction = str(y1[i]["direction"])
+        v1.direction = direction
+        v1.save()
     return render(request,'main/new.html')
 
 
