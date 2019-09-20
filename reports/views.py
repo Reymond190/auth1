@@ -161,7 +161,7 @@ def report_generator(request):
     p = x.date()
     print(p)
     context = {"object_list":queryset,'date':p}
-    return render(request, 'reports/travel_detail_summary.html',context)
+    return render(request, 'reports/report_generator.html',context)
 
 
 def actual_trip_summary(request):

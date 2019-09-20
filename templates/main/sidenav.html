@@ -8,6 +8,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
     <link rel="stylesheet" href="{% static 'css/style3.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -91,8 +94,8 @@ margin-top:0px;
 </li>
 
 <li class="dropdown dropright"><a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/reports.png'%}" height="21px" width="23px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Reports</a>
-<ul class="dropdown-menu dropdown-menu-right" style="position: absolute; ">
-<li><a href="{%url 'travel'%}">Travel Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-sharp/20/000000/total-sales-1.png"></a></li>
+<ul class="dropdown-menu dropdown-menu-right" style="position: absolute; overflow:auto;height:280px;">
+<li><a href="{%url 'travel'%}">Travel Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-sharp/20/000000/total-sales-1.png"></a>
 <li><a href="{%url 'detail_travel'%}">Travel Detail Summary &nbsp;<img src="https://img.icons8.com/wired/20/000000/combo-chart.png"></a></li>
 <li><a href="{%url 'trip_summary'%}">Trip Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/route.png"></a></li>
 <li><a href="{%url 'stoppage_summary'%}">Stoppage Summary &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-glyphs/20/000000/feed-in.png"></a></li>
@@ -107,6 +110,12 @@ margin-top:0px;
 <li><a href="{%url 'sms_email'%}">SMS - Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios/20/000000/email-open.png"></a></li>
 <li><a href="{%url 'vehicle_status'%}">Vehicle Status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/half-track-vehicle.png"></a></li>
 <li><a href="{%url 'system_log'%}">System Log &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/log-cabin.png"></a></li>
+<li><a href="{%url 'device_log'%}">Device Log &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/pastel-glyph/20/000000/device-shop.png"></a>
+<li><a href="{%url 'analog_data'%}">Analog Data &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/ios-filled/20/000000/data-backup.png"></a>
+<li><a href="{%url 'personal_report'%}">Personal Report &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/dotty/20/000000/business-contact.png"></a>
+<li><a href="{%url 'report_generator'%}">Report Generator &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/stop-graph-report.png"></a>
+<li><a href="{%url 'actual_trip_summary'%}">Actual Trip Summary &nbsp;<img src="https://img.icons8.com/material-outlined/20/000000/stop-graph-report.png"></a>
+<li><a href="{%url 'rfid_data'%}">RFID Data  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://img.icons8.com/wired/20/000000/data-in-both-directions.png"></a>
 </ul>
 </li>
 <li class="dropdown dropright">  <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration:none;"><img src="{% static 'images/graphs.png'%}" height="23px" width="25px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Graphs</a>

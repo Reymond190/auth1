@@ -1,0 +1,53 @@
+.has-search .form-control {
+   margin: 0px;
+   width:auto;
+}
+.has-search .form-control-feedback {
+    position: relative;
+    z-index: 999;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+   top:35px;
+   right:0;
+    pointer-events: none;
+    color: #aaa;
+}
+.tab{
+height:200px;
+width:230px;
+overflow:auto;
+font-size: 11px;
+}
+.form-group {
+    margin-bottom: 0px;
+}
+.custom{
+width: 270px;
+}
+.sel{
+width: 200px;
+}
+.form-control{
+width: 200px;
+}
+.tab1{
+height:300px;
+width:280px;
+overflow:auto;
+font-size: 13px;
+}
+.btn1{
+height: 20px;
+width: 40px;
+}
+.tab2{
+height:200px;
+width:150px;
+overflow:auto;
+font-size: 12px;
+}
+label {
+  cursor: pointer;
+
+}
