@@ -9,8 +9,6 @@ class Profile(models.Model):
     No_of_Vehicles = models.CharField(max_length=3, default="256")
     Active_Devices = models.CharField(max_length=5, default="180")
     Inactive_Devices = models.CharField(max_length=3,default="20")
-
-
     #
     # def __str__(self):
     #     return f'{self.user.username} Profile'
@@ -20,7 +18,7 @@ class DeviceManager(models.Manager):
        qs = self.get_queryset().filter(id=id)
        if qs.count() == 1:
          return qs.first()
-       return None
+       return None  
 
 class AddDevice(models.Model):
     CHOICES_1 = (
